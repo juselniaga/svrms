@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="D:\project2026\svrms\phpunit.xml" tests="25" assertions="53" errors="2" failures="1" skipped="0" time="1.948270">
+    <testsuite name="Unit" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.010069">
+      <testsuite name="Tests\Unit\ExampleTest" file="tests\Unit\ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.010069">
+        <testcase name="that true is true" file="tests\Unit\ExampleTest.php::that true is true" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.010069"/>
+      </testsuite>
+    </testsuite>
+    <testsuite name="Feature" tests="24" assertions="52" errors="2" failures="1" skipped="0" time="1.938201">
+      <testsuite name="Tests\Feature\Auth\AuthenticationTest" file="tests\Feature\Auth\AuthenticationTest.php" tests="4" assertions="8" errors="0" failures="0" skipped="0" time="0.785218">
+        <testcase name="login screen can be rendered" file="tests\Feature\Auth\AuthenticationTest.php::login screen can be rendered" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="1" time="0.500455"/>
+        <testcase name="users can authenticate using the login screen" file="tests\Feature\Auth\AuthenticationTest.php::users can authenticate using the login screen" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="3" time="0.045636"/>
+        <testcase name="users can not authenticate with invalid password" file="tests\Feature\Auth\AuthenticationTest.php::users can not authenticate with invalid password" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="1" time="0.226443"/>
+        <testcase name="users can logout" file="tests\Feature\Auth\AuthenticationTest.php::users can logout" class="Tests\Feature\Auth\AuthenticationTest" classname="Tests.Feature.Auth.AuthenticationTest" assertions="3" time="0.012683"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\EmailVerificationTest" file="tests\Feature\Auth\EmailVerificationTest.php" tests="3" assertions="1" errors="2" failures="0" skipped="0" time="0.053071">
+        <testcase name="email verification screen can be rendered" file="tests\Feature\Auth\EmailVerificationTest.php::email verification screen can be rendered" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="1" time="0.016340"/>
+        <testcase name="email can be verified" file="tests\Feature\Auth\EmailVerificationTest.php::email can be verified" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="0" time="0.022870">
+          <error type="Illuminate\Routing\Exceptions\UrlGenerationException">email can be verifiedIlluminate\Routing\Exceptions\UrlGenerationException: Missing required parameter for [Route: verification.verify] [URI: verify-email/{id}/{hash}] [Missing parameter: id].&#13;
+at vendor\laravel\framework\src\Illuminate\Routing\Exceptions\UrlGenerationException.php:35
+at vendor\laravel\framework\src\Illuminate\Routing\RouteUrlGenerator.php:94
+at vendor\laravel\framework\src\Illuminate\Routing\UrlGenerator.php:543
+at vendor\laravel\framework\src\Illuminate\Routing\UrlGenerator.php:520
+at vendor\laravel\framework\src\Illuminate\Routing\UrlGenerator.php:375
+at vendor\laravel\framework\src\Illuminate\Routing\UrlGenerator.php:415
+at vendor\laravel\framework\src\Illuminate\Support\Facades\Facade.php:363
+at tests\Feature\Auth\EmailVerificationTest.php:21</error>
+        </testcase>
+        <testcase name="email is not verified with invalid hash" file="tests\Feature\Auth\EmailVerificationTest.php::email is not verified with invalid hash" class="Tests\Feature\Auth\EmailVerificationTest" classname="Tests.Feature.Auth.EmailVerificationTest" assertions="0" time="0.013860">
+          <error type="Illuminate\Routing\Exceptions\UrlGenerationException">email is not verified with invalid hashIlluminate\Routing\Exceptions\UrlGenerationException: Missing required parameter for [Route: verification.verify] [URI: verify-email/{id}/{hash}] [Missing parameter: id].&#13;
+at vendor\laravel\framework\src\Illuminate\Routing\Exceptions\UrlGenerationException.php:35
+at vendor\laravel\framework\src\Illuminate\Routing\RouteUrlGenerator.php:94
+at vendor\laravel\framework\src\Illuminate\Routing\UrlGenerator.php:543
+at vendor\laravel\framework\src\Illuminate\Routing\UrlGenerator.php:520
+at vendor\laravel\framework\src\Illuminate\Routing\UrlGenerator.php:375
+at vendor\laravel\framework\src\Illuminate\Routing\UrlGenerator.php:415
+at vendor\laravel\framework\src\Illuminate\Support\Facades\Facade.php:363
+at tests\Feature\Auth\EmailVerificationTest.php:37</error>
+        </testcase>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\PasswordConfirmationTest" file="tests\Feature\Auth\PasswordConfirmationTest.php" tests="3" assertions="4" errors="0" failures="0" skipped="0" time="0.246910">
+        <testcase name="confirm password screen can be rendered" file="tests\Feature\Auth\PasswordConfirmationTest.php::confirm password screen can be rendered" class="Tests\Feature\Auth\PasswordConfirmationTest" classname="Tests.Feature.Auth.PasswordConfirmationTest" assertions="1" time="0.017597"/>
+        <testcase name="password can be confirmed" file="tests\Feature\Auth\PasswordConfirmationTest.php::password can be confirmed" class="Tests\Feature\Auth\PasswordConfirmationTest" classname="Tests.Feature.Auth.PasswordConfirmationTest" assertions="2" time="0.013662"/>
+        <testcase name="password is not confirmed with invalid password" file="tests\Feature\Auth\PasswordConfirmationTest.php::password is not confirmed with invalid password" class="Tests\Feature\Auth\PasswordConfirmationTest" classname="Tests.Feature.Auth.PasswordConfirmationTest" assertions="1" time="0.215651"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\PasswordResetTest" file="tests\Feature\Auth\PasswordResetTest.php" tests="4" assertions="8" errors="0" failures="0" skipped="0" time="0.687487">
+        <testcase name="reset password link screen can be rendered" file="tests\Feature\Auth\PasswordResetTest.php::reset password link screen can be rendered" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="1" time="0.019688"/>
+        <testcase name="reset password link can be requested" file="tests\Feature\Auth\PasswordResetTest.php::reset password link can be requested" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="1" time="0.213626"/>
+        <testcase name="reset password screen can be rendered" file="tests\Feature\Auth\PasswordResetTest.php::reset password screen can be rendered" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="2" time="0.219871"/>
+        <testcase name="password can be reset with valid token" file="tests\Feature\Auth\PasswordResetTest.php::password can be reset with valid token" class="Tests\Feature\Auth\PasswordResetTest" classname="Tests.Feature.Auth.PasswordResetTest" assertions="4" time="0.234302"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\PasswordUpdateTest" file="tests\Feature\Auth\PasswordUpdateTest.php" tests="2" assertions="8" errors="0" failures="0" skipped="0" time="0.034481">
+        <testcase name="password can be updated" file="tests\Feature\Auth\PasswordUpdateTest.php::password can be updated" class="Tests\Feature\Auth\PasswordUpdateTest" classname="Tests.Feature.Auth.PasswordUpdateTest" assertions="4" time="0.019527"/>
+        <testcase name="correct password must be provided to update password" file="tests\Feature\Auth\PasswordUpdateTest.php::correct password must be provided to update password" class="Tests\Feature\Auth\PasswordUpdateTest" classname="Tests.Feature.Auth.PasswordUpdateTest" assertions="4" time="0.014954"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\Auth\RegistrationTest" file="tests\Feature\Auth\RegistrationTest.php" tests="2" assertions="4" errors="0" failures="0" skipped="0" time="0.032183">
+        <testcase name="registration screen can be rendered" file="tests\Feature\Auth\RegistrationTest.php::registration screen can be rendered" class="Tests\Feature\Auth\RegistrationTest" classname="Tests.Feature.Auth.RegistrationTest" assertions="1" time="0.017879"/>
+        <testcase name="new users can register" file="tests\Feature\Auth\RegistrationTest.php::new users can register" class="Tests\Feature\Auth\RegistrationTest" classname="Tests.Feature.Auth.RegistrationTest" assertions="3" time="0.014304"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ExampleTest" file="tests\Feature\ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.014947">
+        <testcase name="it returns a successful response" file="tests\Feature\ExampleTest.php::it returns a successful response" class="Tests\Feature\ExampleTest" classname="Tests.Feature.ExampleTest" assertions="1" time="0.014947"/>
+      </testsuite>
+      <testsuite name="Tests\Feature\ProfileTest" file="tests\Feature\ProfileTest.php" tests="5" assertions="18" errors="0" failures="1" skipped="0" time="0.083904">
+        <testcase name="profile page is displayed" file="tests\Feature\ProfileTest.php::profile page is displayed" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="1" time="0.023409"/>
+        <testcase name="profile information can be updated" file="tests\Feature\ProfileTest.php::profile information can be updated" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="6" time="0.015595"/>
+        <testcase name="email verification status is unchanged when the email address is unchanged" file="tests\Feature\ProfileTest.php::email verification status is unchanged when the email address is unchanged" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="1" time="0.015810">
+          <failure type="PHPUnit\Framework\ExpectationFailedException">email verification status is unchanged when the email address is unchangedSession has unexpected errors: &#13;
+&#13;
+{
+    "default": [
+        "The email has already been taken."
+    ]
+}
+Failed asserting that true is false.&#13;
+at vendor\laravel\framework\src\Illuminate\Testing\TestResponseAssert.php:45
+at vendor\laravel\framework\src\Illuminate\Testing\TestResponse.php:1694
+at tests\Feature\ProfileTest.php:47</failure>
+        </testcase>
+        <testcase name="user can delete their account" file="tests\Feature\ProfileTest.php::user can delete their account" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="5" time="0.014056"/>
+        <testcase name="correct password must be provided to delete account" file="tests\Feature\ProfileTest.php::correct password must be provided to delete account" class="Tests\Feature\ProfileTest" classname="Tests.Feature.ProfileTest" assertions="5" time="0.015034"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>
