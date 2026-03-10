@@ -43,7 +43,7 @@ class StoreSiteVisitRequest extends FormRequest
             'facility' => 'nullable|string|max:255',
             'entrance_way' => 'nullable|string|max:255',
             'parit' => 'nullable|string|max:255',
-            'tree' => 'nullable|integer|min:0',
+            'tree' => 'nullable|string|max:255',
             'land_use_zone' => 'nullable|string|max:255',
             'density' => 'nullable|string|max:255',
             'recommend_road' => 'nullable|boolean',

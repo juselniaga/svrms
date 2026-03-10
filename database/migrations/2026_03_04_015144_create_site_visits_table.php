@@ -35,7 +35,7 @@ return new class extends Migration
             // Infrastructure
             $table->string('entrance_way')->nullable();
             $table->string('parit')->nullable();
-            $table->integer('tree')->nullable(); // number of trees maybe?
+            $table->string('tree')->nullable(); // number of trees maybe?
             $table->text('topography')->nullable();
             //Verify
             $table->string('land_use_zone')->nullable();

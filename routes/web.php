@@ -61,6 +61,10 @@ Route::middleware(['auth', 'role:Clerk'])->prefix('clerk')->name('clerk.')->grou
     // Step 2: Register Application Details for an Existing Developer
     Route::get('/applications/create-details/{developer}', [\App\Http\Controllers\Clerk\ApplicationController::class, 'createDetails'])->name('applications.create-details');
     Route::post('/applications/{developer}', [\App\Http\Controllers\Clerk\ApplicationController::class, 'store'])->name('applications.store');
+
+    // Step 3: Edit and Update existing Application
+    Route::get('/applications/{application}/edit', [\App\Http\Controllers\Clerk\ApplicationController::class, 'edit'])->name('applications.edit');
+    Route::put('/applications/{application}', [\App\Http\Controllers\Clerk\ApplicationController::class, 'update'])->name('applications.update');
 });
 
 // Officer Module Routes

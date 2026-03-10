@@ -44,7 +44,7 @@ class Application extends Model
 
     public function review()
     {
-        return $this->hasOne(Review::class, 'application_id', 'application_id')->latestOfMany();
+        return $this->hasOne(Review::class, 'application_id', 'application_id')->latest('review_id');
     }
 
     public function reviews()
@@ -54,7 +54,7 @@ class Application extends Model
 
     public function verification()
     {
-        return $this->hasOne(Verification::class, 'application_id', 'application_id')->latestOfMany();
+        return $this->hasOne(Verification::class, 'application_id', 'application_id')->latest('verify_id');
     }
 
     public function verifications()
@@ -64,7 +64,7 @@ class Application extends Model
 
     public function approval()
     {
-        return $this->hasOne(Approval::class, 'application_id', 'application_id')->latestOfMany();
+        return $this->hasOne(Approval::class, 'application_id', 'application_id')->latest('approval_id');
     }
 
     public function approvals()

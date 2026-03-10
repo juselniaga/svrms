@@ -66,4 +66,27 @@ class ApplicationController extends Controller
 
         return redirect()->route('clerk.dashboard')->with('success', 'Application registered successfully.');
     }
+
+    // Step 3: Show Edit form for Application
+    public function edit(\App\Models\Application $application)
+    {
+        $application->load('developer');
+        $officers = \App\Models\User::where('role', \App\Enums\UserRole::Officer)->where('is_active', true)->get();
+        return view('clerk.applications.edit', compact('application', 'officers'));
+    }
+
+    // Process Step 3: Update Application
+    public function update(Request $request, \App\Models\Application $application)
+    {
+        $validated = $request->validate([
+            'application.tajuk' => 'required|string|max:255',
+            'application.lokasi' => 'required|string',
+            'application.no_fail' => 'required|string|max:100',
+            'application.officer_id' => 'required|exists:users,user_id',
+        ]);
+
+        $application->update($validated['application']);
+
+        return redirect()->route('clerk.dashboard')->with('success', 'Application updated successfully.');
+    }
 }

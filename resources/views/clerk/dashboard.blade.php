@@ -194,7 +194,12 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                                             {{ $app->created_at->format('d/m/Y') }}
                                         </td>
-
+                                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                            @if($app->status === 'RECORDED' || $app->status === 'RETURNED_FOR_AMENDMENT')
+                                                <a href="{{ route('clerk.applications.edit', $app) }}"
+                                                    class="text-indigo-600 hover:text-indigo-900 transition">Edit</a>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>

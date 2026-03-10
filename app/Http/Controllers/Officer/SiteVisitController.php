@@ -40,7 +40,7 @@ class SiteVisitController extends Controller
             // Infrastructure
             'entrance_way' => 'nullable|string|max:255',
             'parit' => 'nullable|string|max:255',
-            'tree' => 'nullable|integer',
+            'tree' => 'nullable|string',
             'topography' => 'nullable|string',
             
             // Verify
@@ -74,6 +74,7 @@ class SiteVisitController extends Controller
                     $paths[] = $file->store('photos', 'public');
                 }
             }
+            
             return count($paths) > 0 ? $paths : null;
         };
 

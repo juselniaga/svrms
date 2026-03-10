@@ -73,6 +73,7 @@ class SiteVisitController extends Controller
                     foreach ($request->file($field) as $file) {
                         $paths[] = $file->store("site_visits/{$application->application_id}/{$field}", 'public');
                     }
+                    dd($paths);
                     $data[$field] = $paths;
                 }
             }

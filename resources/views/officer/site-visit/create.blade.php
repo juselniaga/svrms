@@ -182,9 +182,9 @@
                                         <div>
                                             <label class="block font-medium text-sm text-gray-700">Trees (Anggaran
                                                 Pokok)</label>
-                                            <input type="number" name="tree" value="{{ old('tree', $siteVisit->tree) }}"
+                                            <input type="text" name="tree" value="{{ old('tree', $siteVisit->tree) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm"
-                                                placeholder="e.g. 5">
+                                                placeholder="Keadaan Pokok">
                                         </div>
                                         <div>
                                             <label class="block font-medium text-sm text-gray-700">Topography
