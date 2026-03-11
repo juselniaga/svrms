@@ -9,4 +9,5 @@ enum UserRole: string
     case Officer = 'Officer';
     case AssistantDirector = 'Assistant Director';
     case Director = 'Director';
+    case Admin = 'Admin';
 }

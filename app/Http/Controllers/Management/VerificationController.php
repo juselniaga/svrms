@@ -78,7 +78,10 @@ class VerificationController extends Controller
             ]);
 
             // Determine new application status
-            $newStatus = $validated['action'];
+            // The user rule: both 'approve' (VERIFIED) and 'reject' (REJECTED) must go to Director.
+            // When sent to Director, the application status is 'VERIFIED'.
+            $newStatus = 'VERIFIED'; 
+            
             if ($validated['action'] === 'RETURNED') {
                 $newStatus = 'SITE_VISIT_IN_PROGRESS'; // Send back to officer
             }
@@ -98,9 +101,9 @@ class VerificationController extends Controller
         });
 
         $message = match($validated['action']) {
-            'VERIFIED' => 'Application has been successfully verified and sent to the Director.',
+            'VERIFIED' => 'Application has been formally Supported and forwarded to the Director.',
             'RETURNED' => 'Application has been returned to the assigned Officer for amendment.',
-            'REJECTED' => 'Application has been officially rejected.',
+            'REJECTED' => 'Application Verification logged. Sent to Director for final Rejection confirmation.',
         };
 
         return redirect()->route('verification.dashboard')->with('success', $message);

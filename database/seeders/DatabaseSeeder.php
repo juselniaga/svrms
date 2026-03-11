@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'John Clerk',
             'email' => 'clerk@svrms.local',
-            'role' => 'clerk',
+            'role' => 'Clerk',
             'department' => 'Registration',
         ]);
 
@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Jane Officer',
             'email' => 'officer@svrms.local',
-            'role' => 'officer',
+            'role' => 'Officer',
             'department' => 'Site Operations',
         ]);
 
@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Ahmad Penolong Pengarah',
             'email' => 'ad@svrms.local',
-            'role' => 'assistant_director',
+            'role' => 'Assistant Director',
             'department' => 'Administration',
         ]);
 
@@ -40,8 +40,16 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Datuk Pengarah',
             'email' => 'director@svrms.local',
-            'role' => 'director',
+            'role' => 'Director',
             'department' => 'Management',
+        ]);
+
+        // Create Admin
+        User::factory()->create([
+            'name' => 'System Administrator',
+            'email' => 'admin@svrms.local',
+            'role' => 'Admin',
+            'department' => 'IT Services',
         ]);
     }
 }

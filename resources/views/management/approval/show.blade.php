@@ -222,11 +222,23 @@
 
                             <div
                                 class="flex items-center space-x-3 bg-white p-4 rounded border border-yellow-200 shadow-sm">
-                                <span class="text-gray-600 text-sm font-semibold">Status:</span>
-                                <span
-                                    class="px-3 py-1 inline-flex text-sm leading-5 font-bold rounded-full bg-green-100 text-green-800 border border-green-200">
-                                    VERIFIED
-                                </span>
+                                <span class="text-gray-600 text-sm font-semibold">Recommended Decision:</span>
+                                @if($application->verification->verification_status === 'VERIFIED')
+                                    <span
+                                        class="px-3 py-1 inline-flex text-sm leading-5 font-bold rounded-full bg-green-100 text-green-800 border border-green-200">
+                                        VERIFIED (Recommend Approval)
+                                    </span>
+                                @elseif($application->verification->verification_status === 'REJECTED')
+                                    <span
+                                        class="px-3 py-1 inline-flex text-sm leading-5 font-bold rounded-full bg-red-100 text-red-800 border border-red-200">
+                                        REJECTED (Recommend Rejection)
+                                    </span>
+                                @else
+                                    <span
+                                        class="px-3 py-1 inline-flex text-sm leading-5 font-bold rounded-full bg-gray-100 text-gray-800 border border-gray-200">
+                                        {{ $application->verification->verification_status }}
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     @endif

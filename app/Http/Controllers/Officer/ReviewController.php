@@ -11,6 +11,10 @@ class ReviewController extends Controller
 {
     public function create(Application $application)
     {
+        if ($application->officer_id !== auth()->id()) {
+            abort(403, 'Unauthorized access to this application.');
+        }
+
         // Must be assigned to this officer, or allow them to take it
         $application->load(['developer', 'site', 'siteVisits.officer']);
         return view('officer.review.create', compact('application'));
@@ -18,6 +22,10 @@ class ReviewController extends Controller
 
     public function store(Request $request, Application $application)
     {
+        if ($application->officer_id !== auth()->id()) {
+            abort(403, 'Unauthorized access to this application.');
+        }
+
         $validated = $request->validate([
             'review_content' => 'required|string',
             'recommendation' => 'required|in:SUPPORTED,NOT_SUPPORTED',

@@ -15,6 +15,10 @@ class SiteRegistrationController extends Controller
      */
     public function create(Application $application): View
     {
+        if ($application->officer_id !== auth()->id()) {
+            abort(403, 'Unauthorized access to this application.');
+        }
+
         // Load relationships needed for context
         $application->load('developer');
 
@@ -26,6 +30,10 @@ class SiteRegistrationController extends Controller
      */
     public function store(Request $request, Application $application)
     {
+        if ($application->officer_id !== auth()->id()) {
+            abort(403, 'Unauthorized access to this application.');
+        }
+
         $validated = $request->validate([
             'mukim' => 'required|string|max:255',
             'bpk' => 'nullable|string|max:255',

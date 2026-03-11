@@ -33,6 +33,10 @@
                         <x-nav-link :href="route('approval.dashboard')" :active="request()->routeIs('approval.dashboard')">
                             {{ __('Approval Dashboard') }}
                         </x-nav-link>
+                    @elseif(Auth::user()->role === \App\Enums\UserRole::Admin)
+                        <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                            {{ __('System User Management') }}
+                        </x-nav-link>
                     @else
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
@@ -118,6 +122,10 @@
                 <x-responsive-nav-link :href="route('approval.dashboard')"
                     :active="request()->routeIs('approval.dashboard')">
                     {{ __('Approval Dashboard') }}
+                </x-responsive-nav-link>
+            @elseif(Auth::user()->role === \App\Enums\UserRole::Admin)
+                <x-responsive-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.*')">
+                    {{ __('System User Management') }}
                 </x-responsive-nav-link>
             @else
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">

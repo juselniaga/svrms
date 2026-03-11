@@ -18,6 +18,8 @@ Route::get('/dashboard', function () {
             return redirect()->route('verification.dashboard');
         } elseif ($user->role === \App\Enums\UserRole::Director) {
             return redirect()->route('approval.dashboard');
+        } elseif ($user->role === \App\Enums\UserRole::Admin) {
+            return redirect()->route('admin.users.index');
         }
     }
 
@@ -31,11 +33,9 @@ Route::middleware('auth')->group(function () {
 
     // SVRMS Application Routes
     // ... all app routes
-    Route::resource('applications', App\Http\Controllers\ApplicationController::class);
-    Route::resource('site-visits', App\Http\Controllers\SiteVisitController::class);
-    Route::resource('reviews', App\Http\Controllers\ReviewController::class);
-    Route::resource('verifications', App\Http\Controllers\VerificationController::class);
-    Route::resource('approvals', App\Http\Controllers\ApprovalController::class);
+    Route::resource('applications', App\Http\Controllers\ApplicationController::class)->only(['show']);
+    Route::resource('site-visits', App\Http\Controllers\SiteVisitController::class)->only(['show']);
+    Route::resource('reviews', App\Http\Controllers\ReviewController::class)->only(['show']);
 
     // Filing & PDF Routes
     Route::get('filings', [App\Http\Controllers\FilingController::class, 'index'])->name('filings.index');
@@ -90,6 +90,11 @@ Route::middleware(['auth', 'role:Director'])->prefix('management/approval')->nam
     Route::get('/dashboard', [\App\Http\Controllers\Management\ApprovalController::class, 'index'])->name('dashboard');
     Route::get('/applications/{application}', [\App\Http\Controllers\Management\ApprovalController::class, 'show'])->name('show');
     Route::post('/applications/{application}', [\App\Http\Controllers\Management\ApprovalController::class, 'update'])->name('update');
+});
+
+// Admin (User Management) Routes
+Route::middleware(['auth', 'role:Admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->except(['show']);
 });
 
 require __DIR__.'/auth.php';
