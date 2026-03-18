@@ -22,10 +22,10 @@
                         @csrf
 
                         <div class="mb-4">
-                            <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">Site/Land Identification
-                                (Maklumat Tanah)</h3>
-                            <p class="text-sm text-gray-500 mb-6">Please register the physical location details of the
-                                proposed project site before commencing the Site Investigation.</p>
+                            <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">Site Information
+                                (Maklumat Tapak)</h3>
+                            <p class="text-sm text-gray-500 mb-6">Sila daftarkan butiran lokasi fizikal bagi
+                                cadangan tapak projek sebelum memulakan Penyiasatan Tapak</p>
                         </div>
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -43,7 +43,7 @@
                             </div>
 
                             <div>
-                                <label class="block font-medium text-sm text-gray-700">Land Area (Luas) <span
+                                <label class="block font-medium text-sm text-gray-700">Luas Kawasan <span
                                         class="text-xs text-gray-400">e.g., in Hectares / Acres</span> <span
                                         class="text-red-500">*</span></label>
                                 <input type="number" step="0.0001" name="luas" value="{{ old('luas') }}" required
@@ -77,37 +77,15 @@
                         </div>
 
                         <!-- Initial Coordinates Capture -->
-                        <div class="mb-4 mt-8" x-data="{ 
-                            gpsStatus: 'Click to capture map coordinates', 
-                            lat: '',
-                            lng: '',
-                            captureGPS() {
-                                this.gpsStatus = 'Locating...';
-                                if (navigator.geolocation) {
-                                    navigator.geolocation.getCurrentPosition(
-                                        (position) => {
-                                            this.lat = position.coords.latitude.toFixed(8);
-                                            this.lng = position.coords.longitude.toFixed(8);
-                                            this.gpsStatus = 'Coordinates Captured \u2713';
-                                            document.getElementById('google_lat').value = this.lat;
-                                            document.getElementById('google_long').value = this.lng;
-                                        },
-                                        (error) => {
-                                            this.gpsStatus = 'Error: ' + error.message;
-                                        }
-                                    );
-                                } else {
-                                    this.gpsStatus = 'Geolocation not supported by browser.';
-                                }
-                            } 
-                        }">
-                            <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">Initial Google Coordinates
+                        <div class="mb-4 mt-8">
+
+                            <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">Map Coordinates
                             </h3>
 
                             <div
                                 class="bg-blue-50 p-5 rounded-lg border border-blue-200 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div class="col-span-1 md:col-span-2 flex items-center space-x-4 mb-2">
-                                    <button type="button" @click="captureGPS()"
+                                    <button type="button"
                                         class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                             xmlns="http://www.w3.org/2000/svg">

@@ -142,17 +142,17 @@
 
                                 <!-- GROUP 1: Site Conditions -->
                                 <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                                    <h4 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">1. Site
-                                        Conditions</h4>
+                                    <h4 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">1.
+                                        Keadaan Tapak</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Activity</label>
+                                            <label class="block font-medium text-sm text-gray-700">Aktiviti</label>
                                             <input type="text" name="activity"
                                                 value="{{ old('activity', $siteVisit->activity) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
                                         </div>
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Facility</label>
+                                            <label class="block font-medium text-sm text-gray-700">Kemudahan</label>
                                             <input type="text" name="facility"
                                                 value="{{ old('facility', $siteVisit->facility) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
@@ -163,32 +163,29 @@
                                 <!-- GROUP 2: Infrastructure -->
                                 <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
                                     <h4 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">2.
-                                        Infrastructure & Terrain</h4>
+                                        Infrastruktur & Topografi</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Entrance Way (Laluan
-                                                Keluar Masuk)</label>
+                                            <label class="block font-medium text-sm text-gray-700">Laluan
+                                                Keluar Masuk</label>
                                             <input type="text" name="entrance_way"
                                                 value="{{ old('entrance_way', $siteVisit->entrance_way) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
                                         </div>
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Drainage
-                                                (Parit)</label>
+                                            <label class="block font-medium text-sm text-gray-700">Parit</label>
                                             <input type="text" name="parit"
                                                 value="{{ old('parit', $siteVisit->parit) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
                                         </div>
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Trees (Anggaran
-                                                Pokok)</label>
+                                            <label class="block font-medium text-sm text-gray-700">Pokok</label>
                                             <input type="text" name="tree" value="{{ old('tree', $siteVisit->tree) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm"
                                                 placeholder="Keadaan Pokok">
                                         </div>
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Topography
-                                                Description</label>
+                                            <label class="block font-medium text-sm text-gray-700">Topografi</label>
                                             <input type="text" name="topography"
                                                 value="{{ old('topography', $siteVisit->topography) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
@@ -199,10 +196,11 @@
                                 <!-- GROUP 3: Verify -->
                                 <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
                                     <h4 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">3.
-                                        Verification Rules</h4>
+                                        Verifikasi</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Land Use Zone</label>
+                                            <label class="block font-medium text-sm text-gray-700">Zon Penggunaan
+                                                Tanah</label>
                                             <input type="text" name="land_use_zone"
                                                 value="{{ old('land_use_zone', $siteVisit->land_use_zone) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
@@ -219,7 +217,7 @@
                                                 class="rounded border-gray-300 text-purple-600 shadow-sm focus:ring-purple-500">
                                             <label for="recommend_road"
                                                 class="ml-2 block text-sm font-medium text-gray-900">
-                                                Recommend Road Construction
+                                                Cadangan Pembinaan Jalan
                                             </label>
                                         </div>
                                     </div>
@@ -238,8 +236,8 @@
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
                                         </div>
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Social
-                                                Facility</label>
+                                            <label class="block font-medium text-sm text-gray-700">Kemudahan
+                                                Awam</label>
                                             <input type="text" name="social_facility"
                                                 value="{{ old('social_facility', $siteVisit->social_facility) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
@@ -250,17 +248,18 @@
 
                                 <!-- GROUP 5: Direction Findings & Photos -->
                                 <div class="mb-8">
-                                    <h4 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">5. Directional
-                                        Findings & Photographs</h4>
+                                    <h4 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">5. Arah Penemuan &
+                                        Gambar</h4>
 
                                     <div class="space-y-6">
-                                        @foreach(['north' => ['finding_north', 'photos_north'], 'south' => ['findings_south', 'photos_south'], 'east' => ['findings_east', 'photo_east'], 'west' => ['finding_west', 'photo_west']] as $dir => $fields)
+                                        @foreach(['utara' => ['finding_north', 'photos_north'], 'selatan' => ['findings_south', 'photos_south'], 'timur' => ['findings_east', 'photo_east'], 'barat' => ['finding_west', 'photo_west']] as $dir => $fields)
                                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
                                                 <h4
                                                     class="font-medium text-gray-800 mb-3 flex items-center justify-between">
                                                     <span
-                                                        class="bg-purple-100 text-purple-800 px-3 py-1 rounded text-xs font-bold uppercase">{{ ucfirst($dir) }}
-                                                        Direction</span>
+                                                        class="bg-purple-100 text-purple-800 px-3 py-1 rounded text-xs font-bold uppercase">
+                                                        Arah {{ ucfirst($dir) }}
+                                                    </span>
 
                                                     @if(is_array($siteVisit->{$fields[1]}) && count($siteVisit->{$fields[1]}) > 0)
                                                         <span class="text-xs text-green-600 font-medium whitespace-nowrap"><svg
@@ -275,7 +274,7 @@
                                                 <div class="grid grid-cols-1 gap-4">
                                                     <div>
                                                         <label
-                                                            class="block font-medium text-sm text-gray-700 mb-1">Observation</label>
+                                                            class="block font-medium text-sm text-gray-700 mb-1">Penemuan</label>
                                                         <textarea name="{{ $fields[0] }}" rows="2"
                                                             class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm"
                                                             placeholder="Structures, boundaries, water courses...">{{ old($fields[0], $siteVisit->{$fields[0]}) }}</textarea>
@@ -286,8 +285,10 @@
                                                         <input type="file" name="{{ $fields[1] }}[]" multiple
                                                             accept="image/*"
                                                             class="text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100">
-                                                        <p class="text-xs text-gray-500 mt-1">Uploading new photos will
-                                                            overwrite the previously uploaded ones for this direction.</p>
+                                                        <p class="text-xs mt-1 p-2 rounded text-red-800">
+                                                            Uploading new
+                                                            photos will overwrite the previously uploaded ones for this
+                                                            direction.</p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -319,7 +320,7 @@
                                         }
                                     } 
                                 }">
-                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">6. GPS Verification
+                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">6. MAP Verifikasi
                                     </h3>
 
                                     <div class="bg-blue-50 p-5 rounded-lg border border-blue-200 mb-4">

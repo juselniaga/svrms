@@ -15,21 +15,6 @@
                 </div>
             </div>
             <div class="flex space-x-3">
-                @if($application->status === 'RECORDED')
-                    <a href="{{ route('applications.edit', $application) }}">
-                        <x-secondary-button>
-                            Edit Application
-                        </x-secondary-button>
-                    </a>
-                    
-                    <!-- Form placeholder for State Transition to SITE_VISIT_IN_PROGRESS -->
-                    <form action="#" method="POST">
-                        @csrf
-                        <x-primary-button>
-                            Proceed to Site Visit
-                        </x-primary-button>
-                    </form>
-                @endif
             </div>
         </div>
 

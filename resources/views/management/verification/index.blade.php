@@ -11,30 +11,30 @@
             <!-- Statistics Cards -->
             <div class="grid grid-cols-5 gap-4 mb-8">
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 border-l-4 border-purple-500">
-                    <div class="text-xs font-medium text-gray-500 uppercase">Total Applications</div>
+                    <div class="text-xs font-medium text-gray-500 uppercase">Jumlah Permohonan</div>
                     <div class="mt-1 text-2xl font-semibold text-gray-900">{{ $stats['total'] }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 border-l-4 border-yellow-500">
-                    <div class="text-xs font-medium text-gray-500 uppercase">In Progress</div>
+                    <div class="text-xs font-medium text-gray-500 uppercase">Dalam Proses</div>
                     <div class="mt-1 text-2xl font-semibold text-gray-900">{{ $stats['in_progress'] }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 border-l-4 border-green-500">
-                    <div class="text-xs font-medium text-gray-500 uppercase">Approved</div>
+                    <div class="text-xs font-medium text-gray-500 uppercase">Diluluskan</div>
                     <div class="mt-1 text-2xl font-semibold text-gray-900">{{ $stats['approved'] }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 border-l-4 border-red-500">
-                    <div class="text-xs font-medium text-gray-500 uppercase">Rejected</div>
+                    <div class="text-xs font-medium text-gray-500 uppercase">Ditolak</div>
                     <div class="mt-1 text-2xl font-semibold text-gray-900">{{ $stats['rejected'] }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 border-l-4 border-orange-500">
-                    <div class="text-xs font-medium text-gray-500 uppercase">Late (>14 days)</div>
+                    <div class="text-xs font-medium text-gray-500 uppercase">Lewat (>14 hari)</div>
                     <div class="mt-1 text-2xl font-semibold text-gray-900">{{ $stats['late'] }}</div>
                 </div>
             </div>
 
             <!-- Task Todo Section -->
             <div class="mb-4">
-                <h3 class="text-lg font-medium text-gray-900">Task Todo (Pending Verification)</h3>
+                <h3 class="text-lg font-medium text-gray-900">Tugasan Todo (Menunggu Pengesahan)</h3>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8 border border-yellow-200">
@@ -45,19 +45,19 @@
                                 <tr>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Ref No</th>
+                                        No Rujukan</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Title</th>
+                                        Tajuk</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Officer Recommendation</th>
+                                        Cadangan Pegawai</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Date Submitted</th>
+                                        Tarikh Dihantar</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Action</th>
+                                        Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
@@ -72,14 +72,15 @@
                                         <td class="px-6 py-4 whitespace-nowrap">
                                             @if($app->review && $app->review->recommendation === 'SUPPORTED')
                                                 <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Supported</span>
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Disokong</span>
                                             @elseif($app->review && $app->review->recommendation === 'NOT_SUPPORTED')
                                                 <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Not
-                                                    Supported</span>
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Tidak
+                                                    Disokong</span>
                                             @else
                                                 <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Pending</span>
+                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Belum
+                                                    Disahkan</span>
                                             @endif
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -88,7 +89,7 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <a href="{{ route('verification.show', $app->application_id) }}"
                                                 class="text-white bg-blue-600 hover:bg-blue-700 font-semibold px-4 py-2 rounded shadow-sm inline-block transition">
-                                                Review & Verify
+                                                Semak & Sah
                                             </a>
                                         </td>
                                     </tr>
@@ -96,7 +97,7 @@
                                     <tr>
                                         <td colspan="5"
                                             class="px-6 py-8 whitespace-nowrap text-sm text-gray-500 text-center italic">
-                                            No applications currently pending verification. Good job!
+                                            Tiada permohonan menunggu pengesahan. Kerja bagus!
                                         </td>
                                     </tr>
                                 @endforelse
@@ -130,19 +131,19 @@
                                 <tr>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Ref No</th>
+                                        No Rujukan</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Title</th>
+                                        Tajuk</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Developer</th>
+                                        Pembangun</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Status</th>
                                     <th
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Action</th>
+                                        Tindakan</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
@@ -164,15 +165,15 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <a href="{{ route('verification.show', $app->application_id) }}"
                                                 class="text-indigo-600 hover:text-indigo-900 hover:underline">
-                                                View Details
+                                                Lihat Butiran
                                             </a>
                                         </td>
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="5"
-                                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">No
-                                            applications found.</td>
+                                            class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">Tiada
+                                            permohonan ditemui.</td>
                                     </tr>
                                 @endforelse
                             </tbody>

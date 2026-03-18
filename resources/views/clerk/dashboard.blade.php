@@ -13,50 +13,50 @@
             <div class="flex justify-end mb-4">
                 <a href="{{ route('clerk.applications.create') }}"
                     class="inline-flex justify-end items-center px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-700 focus:bg-purple-700 active:bg-purple-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 shadow-sm">
-                    + Register New Application
+                    + Daftar Permohonan Baru
                 </a>
             </div>
 
             <!-- Statistics Cards -->
-            <div class="grid grid-cols-4 gap-2 sm:gap-6 mb-6">
+            <div class="grid grid-cols-4 gap-2 sm:gap-6 mb-6 p-2">
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 sm:p-6 border-l-4 border-purple-500">
                     <div
                         class="text-xs sm:text-sm font-medium text-gray-500 line-clamp-2 leading-tight h-8 sm:h-auto sm:truncate">
-                        Total Applications</div>
+                        Jumlah Permohonan</div>
                     <div class="mt-1 text-xl sm:text-3xl font-semibold text-gray-900">{{ $stats['total'] }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 sm:p-6 border-l-4 border-blue-500">
                     <div
                         class="text-xs sm:text-sm font-medium text-gray-500 line-clamp-2 leading-tight h-8 sm:h-auto sm:truncate">
-                        Recorded</div>
+                        Permohonan Direkod</div>
                     <div class="mt-1 text-xl sm:text-3xl font-semibold text-gray-900">{{ $stats['recorded'] }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 sm:p-6 border-l-4 border-yellow-500">
                     <div
                         class="text-xs sm:text-sm font-medium text-gray-500 line-clamp-2 leading-tight h-8 sm:h-auto sm:truncate">
-                        In Progress</div>
+                        Dalam Proses</div>
                     <div class="mt-1 text-xl sm:text-3xl font-semibold text-gray-900">{{ $stats['in_progress'] }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 sm:p-6 border-l-4 border-red-500">
                     <div
                         class="text-xs sm:text-sm font-medium text-gray-500 line-clamp-2 leading-tight h-8 sm:h-auto sm:truncate">
-                        Late (>14 days)</div>
+                        Lewat (>14 hari)</div>
                     <div class="mt-1 text-xl sm:text-3xl font-semibold text-gray-900">{{ $stats['late'] }}</div>
                 </div>
             </div>
 
             <!-- TODO SECTION: Pending Filing/Closeout Actions -->
-            <div class="mb-4">
+            <div class="mb-4 p-2">
                 <h3 class="text-lg font-medium text-gray-900 flex items-center">
                     <svg class="w-5 h-5 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4">
                         </path>
                     </svg>
-                    Action Required: Pending Filing
+                    Tindakan Diperlukan: Pending Filing
                 </h3>
-                <p class="text-sm text-gray-500 mb-2">Applications that have received a final Director decision and need
-                    to be printed and filed.</p>
+                <p class="text-sm text-gray-500 mb-2">Permohonan yang telah menerima keputusan akhir Pengarah dan perlu
+                    dicetak dan difailkan.</p>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-8 border border-purple-100">
@@ -132,15 +132,15 @@
             <div
                 class="mb-4 flex flex-col sm:flex-row justify-between items-center gap-4 mt-8 pt-6 border-t border-gray-200">
                 <div>
-                    <h3 class="text-lg font-medium text-gray-900">All Registered Applications</h3>
-                    <p class="text-sm text-gray-500">Complete historical record of applications.</p>
+                    <h3 class="text-lg font-medium text-gray-900">Semua Permohonan Berdaftar</h3>
+                    <p class="text-sm text-gray-500">Rekod lengkap permohonan.</p>
                 </div>
                 <form action="{{ route('clerk.dashboard') }}" method="GET" class="flex w-full sm:w-auto">
                     <input type="text" name="search" value="{{ request('search') }}"
-                        placeholder="Search Ref, Title, Developer..."
+                        placeholder="Carian No Rujukan, Tajuk, Pemaju..."
                         class="rounded-l-md border-gray-300 shadow-sm focus:border-purple-300 focus:ring focus:ring-purple-200 focus:ring-opacity-50 w-full sm:w-64 text-sm" />
                     <button type="submit"
-                        class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-r-md text-sm font-semibold transition">Search</button>
+                        class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-r-md text-sm font-semibold transition">Carian</button>
                     @if(request('search'))
                         <a href="{{ route('clerk.dashboard') }}"
                             class="ml-2 text-gray-500 hover:text-gray-700 underline text-sm flex items-center">Clear</a>
@@ -205,7 +205,7 @@
                                     <tr>
                                         <td colspan="5"
                                             class="px-6 py-8 whitespace-nowrap text-sm text-gray-500 text-center">
-                                            No applications found.
+                                            Tiada permohonan ditemui.
                                         </td>
                                     </tr>
                                 @endforelse

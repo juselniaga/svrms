@@ -23,13 +23,6 @@
                         Back to Application
                     </x-secondary-button>
                 </a>
-                @if($siteVisit->application->status === 'SITE_VISIT_IN_PROGRESS')
-                    <a href="{{ route('site-visits.edit', $siteVisit) }}">
-                        <x-primary-button>
-                            Edit Report
-                        </x-primary-button>
-                    </a>
-                @endif
             </div>
         </div>
 

@@ -30,13 +30,6 @@
                         Back to Application
                     </x-secondary-button>
                 </a>
-                @if(!$review->is_submitted && $review->application->status === 'SITE_VISIT_IN_PROGRESS')
-                    <a href="{{ route('reviews.edit', $review) }}">
-                        <x-primary-button>
-                            Edit Review Draft
-                        </x-primary-button>
-                    </a>
-                @endif
             </div>
         </div>
 

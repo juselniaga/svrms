@@ -25,44 +25,46 @@
             <!-- Full Report Component -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-6 text-gray-900 border-gray-200">Full Application
-                        Report</h3>
+                    <h3 class="text-xl font-bold border-b pb-2 mb-6 text-gray-900 border-gray-200">Maklumat Laporan
+                        Penuh</h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                         <!-- Application Info -->
                         <div>
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Application
-                                Details</h4>
+                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Butiran
+                                Permohonan</h4>
                             <dl class="space-y-2 text-sm">
                                 <div class="flex justify-between border-b border-gray-100 pb-1">
-                                    <dt class="text-gray-600">Reference No:</dt>
+                                    <dt class="text-gray-600">No Rujukan:</dt>
                                     <dd class="font-medium text-gray-900">{{ $application->reference_no }}</dd>
                                 </div>
                                 <div class="flex flex-col border-b border-gray-100 pb-1 pt-1">
-                                    <dt class="text-gray-600">Project Title:</dt>
+                                    <dt class="text-gray-600">Tajuk Projek:</dt>
                                     <dd class="font-medium text-gray-900 mt-1">{{ $application->tajuk }}</dd>
                                 </div>
                                 <div class="flex flex-col border-b border-gray-100 pb-1 pt-1">
-                                    <dt class="text-gray-600">Project Location:</dt>
+                                    <dt class="text-gray-600">Lokasi Projek:</dt>
                                     <dd class="font-medium text-gray-900 mt-1">{{ $application->lokasi }}</dd>
                                 </div>
                                 <div class="flex justify-between border-b border-gray-100 pb-1 pt-1">
-                                    <dt class="text-gray-600">Current Status:</dt>
+                                    <dt class="text-gray-600">Status Semasa:</dt>
                                     <dd class="font-bold text-blue-700">
-                                        {{ str_replace('_', ' ', $application->status) }}</dd>
+                                        {{ str_replace('_', ' ', $application->status) }}
+                                    </dd>
                                 </div>
                             </dl>
                         </div>
 
                         <!-- Developer Info -->
                         <div>
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Developer
-                                Information</h4>
+                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Butiran
+                                Pemaju</h4>
                             <dl class="space-y-2 text-sm">
                                 <div class="flex justify-between border-b border-gray-100 pb-1">
-                                    <dt class="text-gray-600">Company Name:</dt>
+                                    <dt class="text-gray-600">Nama Syarikat:</dt>
                                     <dd class="font-medium text-gray-900">
-                                        {{ optional($application->developer)->name ?? 'N/A' }}</dd>
+                                        {{ optional($application->developer)->name ?? 'N/A' }}
+                                    </dd>
                                 </div>
                                 <div class="flex justify-between border-b border-gray-100 pb-1 pt-1">
                                     <dt class="text-gray-600">Email:</dt>
@@ -70,12 +72,12 @@
                                     </dd>
                                 </div>
                                 <div class="flex justify-between border-b border-gray-100 pb-1 pt-1">
-                                    <dt class="text-gray-600">Telephone:</dt>
+                                    <dt class="text-gray-600">Telefon:</dt>
                                     <dd class="font-medium text-gray-900">{{ optional($application->developer)->tel }}
                                     </dd>
                                 </div>
                                 <div class="flex flex-col border-b border-gray-100 pb-1 pt-1">
-                                    <dt class="text-gray-600">Registered Address:</dt>
+                                    <dt class="text-gray-600">Alamat Berdaftar:</dt>
                                     <dd class="font-medium text-gray-900 mt-1">
                                         {{ optional($application->developer)->address1 }}<br>
                                         {{ optional($application->developer)->poskod }}
@@ -89,33 +91,47 @@
                     <!-- Site & Location Information -->
                     @if($application->site)
                         <div class="mt-8">
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">Site / Land Registration Information</h4>
+                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">
+                                Maklumat Tapak / Pendaftaran Tanah</h4>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
                                 <div>
-                                    <span class="block text-xs font-semibold text-gray-400 uppercase">Location Data</span>
+                                    <span class="block text-xs font-semibold text-gray-400 uppercase">Data Lokasi</span>
                                     <div class="mt-1 space-y-1">
-                                        <p><span class="text-gray-600 font-medium">Mukim:</span> {{ $application->site->mukim }}</p>
-                                        <p><span class="text-gray-600 font-medium">Lot:</span> {{ $application->site->lot }}</p>
-                                        <p><span class="text-gray-600 font-medium">BPK:</span> {{ $application->site->bpk ?: 'N/A' }}</p>
-                                        <p><span class="text-gray-600 font-medium">Map Sheet:</span> {{ $application->site->lembaran ?: 'N/A' }}</p>
+                                        <p><span class="text-gray-600 font-medium">Mukim:</span>
+                                            {{ $application->site->mukim }}</p>
+                                        <p><span class="text-gray-600 font-medium">Lot:</span> {{ $application->site->lot }}
+                                        </p>
+                                        <p><span class="text-gray-600 font-medium">BPK:</span>
+                                            {{ $application->site->bpk ?: 'N/A' }}</p>
+                                        <p><span class="text-gray-600 font-medium">Map Sheet:</span>
+                                            {{ $application->site->lembaran ?: 'N/A' }}</p>
                                     </div>
                                 </div>
                                 <div>
-                                    <span class="block text-xs font-semibold text-gray-400 uppercase">Land Specs</span>
+                                    <span class="block text-xs font-semibold text-gray-400 uppercase">Spesifikasi
+                                        Tanah</span>
                                     <div class="mt-1 space-y-1">
-                                        <p><span class="text-gray-600 font-medium">Area (Luas):</span> {{ number_format($application->site->luas, 4) }}</p>
-                                        <p><span class="text-gray-600 font-medium">Category:</span> {{ $application->site->kategori_tanah ?: 'N/A' }}</p>
-                                        <p><span class="text-gray-600 font-medium">Status:</span> {{ $application->site->status_tanah ?: 'N/A' }}</p>
+                                        <p><span class="text-gray-600 font-medium">Luas:</span>
+                                            {{ number_format($application->site->luas, 4) }}</p>
+                                        <p><span class="text-gray-600 font-medium">Kategori:</span>
+                                            {{ $application->site->kategori_tanah ?: 'N/A' }}</p>
+                                        <p><span class="text-gray-600 font-medium">Status:</span>
+                                            {{ $application->site->status_tanah ?: 'N/A' }}</p>
                                     </div>
                                 </div>
                                 <div class="bg-gray-50 p-3 rounded border border-gray-200">
-                                    <span class="block text-xs font-semibold text-gray-500 uppercase mb-2">GPS Coordinates</span>
+                                    <span class="block text-xs font-semibold text-gray-500 uppercase mb-2">Koordinat
+                                        GPS</span>
                                     @if($application->site->google_lat && $application->site->google_long)
                                         <p class="font-mono text-gray-800 text-xs">Lat: {{ $application->site->google_lat }}</p>
-                                        <p class="font-mono text-gray-800 text-xs">Lng: {{ $application->site->google_long }}</p>
-                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $application->site->google_lat }},{{ $application->site->google_long }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-xs block mt-2 underline">View on Google Maps</a>
+                                        <p class="font-mono text-gray-800 text-xs">Lng: {{ $application->site->google_long }}
+                                        </p>
+                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $application->site->google_lat }},{{ $application->site->google_long }}"
+                                            target="_blank"
+                                            class="text-blue-600 hover:text-blue-800 text-xs block mt-2 underline">Lihat di
+                                            Google Maps</a>
                                     @else
-                                        <p class="text-gray-500 italic text-sm">Not recorded</p>
+                                        <p class="text-gray-500 italic text-sm">Tidak direkod</p>
                                     @endif
                                 </div>
                             </div>
@@ -125,29 +141,36 @@
                     <!-- Site Visit Investigation Findings -->
                     @if($application->siteVisits && $application->siteVisits->count() > 0)
                         <div class="mt-8">
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">Site Investigation Findings</h4>
-                            
+                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">Site
+                                Investigation Findings</h4>
+
                             @foreach($application->siteVisits as $visit)
                                 <div class="mb-6 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
                                     <div class="bg-gray-50 px-4 py-3 border-b flex justify-between items-center">
                                         <div>
-                                            <span class="font-semibold text-gray-800 text-sm">Visit Date: {{ $visit->visit_date->format('d/m/Y') }}</span>
-                                            <span class="text-gray-500 text-xs ml-2">by {{ optional($visit->officer)->name ?? 'Officer' }}</span>
+                                            <span class="font-semibold text-gray-800 text-sm">Visit Date:
+                                                {{ $visit->visit_date->format('d/m/Y') }}</span>
+                                            <span class="text-gray-500 text-xs ml-2">by
+                                                {{ optional($visit->officer)->name ?? 'Officer' }}</span>
                                         </div>
-                                        <span class="text-purple-600 font-mono text-xs">{{ $visit->location_data ?? 'No GPS Data' }}</span>
+                                        <span
+                                            class="text-purple-600 font-mono text-xs">{{ $visit->location_data ?? 'No GPS Data' }}</span>
                                     </div>
                                     <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <!-- Directions & Photos -->
                                         @foreach(['north' => ['finding_north', 'photos_north'], 'south' => ['findings_south', 'photos_south'], 'east' => ['findings_east', 'photo_east'], 'west' => ['finding_west', 'photo_west']] as $dir => $fields)
                                             <div class="bg-gray-50 rounded p-3 border border-gray-100">
-                                                <h5 class="text-xs font-bold uppercase text-gray-600 mb-2 border-b pb-1">{{ ucfirst($dir) }} Direction</h5>
-                                                <p class="text-sm text-gray-800 mb-3 whitespace-pre-line">{{ $visit->{$fields[0]} ?: 'No observations recorded.' }}</p>
-                                                
+                                                <h5 class="text-xs font-bold uppercase text-gray-600 mb-2 border-b pb-1">
+                                                    {{ ucfirst($dir) }} Direction</h5>
+                                                <p class="text-sm text-gray-800 mb-3 whitespace-pre-line">
+                                                    {{ $visit->{$fields[0]} ?: 'No observations recorded.' }}</p>
+
                                                 @if(is_array($visit->{$fields[1]}) && count($visit->{$fields[1]}) > 0)
                                                     <div class="grid grid-cols-2 gap-2">
                                                         @foreach($visit->{$fields[1]} as $photoPath)
                                                             <a href="{{ Storage::url($photoPath) }}" target="_blank" class="block">
-                                                                <img src="{{ Storage::url($photoPath) }}" alt="{{ ucfirst($dir) }} Photo" class="h-24 w-full object-cover rounded shadow-sm hover:opacity-75 transition">
+                                                                <img src="{{ Storage::url($photoPath) }}" alt="{{ ucfirst($dir) }} Photo"
+                                                                    class="h-24 w-full object-cover rounded shadow-sm hover:opacity-75 transition">
                                                             </a>
                                                         @endforeach
                                                     </div>
@@ -179,7 +202,8 @@
                                 <h5 class="text-xs font-semibold text-gray-500 uppercase mb-2">Review Notes / Observations
                                 </h5>
                                 <p class="text-gray-800 whitespace-pre-line text-sm">
-                                    {{ $application->review->review_content }}</p>
+                                    {{ $application->review->review_content }}
+                                </p>
                             </div>
 
                             <div class="flex items-center space-x-3 bg-white p-4 rounded border border-gray-200 shadow-sm">
