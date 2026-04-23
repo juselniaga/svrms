@@ -94,9 +94,9 @@
                                         {{ $application->site->luas ? number_format($application->site->luas, 4) : '-' }}
                                     </p>
                                 </div>
-                                @if($application->site->google_lat && $application->site->google_long)
+                                @if($application->site->google_lat)
                                     <div class="pt-2">
-                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $application->site->google_lat }},{{ $application->site->google_long }}"
+                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $application->site->google_lat }}"
                                             target="_blank" class="text-xs text-blue-600 hover:text-blue-800 flex items-center">
                                             <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

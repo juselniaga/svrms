@@ -14,32 +14,38 @@ class DatabaseSeeder extends Seeder
     {
         // Create Clerk
         User::factory()->create([
-            'name' => 'John Clerk',
-            'email' => 'clerk@svrms.local',
+            'name' => 'Nadia',
+            'email' => 'nadia@mpjasin.gov.my',
             'role' => 'Clerk',
             'department' => 'Registration',
         ]);
 
         // Create Officer
         User::factory()->create([
-            'name' => 'Jane Officer',
-            'email' => 'officer@svrms.local',
+            'name' => 'Nazrin',
+            'email' => 'nazrin@mpjasin.gov.my',
+            'role' => 'Officer',
+            'department' => 'Site Operations',
+        ]);
+         User::factory()->create([
+            'name' => 'Khairudin',
+            'email' => 'din@mpjasin.gov.my',
             'role' => 'Officer',
             'department' => 'Site Operations',
         ]);
 
         // Create Assistant Director
         User::factory()->create([
-            'name' => 'Ahmad Penolong Pengarah',
-            'email' => 'ad@svrms.local',
+            'name' => 'Asharaf',
+            'email' => 'ad@mpjasin.gov.my',
             'role' => 'Assistant Director',
             'department' => 'Administration',
         ]);
 
         // Create Director
         User::factory()->create([
-            'name' => 'Datuk Pengarah',
-            'email' => 'director@svrms.local',
+            'name' => 'Hafidh Bin Sulaiman',
+            'email' => 'hafidh@mpjasin.gov.my',
             'role' => 'Director',
             'department' => 'Management',
         ]);
@@ -47,7 +53,7 @@ class DatabaseSeeder extends Seeder
         // Create Admin
         User::factory()->create([
             'name' => 'System Administrator',
-            'email' => 'admin@svrms.local',
+            'email' => 'admin@mpjasin.gov.my',
             'role' => 'Admin',
             'department' => 'IT Services',
         ]);

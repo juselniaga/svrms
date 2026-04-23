@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('mukim');
             $table->string('bpk');
             $table->decimal('luas', 10, 4); // Area in e.g hectares/acres
-            $table->decimal('google_lat', 10, 8)->nullable();
-            $table->decimal('google_long', 11, 8)->nullable();
+            $table->string('google_lat')->nullable();
+            //$table->decimal('google_long', 11, 8)->nullable();
             $table->json('map')->nullable(); // Store array of map attachments
             $table->string('lot');
             $table->string('lembaran');

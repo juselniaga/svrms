@@ -14,7 +14,7 @@ class Site extends Model
         'bpk',
         'luas',
         'google_lat',
-        'google_long',
+        //'google_long',
         'map',
         'lot',
         'lembaran',
@@ -27,8 +27,8 @@ class Site extends Model
     protected $casts = [
         'map' => 'array',
         'luas' => 'decimal:4',
-        'google_lat' => 'decimal:8',
-        'google_long' => 'decimal:8',
+       // 'google_lat' => 'decimal:8',
+       // 'google_long' => 'decimal:8',
         'is_active' => 'boolean',
     ];
 

@@ -14,11 +14,13 @@ class Approval extends Model
         'decision',
         'conditions',
         'remarks',
+        'approval_status',
         'approved_at',
     ];
 
     protected $casts = [
         'approved_at' => 'datetime',
+        'approval_status' => 'string',
     ];
 
     public function application()

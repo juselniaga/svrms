@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id('approval_id');
             $table->foreignId('application_id')->constrained('applications', 'application_id');
             $table->foreignId('director_id')->constrained('users', 'user_id');
-            $table->string('decision'); // Approved, Rejected, etc
-            $table->text('conditions')->nullable();
-            $table->text('remarks')->nullable(); // For rejection reason etc
+            $table->string('decision'); // Detail decision by director
+            $table->text('conditions')->nullable(); //Conditions given by director if any conditions apply  
+            $table->text('remarks')->nullable(); // Remarks given by director 
+            $table->text('approval_status');//Approve, Rejected
             $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });

@@ -79,45 +79,38 @@
                         <!-- Initial Coordinates Capture -->
                         <div class="mb-4 mt-8">
 
-                            <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">Map Coordinates
-                            </h3>
+                            <div class="flex justify-between items-center border-b pb-2 mb-4">
+                                <h3 class="text-lg font-medium text-gray-900">Map Coordinates</h3>
+                                <a href="https://jupem2u.kul.jupem.gov.my/mylot/negeri.html" target="_blank"
+                                    class="text-sm text-blue-600 hover:text-blue-800 underline inline-flex items-center">
+                                    <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                        </path>
+                                    </svg>
+                                    Open JUPEM Map
+                                </a>
+                            </div>
 
                             <div
                                 class="bg-blue-50 p-5 rounded-lg border border-blue-200 mb-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="col-span-1 md:col-span-2 flex items-center space-x-4 mb-2">
-                                    <button type="button"
-                                        class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z">
-                                            </path>
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                        </svg>
-                                        Capture Current Coordinates
-                                    </button>
-                                    <span x-text="gpsStatus" class="text-sm font-medium"
-                                        :class="(lat !== '') ? 'text-green-600' : 'text-gray-500'"></span>
-                                </div>
+
 
                                 <div>
-                                    <label class="block font-medium text-sm text-gray-700">Latitude</label>
+                                    <label class="block font-medium text-sm text-gray-700">Locations</label>
                                     <input type="text" name="google_lat" id="google_lat" value="{{ old('google_lat') }}"
-                                        class="mt-1 block w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm bg-gray-100"
-                                        readonly>
+                                        class="mt-1 w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm bg-gray-100">
                                 </div>
-                                <div>
-                                    <label class="block font-medium text-sm text-gray-700">Longitude</label>
-                                    <input type="text" name="google_long" id="google_long"
-                                        value="{{ old('google_long') }}"
-                                        class="mt-1 block w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm bg-gray-100"
-                                        readonly>
-                                </div>
+
                             </div>
                         </div>
 
-                        <div class="flex items-center justify-end mt-8 border-t pt-5">
+                        <div class="flex items-center justify-end mt-8 border-t pt-5 space-x-4">
+                            <a href="{{ route('officer.dashboard') }}"
+                                class="inline-flex items-center px-6 py-3 bg-gray-200 border border-transparent rounded-md font-semibold text-sm text-gray-700 uppercase tracking-widest hover:bg-gray-300 focus:bg-gray-300 active:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                Back to Dashboard
+                            </a>
                             <button type="submit"
                                 class="inline-flex items-center px-6 py-3 bg-purple-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-purple-700 focus:bg-purple-700 active:bg-purple-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                 Save Site & Continue to Site Visit &rarr;

@@ -325,7 +325,7 @@
         <p>Ref: {{ $application->reference_no }}</p>
     </div>
 
-    @php $review = $application->reviews->firstWhere('is_submitted', true); @endphp
+    @php $review = $application->reviews->firstWhere('self_check_completed', true); @endphp
     @if($review)
         <table class="data-table">
             <tr>
@@ -339,8 +339,8 @@
             <tr>
                 <th>Selected Recommendation</th>
                 <td>
-                    @if($review->recommendation === 'SOKONG') <span class="badge badge-success">SOKONG</span>
-                    @elseif($review->recommendation === 'BERSYARAT') <span class="badge badge-warning">BERSYARAT</span>
+                    @if($review->recommendation === 'SUPPORTED') <span class="badge badge-success">SOKONG</span>
+                    {{-- @elseif($review->recommendation === 'BERSYARAT') <span class="badge badge-warning">BERSYARAT</span> --}}
                     @else <span class="badge badge-danger">TIDAK SOKONG</span>
                     @endif
                 </td>
@@ -377,7 +377,7 @@
             <tr>
                 <th>Decision</th>
                 <td>
-                    @if($verification->status === 'VERIFIED') <span class="badge badge-success">VERIFIED</span>
+                    @if($verification->verification_status === 'VERIFIED') <span class="badge badge-success">VERIFIED</span>
                     @else <span class="badge badge-danger">REJECTED</span>
                     @endif
                 </td>
@@ -390,6 +390,42 @@
         </div>
     @else
         <p><em>No Verification Recorded.</em></p>
+    @endif
+
+
+     <!-- 6. Director's Approval -->
+    <div class="header">
+        <h1>Phase 4: Director's Approval</h1>
+        <p>Ref: {{ $application->reference_no }}</p>
+    </div>
+
+    @php $approval = $application->approvals->last(); @endphp
+    @if($approval)
+        <table class="data-table">
+            <tr>
+                <th>Approving Director</th>
+                <td>{{ $approval->director->name }}</td>
+            </tr>
+            <tr>
+                <th>Approval Date</th>
+                <td>{{ $approval->created_at->format('d M Y') }}</td>
+            </tr>
+            <tr>
+                <th>Decision</th>
+                <td>
+                    @if($approval->approval_status === 'APPROVED') <span class="badge badge-success">APPROVED</span>
+                    @else <span class="badge badge-danger">REJECTED</span>
+                    @endif
+                </td>
+            </tr>
+        </table>
+
+        <h4 style="color:#5a189a; margin-top:20px;">Approval Remarks</h4>
+        <div class="prose">
+            {{ $approval->remarks ?? 'None provided.' }}
+        </div>
+    @else
+        <p><em>No Approval Recorded.</em></p>
     @endif
 
     <p style="text-align: center; margin-top: 50px; font-size: 9pt; color: #999;">
