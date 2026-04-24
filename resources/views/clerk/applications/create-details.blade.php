@@ -1,10 +1,10 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between gap-4">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight block">
                 {{ __('Daftar Permohonan Baru') }}
             </h2>
-            <span class="text-sm text-gray-500">Langkah 2 dari 2</span>
+            <span class="text-sm text-gray-500"> Langkah 2 dari 2</span>
         </div>
     </x-slot>
 

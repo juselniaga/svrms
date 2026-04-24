@@ -1,9 +1,9 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between flex-wrap gap-4">
+        <div class="flex items-center justify-between flex-wrap gap-6">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Site Investigation Form') }} <span
-                    class="text-gray-500 font-normal">({{ $application->reference_no }})</span>
+                {{ __('Borang Siasatan Tapak') }} <span
+                    class="text-indigo-600 font-normal">({{ $application->reference_no }})</span>
             </h2>
             <a href="{{ route('officer.dashboard') }}" class="text-sm text-gray-600 hover:text-gray-900 underline">
                 &larr; Back to Dashboard
@@ -16,14 +16,14 @@
 
             @if(session('success'))
                 <div class="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative">
-                    <strong class="font-bold">Success!</strong>
+                    <strong class="font-bold">Berjaya!</strong>
                     <span class="block sm:inline">{{ session('success') }}</span>
                 </div>
             @endif
 
             @if($errors->any())
                 <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-                    <strong class="font-bold">Please fix the following errors:</strong>
+                    <strong class="font-bold">Sila betulkan kesilapan berikut:</strong>
                     <ul class="mt-2 list-disc list-inside text-sm">
                         @foreach($errors->all() as $error)
                             <li>{{ $error }}</li>
@@ -37,10 +37,10 @@
                 <!-- Application Summary Sidebar -->
                 <div class="md:col-span-1 border-r border-gray-200 pr-0 md:pr-4">
                     <div class="bg-white p-5 rounded-lg shadow-sm mb-6 border-t-4 border-purple-500">
-                        <h3 class="font-medium text-lg text-gray-900 mb-4 border-b pb-2">Application Info</h3>
+                        <h3 class="font-medium text-lg text-indigo-600 mb-4 border-b pb-2">Maklumat Permohonan</h3>
                         <div class="space-y-3 text-sm">
                             <div>
-                                <strong class="block text-gray-500 text-xs uppercase tracking-wider">Ref No</strong>
+                                <strong class="block text-gray-500 text-xs uppercase tracking-wider">No Ruj</strong>
                                 <span class="font-mono">{{ $application->reference_no ?? 'N/A' }}</span>
                             </div>
                             <div>
@@ -77,7 +77,7 @@
 
                     @if($application->site)
                         <div class="bg-white p-5 rounded-lg shadow-sm mb-6 border-t-4 border-blue-500">
-                            <h3 class="font-medium text-lg text-gray-900 mb-4 border-b pb-2">Registered Site</h3>
+                            <h3 class="font-medium text-lg text-indigo-600 mb-4 border-b pb-2">Maklumat Tapak</h3>
                             <div class="space-y-3 text-sm">
                                 <div>
                                     <strong class="block text-gray-500 text-xs uppercase tracking-wider">Mukim</strong>
@@ -123,7 +123,7 @@
 
                                 <!-- Form Header -->
                                 <div class="mb-4 flex justify-between items-center border-b pb-2">
-                                    <h3 class="text-xl font-medium text-gray-900">
+                                    <h3 class="text-xl font-medium text-blue-600">
                                         Site Visit Details
                                     </h3>
                                     <!-- Date & Time -->
@@ -142,7 +142,7 @@
 
                                 <!-- GROUP 1: Site Conditions -->
                                 <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                                    <h4 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">1.
+                                    <h4 class="font-semibold text-indigo-800 mb-4 border-b border-gray-200 pb-2">1.
                                         Keadaan Tapak</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
@@ -162,7 +162,7 @@
 
                                 <!-- GROUP 2: Infrastructure -->
                                 <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                                    <h4 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">2.
+                                    <h4 class="font-semibold text-indigo-800 mb-4 border-b border-gray-200 pb-2">2.
                                         Infrastruktur & Topografi</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
@@ -195,7 +195,7 @@
 
                                 <!-- GROUP 3: Verify -->
                                 <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                                    <h4 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">3.
+                                    <h4 class="font-semibold text-indigo-800 mb-4 border-b border-gray-200 pb-2">3.
                                         Verifikasi</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
@@ -225,7 +225,8 @@
 
                                 <!-- GROUP 4: Other -->
                                 <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                                    <h4 class="font-semibold text-gray-800 mb-4 border-b border-gray-200 pb-2">4. Other
+                                    <h4 class="font-semibold text-indigo-800 mb-4 border-b border-gray-200 pb-2">4.
+                                        Other
                                         Attributes</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
@@ -248,7 +249,8 @@
 
                                 <!-- GROUP 5: Direction Findings & Photos -->
                                 <div class="mb-8">
-                                    <h4 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">5. Arah Penemuan &
+                                    <h4 class="text-lg font-medium text-indigo-800 border-b pb-2 mb-4">5. Arah Penemuan
+                                        &
                                         Gambar</h4>
 
                                     <div class="space-y-6">
@@ -320,7 +322,7 @@
                                         }
                                     } 
                                 }">
-                                    <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">6. MAP Verifikasi
+                                    <h3 class="text-lg font-medium text-indigo-800 border-b pb-2 mb-4">6. MAP Verifikasi
                                     </h3>
 
                                     <div class="bg-blue-50 p-5 rounded-lg border border-blue-200 mb-4">

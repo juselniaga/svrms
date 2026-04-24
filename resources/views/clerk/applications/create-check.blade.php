@@ -1,11 +1,11 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight block">
-            {{ __('Check Developer') }}
+            {{ __('Semak Pemohon') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-5">
         <div class="max-w-xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 
@@ -71,13 +71,12 @@
                     <form method="POST" action="{{ route('clerk.applications.check-developer') }}">
                         @csrf
 
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">Langkah 1: Kenalpasti Developer</h3>
-                        <p class="text-sm text-gray-500 mb-6">Sila masukkan nama atau alamat e-mel developer yang berdaftar
-                            untuk memeriksa
-                            jika mereka sudah wujud dalam sistem.</p>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Langkah 1: Kenalpasti Pemohon</h3>
+                        <p class="text-sm text-gray-500 mb-6">Sila masukkan nama atau alamat e-mel Pemohon yang berdaftar
+                            untuk memeriksa jika mereka sudah wujud dalam sistem.</p>
 
                         <div>
-                            <x-input-label for="developer_query" :value="__('Developer Name or Email *')" />
+                            <x-input-label for="developer_query" :value="__('Nama atau E-mel Pemohon *')" />
                             <x-text-input id="developer_query" class="block mt-1 w-full" type="text" name="developer_query"
                                 :value="old('developer_query')" required autofocus
                                 placeholder="e.g. contact@developer.com or Acme Corp" />
@@ -90,7 +89,7 @@
                                 Cancel
                             </a>
                             <x-primary-button>
-                                {{ __('Check Developer') }}
+                                {{ __('Semak Pemohon') }}
                             </x-primary-button>
                         </div>
                     </form>

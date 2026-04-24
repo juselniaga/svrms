@@ -1,37 +1,37 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight block">
+        <div class="flex items-center justify-between gap-2">
+            <h2 class="font-semibold text-xl text-gray-900 leading-tight block">
                 {{ __('Final Approval Interface') }}
             </h2>
             <span
-                class="px-3 py-1 bg-green-100 text-green-800 text-sm font-semibold rounded-full border border-green-200">
+                class="px-3 py-1 bg-green-200 text-green-900 text-sm font-semibold rounded-full border border-green-200">
                 Approval Stage
             </span>
         </div>
     </x-slot>
 
-    <div class="py-12">
+    <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
             <!-- Back Link -->
             <div>
                 <a href="{{ route('approval.dashboard') }}"
-                    class="text-sm text-gray-600 hover:text-gray-900 font-medium">
-                    &larr; Back to Dashboard
+                    class="text-sm text-blue-500 hover:text-blue-900 font-medium">
+                    &larr; Kembali ke Dashboard
                 </a>
             </div>
 
             <!-- Full Report Component -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-6 text-gray-900 border-gray-200">Maklumat
+                    <h3 class="text-xl font-bold border-b pb-2 mb-6 text-indigo-600 border-gray-200">Maklumat
                         Laporan Penuh</h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                         <!-- Application Info -->
                         <div>
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Butiran
+                            <h4 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-2">Butiran
                                 Permohonan</h4>
                             <dl class="space-y-2 text-sm">
                                 <div class="flex justify-between border-b border-gray-100 pb-1">
@@ -56,7 +56,7 @@
 
                         <!-- Developer Info -->
                         <div>
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Butiran
+                            <h4 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-2">Butiran
                                 Pemaju</h4>
                             <dl class="space-y-2 text-sm">
                                 <div class="flex justify-between border-b border-gray-100 pb-1">
@@ -89,7 +89,7 @@
                     <!-- Site & Location Information -->
                     @if($application->site)
                         <div class="mt-8">
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">Maklumat Tapak / Pendaftaran Tanah</h4>
+                            <h4 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-4 border-b pb-2">Maklumat Tapak / Pendaftaran Tanah</h4>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
                                 <div>
                                     <span class="block text-xs font-semibold text-gray-400 uppercase">Data Lokasi</span>
@@ -125,7 +125,7 @@
                     <!-- Site Visit Investigation Findings -->
                     @if($application->siteVisits && $application->siteVisits->count() > 0)
                         <div class="mt-8">
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">Site Investigation Findings</h4>
+                            <h4 class="text-sm font-semibold text-indigo-400 uppercase tracking-wider mb-4 border-b pb-2">Site Investigation Findings</h4>
                             
                             @foreach($application->siteVisits as $visit)
                                 <div class="mb-6 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
@@ -162,9 +162,9 @@
 
                     <!-- Officer Review Section -->
                     @if($application->review)
-                        <div class="mt-8 bg-gray-50 border border-gray-200 rounded-lg p-5">
+                        <div class="mt-8 bg-blue-50 border border-gray-200 rounded-lg p-5">
                             <h4
-                                class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b border-gray-200 pb-2">
+                                class="text-md font-bold text-indigo-400 uppercase tracking-wider mb-4 border-b border-gray-200 pb-2">
                                 Officer's Review & Recommendation</h4>
 
                             <div class="mb-4">
@@ -203,7 +203,7 @@
                     @if($application->verification)
                         <div class="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-5">
                             <h4
-                                class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b border-yellow-200 pb-2">
+                                class="text-md font-bold text-indigo-500 uppercase tracking-wider mb-4 border-b border-yellow-200 pb-2">
                                 Assistant Director Verification</h4>
 
                             <div class="mb-4">

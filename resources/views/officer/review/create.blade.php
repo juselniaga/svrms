@@ -10,15 +10,15 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
 
                 <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-md">
-                    <h3 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-2">Application Details</h3>
+                    <h3 class="text-sm font-semibold text-indigo-800 uppercase tracking-wider mb-2">Detail Permohonan</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
-                            <p class="text-sm text-gray-600">Reference No: <span class="font-medium text-gray-900">{{ $application->reference_no }}</span></p>
-                            <p class="text-sm text-gray-600">Project Title: <span class="font-medium text-gray-900">{{ $application->tajuk }}</span></p>
+                            <p class="text-sm text-indigo-600">No Rujukan Fail: <span class="font-medium text-gray-900">{{ $application->reference_no }}</span></p>
+                            <p class="text-sm text-indigo-600">Tajuk Projek: <span class="font-medium text-gray-900">{{ $application->tajuk }}</span></p>
                         </div>
                         <div>
-                            <p class="text-sm text-gray-600">Developer: <span class="font-medium text-gray-900">{{ $application->developer->name ?? 'N/A' }}</span></p>
-                            <p class="text-sm text-gray-600">Status: <span class="font-medium text-blue-600">{{ str_replace('_', ' ', $application->status) }}</span></p>
+                            <p class="text-sm text-indigo-600">Pemohon: <span class="font-medium text-gray-900">{{ $application->developer->name ?? 'N/A' }}</span></p>
+                            <p class="text-sm text-indigo-600">Status: <span class="font-medium text-blue-600">{{ str_replace('_', ' ', $application->status) }}</span></p>
                         </div>
                     </div>
                 </div>
@@ -26,9 +26,9 @@
                 <!-- Accordion for Full Application Data Context -->
                 <div x-data="{ open: false }" class="mb-8 border border-gray-200 rounded-md overflow-hidden">
                     <button @click="open = !open" type="button" class="w-full flex justify-between items-center bg-gray-100 px-4 py-3 text-left hover:bg-gray-200 focus:outline-none transition">
-                        <span class="font-semibold text-gray-800 flex items-center">
+                        <span class="font-semibold text-indigo-800 flex items-center">
                             <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                            View Full Application Data & Site Investigation Findings
+                            Informasi Lengkap & Penemuan Siasatan Tapak
                         </span>
                         <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -40,7 +40,7 @@
                         <!-- Site & Location Information -->
                         @if($application->site)
                             <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                                <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">Site / Land Registration Information</h4>
+                                <h4 class="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-4 border-b pb-2">Site / Land Registration Information</h4>
                                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
                                     <div>
                                         <span class="block text-xs font-semibold text-gray-400 uppercase">Location Data</span>
@@ -76,7 +76,7 @@
                         <!-- Site Visit Investigation Findings -->
                         @if($application->siteVisits && $application->siteVisits->count() > 0)
                             <div>
-                                <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">Site Investigation Findings</h4>
+                                <h4 class="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-4 border-b pb-2">Site Investigation Findings</h4>
                                 
                                 @foreach($application->siteVisits as $visit)
                                     <div class="mb-6 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
@@ -170,7 +170,7 @@
                 }">
                     @csrf
 
-                    <h3 class="text-lg font-medium text-gray-900 mb-4 border-b pb-2">Review Details</h3>
+                    <h3 class="text-lg font-medium text-indigo-600 mb-4 border-b pb-2">Review Details</h3>
 
                     <div class="mb-6">
                         <x-input-label for="review_content" :value="__('Officer Review & Observations *')" />
@@ -193,7 +193,7 @@
                         <x-input-error :messages="$errors->get('recommendation')" class="mt-2" />
                     </div>
 
-                    <h3 class="text-lg font-medium text-gray-900 mb-4 border-b pb-2 mt-8">Self-Check Checklist</h3>
+                    <h3 class="text-lg font-medium text-indigo-600 mb-4 border-b pb-2 mt-8">Self-Check Checklist</h3>
                     <p class="text-sm text-gray-500 mb-4">Please verify the following before submitting your
                         recommendation:</p>
 

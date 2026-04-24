@@ -2,8 +2,8 @@
     <x-slot name="header">
         <div class="flex items-center justify-between flex-wrap gap-4">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Register Site Information') }} <span
-                    class="text-gray-500 font-normal">({{ $application->reference_no }})</span>
+                {{ __('Daftar Tapak Cadangan Baru') }} <span
+                    class="text-blue-900 font-normal">({{ $application->reference_no }})</span>
             </h2>
             <a href="{{ route('officer.dashboard') }}" class="text-sm text-gray-600 hover:text-gray-900 underline">
                 &larr; Back to Dashboard
@@ -22,7 +22,7 @@
                         @csrf
 
                         <div class="mb-4">
-                            <h3 class="text-lg font-medium text-gray-900 border-b pb-2 mb-4">Site Information
+                            <h3 class="text-lg font-medium text-indigo-600 border-b pb-2 mb-4">Site Information
                                 (Maklumat Tapak)</h3>
                             <p class="text-sm text-gray-500 mb-6">Sila daftarkan butiran lokasi fizikal bagi
                                 cadangan tapak projek sebelum memulakan Penyiasatan Tapak</p>
@@ -80,7 +80,7 @@
                         <div class="mb-4 mt-8">
 
                             <div class="flex justify-between items-center border-b pb-2 mb-4">
-                                <h3 class="text-lg font-medium text-gray-900">Map Coordinates</h3>
+                                <h3 class="text-lg font-medium text-indigo-600">Map Coordinates</h3>
                                 <a href="https://jupem2u.kul.jupem.gov.my/mylot/negeri.html" target="_blank"
                                     class="text-sm text-blue-600 hover:text-blue-800 underline inline-flex items-center">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"

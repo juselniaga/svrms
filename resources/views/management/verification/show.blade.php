@@ -1,12 +1,12 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between gap-4">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight block">
-                {{ __('Application Review Interface') }}
+                {{ __('Semakan Permohonan') }}
             </h2>
             <span
                 class="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-semibold rounded-full border border-yellow-200">
-                Verification Stage
+                Verifikasi Pen.Pengarah
             </span>
         </div>
     </x-slot>
@@ -25,7 +25,7 @@
             <!-- Full Report Component -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6">
-                    <h3 class="text-xl font-bold border-b pb-2 mb-6 text-gray-900 border-gray-200">Maklumat Laporan
+                    <h3 class="text-xl font-bold border-b pb-2 mb-6 text-indigo-600 border-gray-200">Maklumat Laporan
                         Penuh</h3>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
@@ -91,7 +91,7 @@
                     <!-- Site & Location Information -->
                     @if($application->site)
                         <div class="mt-8">
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">
+                            <h4 class="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-4 border-b pb-2">
                                 Maklumat Tapak / Pendaftaran Tanah</h4>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
                                 <div>
@@ -141,8 +141,8 @@
                     <!-- Site Visit Investigation Findings -->
                     @if($application->siteVisits && $application->siteVisits->count() > 0)
                         <div class="mt-8">
-                            <h4 class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b pb-2">Site
-                                Investigation Findings</h4>
+                            <h4 class="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-4 border-b pb-2">
+                                Penemuan Siasatan Tapak</h4>
 
                             @foreach($application->siteVisits as $visit)
                                 <div class="mb-6 bg-white border border-gray-200 rounded-lg shadow-sm overflow-hidden">
@@ -161,9 +161,11 @@
                                         @foreach(['north' => ['finding_north', 'photos_north'], 'south' => ['findings_south', 'photos_south'], 'east' => ['findings_east', 'photo_east'], 'west' => ['finding_west', 'photo_west']] as $dir => $fields)
                                             <div class="bg-gray-50 rounded p-3 border border-gray-100">
                                                 <h5 class="text-xs font-bold uppercase text-gray-600 mb-2 border-b pb-1">
-                                                    {{ ucfirst($dir) }} Direction</h5>
+                                                    {{ ucfirst($dir) }} Direction
+                                                </h5>
                                                 <p class="text-sm text-gray-800 mb-3 whitespace-pre-line">
-                                                    {{ $visit->{$fields[0]} ?: 'No observations recorded.' }}</p>
+                                                    {{ $visit->{$fields[0]} ?: 'No observations recorded.' }}
+                                                </p>
 
                                                 @if(is_array($visit->{$fields[1]}) && count($visit->{$fields[1]}) > 0)
                                                     <div class="grid grid-cols-2 gap-2">
@@ -187,7 +189,7 @@
                     @if($application->review)
                         <div class="mt-8 bg-gray-50 border border-gray-200 rounded-lg p-5">
                             <h4
-                                class="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4 border-b border-gray-200 pb-2">
+                                class="text-sm font-semibold text-indigo-600 uppercase tracking-wider mb-4 border-b border-gray-200 pb-2">
                                 Officer's Review & Recommendation</h4>
 
                             <div class="mb-4">
@@ -242,7 +244,7 @@
                             @csrf
 
                             <div class="mb-6">
-                                <p class="text-sm font-medium text-gray-700 mb-3">Please select your verification decision:
+                                <p class="text-xs font-bold text-gray-700 mb-3">Sila pilih keputusan semakan anda:
                                 </p>
                                 <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
                                     <label
