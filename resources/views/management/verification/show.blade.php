@@ -120,18 +120,55 @@
                                     </div>
                                 </div>
                                 <div class="bg-gray-50 p-3 rounded border border-gray-200">
-                                    <span class="block text-xs font-semibold text-gray-500 uppercase mb-2">Koordinat
-                                        GPS</span>
-                                    @if($application->site->google_lat && $application->site->google_long)
-                                        <p class="font-mono text-gray-800 text-xs">Lat: {{ $application->site->google_lat }}</p>
-                                        <p class="font-mono text-gray-800 text-xs">Lng: {{ $application->site->google_long }}
-                                        </p>
-                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $application->site->google_lat }},{{ $application->site->google_long }}"
-                                            target="_blank"
-                                            class="text-blue-600 hover:text-blue-800 text-xs block mt-2 underline">Lihat di
-                                            Google Maps</a>
+                                    <span class="block text-xs font-semibold text-gray-500 uppercase mb-2">Koordinat GPS</span>
+
+                                    @php
+                                        // google_lat stores combined "lat,lng" e.g. "2.386041,102.532776"
+                                        $coords     = $application->site->google_lat ?? null;
+                                        $coordParts = $coords ? array_map('trim', explode(',', $coords)) : [];
+                                        $lat        = $coordParts[0] ?? null;
+                                        $lng        = $coordParts[1] ?? null;
+                                        $hasCoords  = $lat && $lng;
+                                    @endphp
+
+                                    @if($hasCoords)
+                                        <div class="space-y-1 mb-3">
+                                            <p class="font-mono text-gray-800 text-xs">
+                                                <span class="text-gray-500 font-sans">Lat:</span> {{ $lat }}
+                                            </p>
+                                            <p class="font-mono text-gray-800 text-xs">
+                                                <span class="text-gray-500 font-sans">Lng:</span> {{ $lng }}
+                                            </p>
+                                        </div>
+
+                                        <div class="flex flex-col gap-1.5">
+                                            {{-- Google Maps — direct pin on coordinates --}}
+                                            <a href="https://maps.google.com/?q={{ $lat }},{{ $lng }}"
+                                               target="_blank"
+                                               class="inline-flex items-center gap-1.5 text-blue-600 hover:text-blue-800 text-xs font-medium underline">
+                                                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                </svg>
+                                                Lihat di Google Maps
+                                            </a>
+
+                                            {{-- Native Maps app (mobile geo: URI) --}}
+                                            <a href="geo:{{ $lat }},{{ $lng }}?q={{ urlencode($lat . ',' . $lng) }}"
+                                               class="inline-flex items-center gap-1.5 text-green-600 hover:text-green-800 text-xs font-medium underline">
+                                                <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                          d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                          d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                </svg>
+                                                Buka Aplikasi Peta
+                                            </a>
+                                        </div>
                                     @else
-                                        <p class="text-gray-500 italic text-sm">Tidak direkod</p>
+                                        <p class="text-gray-400 italic text-sm">Koordinat tidak direkod.</p>
                                     @endif
                                 </div>
                             </div>

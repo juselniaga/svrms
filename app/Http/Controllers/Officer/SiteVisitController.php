@@ -154,11 +154,9 @@ class SiteVisitController extends Controller
                 $application->save();
 
                 $application->auditLogs()->create([
-                    'user_id' => auth()->id(),
-                    'action' => 'SITE_INVESTIGATION_COMPLETED',
-                    'description' => "Officer formally submitted Site Investigation.",
-                    'remarks' => "Location Data: " . ($siteVisit->location_data ?? 'None'),
-                    'created_at' => now(),
+                    'user_id'  => auth()->id(),
+                    'action'   => 'SITE_INVESTIGATION_COMPLETED',
+                    'remarks'  => 'Officer formally submitted Site Investigation. Location Data: ' . ($siteVisit->location_data ?? 'None'),
                 ]);
             }
         });

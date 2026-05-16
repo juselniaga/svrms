@@ -131,8 +131,8 @@
                                         <label for="visit_date"
                                             class="block font-medium text-xs text-gray-500 uppercase">Date of Visit
                                             <span class="text-red-500">*</span></label>
-                                        <input type="datetime-local" name="visit_date" id="visit_date"
-                                            value="{{ old('visit_date', $siteVisit->visit_date ? $siteVisit->visit_date->format('Y-m-d\TH:i') : now()->format('Y-m-d\TH:i')) }}"
+                                        <input type="date" name="visit_date" id="visit_date"
+                                            value="{{ old('visit_date', $siteVisit->visit_date ? $siteVisit->visit_date->format('Y-m-d') : now()->format('Y-m-d')) }}"
                                             class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm"
                                             required>
                                         @error('visit_date') <span
