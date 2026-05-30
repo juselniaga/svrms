@@ -13,11 +13,13 @@ class Verification extends Model
         'assistant_director_id',
         'verification_status',
         'remarks',
+        'remark_history',
         'verified_at',
     ];
 
     protected $casts = [
         'verified_at' => 'datetime',
+        'remark_history' => 'array',
     ];
 
     public function application()

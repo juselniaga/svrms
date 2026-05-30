@@ -5,111 +5,57 @@ namespace App\Http\Controllers\Management;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Application;
+use App\Services\ApprovalService;
 
 class ApprovalController extends Controller
 {
+    protected ApprovalService $approvalService;
+
+    public function __construct(ApprovalService $approvalService)
+    {
+        $this->approvalService = $approvalService;
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $baseQuery = Application::with('developer')->whereYear('created_at', date('Y'));
 
-        // Stats calculation (same as assistant director)
-        $allApps = $baseQuery->get();
-        $stats = [
-            'total' => $allApps->count(),
-            'recorded' => $allApps->where('status', 'RECORDED')->count(),
-            'in_progress' => $allApps->whereIn('status', ['SITE_VISIT_IN_PROGRESS', 'PENDING_VERIFICATION', 'VERIFIED', 'PENDING_APPROVAL'])->count(),
-            'approved' => $allApps->where('status', 'APPROVED')->count(),
-            'rejected' => $allApps->where('status', 'REJECTED')->count(),
-            'late' => $allApps->filter(function ($app) {
-                return $app->created_at->diffInDays(now()) > 14 && $app->status !== 'APPROVED' && $app->status !== 'REJECTED';
-            })->count(),
-        ];
-
-        // Task Todo: Applications waiting for Director ACTION
-        $tasksTodo = Application::with('developer', 'review', 'verification')
-            ->where('status', 'VERIFIED')
-            ->latest()
-            ->get();
-
-        // Searchable All Applications List
-        $applications = Application::with('developer')
-            ->whereYear('created_at', date('Y'))
-            ->when($search, function ($query, $search) {
-                $query->where(function ($q) use ($search) {
-                    $q->where('reference_no', 'like', "%{$search}%")
-                      ->orWhere('tajuk', 'like', "%{$search}%")
-                      ->orWhereHas('developer', function ($devQuery) use ($search) {
-                          $devQuery->where('name', 'like', "%{$search}%");
-                      });
-                });
-            })
-            ->latest()
-            ->paginate(10);
+        $stats = $this->approvalService->calculateStats($search);
+        $tasksTodo = $this->approvalService->getTasksTodo();
+        $applications = $this->approvalService->getSearchableApplications($search);
 
         return view('management.approval.index', compact('stats', 'tasksTodo', 'applications'));
     }
 
     public function show(Application $application)
     {
-        $application->load(['developer', 'site', 'review.officer', 'siteVisits.officer', 'verification.assistantDirector']);
+        $application->load(['developer', 'site', 'review.officer', 'siteVisits.officer', 'verifications.assistantDirector']);
         return view('management.approval.show', compact('application'));
     }
 
     public function update(Request $request, Application $application)
     {
-        if ($application->status !== 'VERIFIED') {
-            abort(403, 'This application is not verified and ready for approval.');
-        }
-
         $validated = $request->validate([
             'action' => 'required|in:APPROVED,RETURNED,REJECTED',
-            'remarks' => 'required_if:action,RETURNED,REJECTED|nullable|string',
+            'remarks_json' => 'nullable|json',
+            'remark' => 'nullable|string',
         ]);
 
-        \Illuminate\Support\Facades\DB::transaction(function () use ($validated, $application) {
-            
-            // Format the decision string as requested
-            $directorName = auth()->user()->name;
-            $currentDate = now()->format('Y-m-d');
-            $currentTime = now()->format('H:i:s');
-            $decisionText = "{$application->reference_no}, approved by {$directorName}, {$currentDate} and {$currentTime} approved.";
+        $remarks = json_decode($validated['remarks_json'] ?? '[]', true);
+        $finalRemark = $validated['remark'] ?? null;
 
-            // Log the approval action
-            $application->approval()->create([
-                'director_id' => auth()->id(),
-                'approval_status' => $validated['action'],
-                'remarks' => $validated['remarks'],
-                'decision' => $decisionText,
-                'approved_at' => now(),
-            ]);
+        $this->approvalService->processApproval($application, $validated['action'], $remarks, $finalRemark);
 
-            // Determine new application status
-            $newStatus = $validated['action'];
-            if ($validated['action'] === 'RETURNED') {
-                $newStatus = 'SITE_VISIT_IN_PROGRESS'; // Send back to officer
-            }
-
-            // Update application status
-            $application->status = $newStatus;
-            $application->save();
-
-            // Create Audit Trail
-            $application->auditLogs()->create([
-                'user_id' => auth()->id(),
-                'action' => 'APPROVAL_' . $validated['action'],
-                'description' => "Director updated status to {$newStatus}.",
-                'remarks' => $validated['remarks'] ?? 'No remarks provided.',
-                'created_at' => now()
-            ]);
-        });
-
-        $message = match($validated['action']) {
-            'APPROVED' => 'Application has been APPROVED successfully.',
-            'RETURNED' => 'Application has been returned to the assigned Officer for amendment.',
-            'REJECTED' => 'Application has been officially rejected.',
-        };
-
+        $message = $this->getSuccessMessage($validated['action'], count($remarks));
         return redirect()->route('approval.dashboard')->with('success', $message);
+    }
+
+    private function getSuccessMessage(string $action, int $remarkCount): string
+    {
+        return match($action) {
+            'APPROVED' => "Application has been APPROVED successfully with {$remarkCount} remark(s).",
+            'RETURNED' => "Application has been returned to the assigned Officer with {$remarkCount} remark(s).",
+            'REJECTED' => "Application has been officially rejected with {$remarkCount} remark(s).",
+        };
     }
 }

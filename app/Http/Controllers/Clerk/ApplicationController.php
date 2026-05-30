@@ -41,7 +41,8 @@ class ApplicationController extends Controller
     public function createDetails(\App\Models\Developer $developer)
     {
         $officers = \App\Models\User::where('role', \App\Enums\UserRole::Officer)->where('is_active', true)->get();
-        return view('clerk.applications.create-details', compact('developer', 'officers'));
+        $mukims = \App\Models\Mukim::where('status', true)->get();
+        return view('clerk.applications.create-details', compact('developer', 'officers', 'mukims'));
     }
 
     // Process Step 2

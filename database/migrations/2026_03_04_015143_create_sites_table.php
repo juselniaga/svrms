@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id('site_id');
             $table->foreignId('application_id')->constrained('applications', 'application_id');
             $table->string('mukim');
-            $table->string('bpk');
+            $table->string('bp')->nullable();
+            $table->string('bpk')->nullable();
             $table->decimal('luas', 10, 4); // Area in e.g hectares/acres
             $table->string('google_lat')->nullable();
             //$table->decimal('google_long', 11, 8)->nullable();

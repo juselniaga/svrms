@@ -26,6 +26,10 @@ return new class extends Migration
             $table->json('photo_east')->nullable();
             $table->text('finding_west')->nullable();
             $table->json('photo_west')->nullable();
+            $table->text('finding_jalan')->nullable();
+            $table->json('photos_jalan')->nullable();
+            $table->text('finding_location')->nullable();
+            $table->json('photos_location')->nullable();
 
             $table->json('attachments')->nullable();
 

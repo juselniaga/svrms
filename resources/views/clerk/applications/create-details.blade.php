@@ -41,17 +41,25 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                         <div class="md:col-span-2">
                             <x-input-label for="application_tajuk" :value="__('Tajuk Projek *')" />
-                            <x-text-input id="application_tajuk" class="block mt-1 w-full" type="text"
-                                name="application[tajuk]" x-model="tajuk" required autofocus />
+                            <textarea id="application_tajuk"
+                                class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                                name="application[tajuk]" rows="3" x-model="tajuk" required autofocus></textarea>
                             <x-input-error :messages="$errors->get('application.tajuk')" class="mt-2" />
                             <p x-show="!tajuk" class="text-sm text-red-500 mt-1" style="display: none;">Tajuk Projek
                                 diperlukan.</p>
                         </div>
                         <div class="md:col-span-2">
-                            <x-input-label for="application_lokasi" :value="__('Lokasi Projek *')" />
-                            <textarea id="application_lokasi"
+                            <x-input-label for="application_mukim_id" :value="__('Lokasi Projek (Mukim) *')" />
+                            <select id="application_mukim_id"
                                 class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                                name="application[lokasi]" rows="3" x-model="lokasi" required></textarea>
+                                name="application[lokasi]" x-model="lokasi" required>
+                                <option value="">-- Pilih Mukim --</option>
+                                @foreach($mukims as $mukim)
+                                    <option value="{{ $mukim->mukim_no }}" {{ old('application.lokasi') == $mukim->mukim_no ? 'selected' : '' }}>
+                                        {{ $mukim->mukim_no }} - {{ $mukim->mukim }}
+                                    </option>
+                                @endforeach
+                            </select>
                             <x-input-error :messages="$errors->get('application.lokasi')" class="mt-2" />
                             <p x-show="!lokasi" class="text-sm text-red-500 mt-1" style="display: none;">Lokasi Projek
                                 diperlukan.</p>

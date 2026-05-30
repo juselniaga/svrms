@@ -80,29 +80,66 @@ class FilingController extends Controller
     }
 
     /**
-     * Mark the application as officially FILED in the system.
+     * Mark the application as officially FILED in the system and generate PDF(s).
      */
     public function markAsFiled(Request $request, Application $application)
     {
-        DB::beginTransaction();
+        if (! in_array($application->status, ['APPROVED', 'REJECTED'])) {
+            abort(403, 'Application must be APPROVED or REJECTED to be filed.');
+        }
+
+        $validated = $request->validate([
+            'include_laporan' => 'nullable|in:1',
+            'include_surat_balas' => 'nullable|in:1',
+            'ruj_kami' => 'required_if:include_surat_balas,1|nullable|string|max:255',
+            'addressed_to' => 'required_if:include_surat_balas,1|nullable|in:YDP,SU,PENGARAH',
+        ]);
+
+        $includeLaporan = $request->has('include_laporan');
+        $includeSuratBalas = $request->has('include_surat_balas');
+
+        if (!$includeLaporan && !$includeSuratBalas) {
+            return back()->with('error', 'Please select at least one document to print.');
+        }
+
         try {
-            if (! in_array($application->status, ['APPROVED', 'REJECTED'])) {
-                abort(403, 'Application must be APPROVED or REJECTED to be filed.');
+            $application->load(['developer', 'site', 'siteVisits.officer', 'reviews.officer', 'verifications.assistantDirector', 'approvals.director']);
+
+            $pdf = null;
+
+            if ($includeLaporan && $includeSuratBalas) {
+                // Generate combined PDF with both laporan and surat balas
+                $pdf = Pdf::loadView('filings.combined_pdf_template', [
+                    'application' => $application,
+                    'ruj_kami' => $validated['ruj_kami'] ?? '',
+                    'addressed_to' => $validated['addressed_to'] ?? '',
+                ]);
+            } elseif ($includeLaporan) {
+                // Generate laporan only
+                $pdf = Pdf::loadView('filings.pdf_template', compact('application'));
+            } elseif ($includeSuratBalas) {
+                // Generate surat balas only
+                $pdf = Pdf::loadView('filings.surat_balas_template', [
+                    'application' => $application,
+                    'ruj_kami' => $validated['ruj_kami'],
+                    'addressed_to' => $validated['addressed_to'],
+                ]);
             }
 
-            $this->stateMachine->transitionTo(
-                $application,
-                'FILED',
-                'Application Dossier completely compiled and FILED by Clerk '.Auth::user()->name.'.'
-            );
+            // Transition status to FILED
+            DB::transaction(function () use ($application) {
+                $this->stateMachine->transitionTo(
+                    $application,
+                    'FILED',
+                    'Application Dossier completely compiled and FILED by Clerk '.Auth::user()->name.'.'
+                );
+            });
 
-            DB::commit();
-
-            return redirect()->route('filings.show', $application)->with('success', 'Application marked as FILED and locked.');
+            // Return the PDF download
+            $filename = 'SVRMS_Dossier_'.str_replace('/', '_', $application->reference_no).'.pdf';
+            return $pdf->download($filename);
 
         } catch (\Exception $e) {
-            DB::rollBack();
-
             return back()->with('error', 'Error filing application: '.$e->getMessage());
         }
     }

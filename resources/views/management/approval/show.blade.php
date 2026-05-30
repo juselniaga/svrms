@@ -10,6 +10,7 @@
             </span>
         </div>
     </x-slot>
+    
 
     <div class="py-5">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
@@ -21,6 +22,165 @@
                     &larr; Kembali ke Dashboard
                 </a>
             </div>
+
+            <!-- Approval Remarks Management Script (loaded early for verification remarks integration) -->
+            <script>
+                const ApprovalRemarks = {
+                    editingIndex: null,
+
+                    get() {
+                        try {
+                            return JSON.parse(document.getElementById('remarksJson').value) || [];
+                        } catch (e) {
+                            return [];
+                        }
+                    },
+
+                    save(remarks) {
+                        const elem = document.getElementById('remarksJson');
+                        if (!elem) {
+                            console.error('remarksJson element not found');
+                            return false;
+                        }
+                        elem.value = JSON.stringify(remarks);
+                        return true;
+                    },
+
+                    render() {
+                        const container = document.getElementById('remarksList');
+                        const remarks = this.get();
+
+                        container.innerHTML = '';
+
+                        if (remarks.length === 0) {
+                            container.innerHTML = '<p class="text-xs text-gray-500 italic">No remarks added yet.</p>';
+                            return;
+                        }
+
+                        remarks.forEach((text, idx) => {
+                            const div = document.createElement('div');
+                            div.className = 'bg-white p-3 rounded border border-gray-300 flex justify-between items-start';
+                            div.innerHTML = `
+                                <div class="flex-1">
+                                    <p class="text-sm text-gray-800 whitespace-pre-wrap">${this.escapeHtml(text)}</p>
+                                </div>
+                                <div class="ml-2 flex space-x-1">
+                                    <button type="button" onclick="ApprovalRemarks.edit(${idx})"
+                                        class="px-2 py-1 text-xs text-blue-600 hover:bg-blue-50 rounded border border-blue-200">
+                                        Edit
+                                    </button>
+                                    <button type="button" onclick="ApprovalRemarks.delete(${idx})"
+                                        class="px-2 py-1 text-xs text-red-600 hover:bg-red-50 rounded border border-red-200">
+                                        Delete
+                                    </button>
+                                </div>
+                            `;
+                            container.appendChild(div);
+                        });
+                    },
+
+                    add() {
+                        const input = document.getElementById('remarkInput');
+                        const text = input.value.trim();
+
+                        if (!text) {
+                            alert('Please enter a remark');
+                            return;
+                        }
+
+                        const remarks = this.get();
+
+                        if (this.editingIndex !== null) {
+                            remarks[this.editingIndex] = text;
+                            this.editingIndex = null;
+                        } else {
+                            remarks.push(text);
+                        }
+
+                        this.save(remarks);
+                        input.value = '';
+                        this.render();
+                        this.updateButton();
+                    },
+
+                    edit(index) {
+                        const remarks = this.get();
+                        const input = document.getElementById('remarkInput');
+
+                        input.value = remarks[index];
+                        this.editingIndex = index;
+                        input.focus();
+                        input.scrollIntoView({ behavior: 'smooth' });
+                        this.updateButton();
+                    },
+
+                    delete(index) {
+                        const remarks = this.get();
+                        remarks.splice(index, 1);
+                        this.save(remarks);
+                        this.editingIndex = null;
+                        this.render();
+                        this.updateButton();
+                    },
+
+                    updateButton() {
+                        const btn = document.querySelector('button[onclick="ApprovalRemarks.add()"]');
+                        if (btn) btn.textContent = this.editingIndex !== null ? '✓ Update Remark' : '+ Add Remark';
+                    },
+
+                    escapeHtml(text) {
+                        const div = document.createElement('div');
+                        div.textContent = text;
+                        return div.innerHTML;
+                    }
+                };
+
+                // Approval Modal Handler
+                const ApprovalModal = {
+                    show() {
+                        const modal = document.getElementById('approvalModal');
+                        const textarea = document.getElementById('approvalModalRemark');
+                        modal.style.display = 'flex';
+                        textarea.focus();
+                    },
+
+                    hide() {
+                        const modal = document.getElementById('approvalModal');
+                        modal.style.display = 'none';
+                    },
+
+                    cancel() {
+                        document.getElementById('approvalModalRemark').value = '';
+                        this.hide();
+                    },
+
+                    proceed() {
+                        const remark = document.getElementById('approvalModalRemark').value.trim();
+                        if (!remark) {
+                            alert('Please enter a remark for this approval decision');
+                            return;
+                        }
+
+                        // Store the remark in the hidden field
+                        document.getElementById('approvalRemark').value = remark;
+                        this.hide();
+
+                        // Submit the form
+                        document.getElementById('approvalForm').submit();
+                    }
+                };
+
+                // Intercept form submission to show modal
+                document.addEventListener('DOMContentLoaded', function() {
+                    const form = document.getElementById('approvalForm');
+                    if (form) {
+                        form.addEventListener('submit', function(e) {
+                            e.preventDefault();
+                            ApprovalModal.show();
+                        });
+                    }
+                });
+            </script>
 
             <!-- Full Report Component -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
@@ -138,9 +298,9 @@
                                     </div>
                                     <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <!-- Directions & Photos -->
-                                        @foreach(['north' => ['finding_north', 'photos_north'], 'south' => ['findings_south', 'photos_south'], 'east' => ['findings_east', 'photo_east'], 'west' => ['finding_west', 'photo_west']] as $dir => $fields)
+                                        @foreach(['north' => ['finding_north', 'photos_north'], 'south' => ['findings_south', 'photos_south'], 'east' => ['findings_east', 'photo_east'], 'west' => ['finding_west', 'photo_west'], 'jalan' => ['finding_jalan', 'photos_jalan'], 'location' => ['finding_location', 'photos_location']] as $dir => $fields)
                                             <div class="bg-gray-50 rounded p-3 border border-gray-100">
-                                                <h5 class="text-xs font-bold uppercase text-gray-600 mb-2 border-b pb-1">{{ ucfirst($dir) }} Direction</h5>
+                                                <h5 class="text-xs font-bold uppercase text-gray-600 mb-2 border-b pb-1">{{ $dir === 'jalan' ? 'Jalan (Road)' : ($dir === 'location' ? 'Lokasi (Location)' : ucfirst($dir) . ' Direction') }}</h5>
                                                 <p class="text-sm text-gray-800 mb-3 whitespace-pre-line">{{ $visit->{$fields[0]} ?: 'No observations recorded.' }}</p>
                                                 
                                                 @if(is_array($visit->{$fields[1]}) && count($visit->{$fields[1]}) > 0)
@@ -199,8 +359,13 @@
                         </div>
                     @endif
 
-                    <!-- Assistant Director Verification Section -->
-                    @if($application->verification)
+                    <!-- Assistant Director Verification Section with Remarks -->
+                    @php
+                        $latestVerification = $application->verifications && $application->verifications->count() > 0
+                            ? $application->verifications->sortByDesc('verify_id')->first()
+                            : null;
+                    @endphp
+                    @if($latestVerification)
                         <div class="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-5">
                             <h4
                                 class="text-md font-bold text-indigo-500 uppercase tracking-wider mb-4 border-b border-yellow-200 pb-2">
@@ -209,26 +374,23 @@
                             <div class="mb-4">
                                 <span class="text-gray-600 text-sm font-semibold">Verified By:</span>
                                 <span
-                                    class="text-gray-900 text-sm">{{ $application->verification->assistantDirector->name ?? 'Unknown AD' }}</span>
+                                    class="text-gray-900 text-sm">{{ $latestVerification->assistantDirector->name ?? 'Unknown AD' }}</span>
                                 <span
-                                    class="text-gray-400 text-xs ml-2">({{ $application->verification->verified_at->format('d/m/Y H:i A') }})</span>
+                                    class="text-gray-400 text-xs ml-2">({{ $latestVerification->verified_at->format('d/m/Y H:i A') }})</span>
                             </div>
 
-                            <div class="mb-5 bg-white p-4 rounded border border-yellow-200 shadow-sm">
-                                <h5 class="text-xs font-semibold text-gray-500 uppercase mb-2">Verification Remarks</h5>
-                                <p class="text-gray-800 whitespace-pre-line text-sm">
-                                    {{ $application->verification->remarks ?? 'None' }}</p>
-                            </div>
+                            <!-- Verification Remarks Section -->
+                            @include('management.approval.partials.verification-remarks', ['verification' => $latestVerification])
 
                             <div
                                 class="flex items-center space-x-3 bg-white p-4 rounded border border-yellow-200 shadow-sm">
                                 <span class="text-gray-600 text-sm font-semibold">Recommended Decision:</span>
-                                @if($application->verification->verification_status === 'VERIFIED')
+                                @if($latestVerification->verification_status === 'VERIFIED')
                                     <span
                                         class="px-3 py-1 inline-flex text-sm leading-5 font-bold rounded-full bg-green-100 text-green-800 border border-green-200">
                                         VERIFIED (Recommend Approval)
                                     </span>
-                                @elseif($application->verification->verification_status === 'REJECTED')
+                                @elseif($latestVerification->verification_status === 'REJECTED')
                                     <span
                                         class="px-3 py-1 inline-flex text-sm leading-5 font-bold rounded-full bg-red-100 text-red-800 border border-red-200">
                                         REJECTED (Recommend Rejection)
@@ -236,7 +398,7 @@
                                 @else
                                     <span
                                         class="px-3 py-1 inline-flex text-sm leading-5 font-bold rounded-full bg-gray-100 text-gray-800 border border-gray-200">
-                                        {{ $application->verification->verification_status }}
+                                        {{ $latestVerification->verification_status }}
                                     </span>
                                 @endif
                             </div>
@@ -246,14 +408,18 @@
             </div>
 
             <!-- Approval Action Panel -->
-            @if($application->status === 'VERIFIED')
+            @php
+                $canShowApprovalForm = $application->status === 'VERIFIED' ||
+                    ($latestVerification && in_array($latestVerification->verification_status, ['VERIFIED', 'REJECTED']));
+            @endphp
+            @if($canShowApprovalForm)
                 <div class="bg-white overflow-hidden shadow-lg border border-green-200 sm:rounded-lg"
                     x-data="{ action: '' }">
                     <div class="p-6">
                         <h3 class="text-lg font-bold border-b pb-2 mb-4 text-green-900 border-green-100">Final Director
                             Action</h3>
 
-                        <form method="POST" action="{{ route('approval.update', $application->application_id) }}">
+                        <form method="POST" id="approvalForm" action="{{ route('approval.update', $application->application_id) }}">
                             @csrf
 
                             <div class="mb-6">
@@ -306,20 +472,33 @@
                                 <x-input-error :messages="$errors->get('action')" class="mt-2" />
                             </div>
 
-                            <!-- Dynamic Remarks Field -->
+                            <!-- Dynamic Remarks Field with List -->
                             <div class="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200 transition-all duration-300"
                                 x-show="action !== ''" x-transition>
-                                <label for="remarks" class="block text-sm font-medium text-gray-700 mb-2">
+                                <label class="block text-sm font-medium text-gray-700 mb-3">
                                     Director's Remarks <span x-show="action === 'RETURNED' || action === 'REJECTED'"
                                         class="text-red-500">* (Required)</span>
                                 </label>
-                                <textarea id="remarks" name="remarks" rows="3"
-                                    class="block w-full border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-md shadow-sm sm:text-sm"
-                                    :required="action === 'RETURNED' || action === 'REJECTED'"
-                                    placeholder="Enter justification for your decision here..."></textarea>
-                                <x-input-error :messages="$errors->get('remarks')" class="mt-2" />
-                                <p class="mt-2 text-xs text-gray-500">These remarks will be recorded in the official audit
-                                    trail.</p>
+
+                                <!-- Remarks List -->
+                                <div id="remarksList" class="mb-4 space-y-2">
+                                    <!-- Remarks will be added here dynamically -->
+                                </div>
+
+                                <!-- Add Remark Input -->
+                                <div class="flex gap-2">
+                                    <textarea id="remarkInput" rows="2"
+                                        class="flex-1 block border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-md shadow-sm sm:text-sm"
+                                        placeholder="Type your remark here..."></textarea>
+                                    <button type="button" onclick="ApprovalRemarks.add()"
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700 whitespace-nowrap">
+                                        + Add Remark
+                                    </button>
+                                </div>
+
+                                <input type="hidden" name="remarks_json" id="remarksJson" value="[]">
+                                <x-input-error :messages="$errors->get('remarks_json')" class="mt-2" />
+                                <p class="mt-2 text-xs text-gray-500">Add all remarks you want to include. They will be recorded in the official audit trail.</p>
                             </div>
 
                             <div class="flex justify-end pt-4 border-t border-gray-200">
@@ -329,9 +508,38 @@
                                     Submit Final Decision
                                 </button>
                             </div>
+                            <!-- Hidden field for the final approval remark -->
+                            <input type="hidden" name="remark" id="approvalRemark" value="">
                         </form>
+
+                        <!-- Final Approval Confirmation Modal -->
+                        <div id="approvalModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden-modal items-center justify-center z-50" style="display: none;">
+                            <div class="bg-white rounded-lg shadow-lg p-6 max-w-md w-full mx-4">
+                                <h3 class="text-lg font-bold text-gray-900 mb-4">Final Approval Confirmation</h3>
+
+                                <p class="text-sm text-gray-600 mb-4">
+                                    Please provide a final remark for this approval decision. This will be recorded in the approval record.
+                                </p>
+
+                                <textarea id="approvalModalRemark" rows="4"
+                                    class="w-full block border-gray-300 focus:border-green-500 focus:ring-green-500 rounded-md shadow-sm sm:text-sm"
+                                    placeholder="Enter your final approval remark..."></textarea>
+
+                                <div class="flex justify-end gap-3 mt-6">
+                                    <button type="button" onclick="ApprovalModal.cancel()"
+                                        class="px-4 py-2 border border-gray-300 text-gray-700 rounded-md text-sm font-medium hover:bg-gray-50">
+                                        Cancel
+                                    </button>
+                                    <button type="button" onclick="ApprovalModal.proceed()"
+                                        class="px-4 py-2 bg-green-600 text-white rounded-md text-sm font-medium hover:bg-green-700">
+                                        Proceed
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
             @endif
 
         </div>

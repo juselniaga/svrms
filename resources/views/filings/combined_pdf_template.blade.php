@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
-    <title>SVRMS Dossier: {{ $application->reference_no }}</title>
+    <title>SVRMS Dossier & Surat Balas: {{ $application->reference_no }}</title>
     <style>
         body {
             font-family: 'Helvetica', 'Arial', sans-serif;
-            font-size: 11pt;
+            font-size: 10pt;
             color: #333;
-            line-height: 1.4;
+            line-height: 1.05;
+            margin: 0;
+            padding: 24mm 10mm 10mm 10mm;
         }
 
         .header {
@@ -83,11 +84,6 @@
             color: #991b1b;
         }
 
-        .badge-warning {
-            background-color: #ffedd5;
-            color: #9a3412;
-        }
-
         .prose {
             border: 1px solid #eee;
             padding: 15px;
@@ -143,18 +139,177 @@
             border-radius: 4px;
             display: block;
         }
+
+
+
+
+
+        /********* Surat Balas Styles *********/
+          .reference-block {
+            float: right;
+            text-align: left;
+            margin-bottom: 20px;
+            line-height: 1.05;
+        }
+ 
+        .reference-block table {
+            width: auto;
+            border-collapse: collapse;
+        }
+ 
+        .reference-block td {
+            padding: 0 4px 0 0;
+            vertical-align: top;
+            white-space: nowrap;
+        }
+ 
+        .ref-label {
+            font-weight: normal;
+            color: #000;
+            min-width: 80px;
+        }
+ 
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+ 
+        /* ── Recipient block (left-aligned, below ref) ── */
+        .recipient {
+            margin-top: 10px;
+            margin-bottom: 25px;
+            line-height: 1.05;
+            clear: both;
+        }
+ 
+        .recipient-name {
+            font-weight: bold;
+        }
+ 
+        /* ── Salutation ── */
+        .salutation {
+            margin-bottom: 20px;
+        }
+ 
+        /* ── Subject line ── */
+        .subject {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-align: justify;
+            line-height: 1.05;
+        }
+ 
+        /* ── Body paragraphs ── */
+        .body-content {
+            text-align: justify;
+            line-height: 1.05;
+        }
+ 
+        .body-content p {
+            margin: 0 0 12px 0;
+        }
+ 
+        /* Numbered main paragraphs */
+        .numbered-para {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+ 
+        .para-num {
+            min-width: 20px;
+            font-weight: normal;
+        }
+ 
+        .para-text {
+            flex: 1;
+            text-align: justify;
+        }
+ 
+        /* Sub-points (e.g. 2.1, 2.2 …) */
+        .sub-points {
+            margin: 8px 0 8px 32px;
+            line-height: 1.05;
+        }
+ 
+        .sub-points table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+ 
+        .sub-points td {
+            padding: 2px 4px 2px 0;
+            vertical-align: top;
+        }
+ 
+        .sub-num {
+            min-width: 36px;
+            white-space: nowrap;
+        }
+ 
+        /* ── Closing ── */
+        .closing-line {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            text-align: justify;
+        }
+ 
+        /* ── Motto block ── */
+        .motto-block {
+            margin: 20px 0;
+            line-height: 1.0;
+        }
+ 
+        .motto-block p {
+            margin: 2px 0;
+        }
+ 
+        /* ── Signature block ── */
+        .signature-block {
+            margin-top: 30px;
+        }
+ 
+        .signature-label {
+            margin-bottom: 50px; /* space for actual signature */
+        }
+ 
+        .signature-name {
+            font-weight: bold;
+            text-transform: uppercase;
+            border-top: 2px solid #000;
+            display: inline-block;
+            padding-top: 4px;
+            min-width: 260px;
+        }
+ 
+        .signature-title {
+            font-weight: normal;
+            margin: 4px 0 2px 0;
+        }
+ 
+        .signature-org {
+            font-weight: normal;
+            margin: 0;
+        }
+ 
+        /* Print / PDF helpers */
+        @media print {
+            body { padding: 15mm 20mm; }
+        }
     </style>
 </head>
 
 <body>
-
+    <!-- PART 1: LAPORAN (REPORT) -->
     <div class="header">
         <h1>Site Visit Report Management System (SVRMS)</h1>
         <p>Official Application Dossier</p>
         <p>Generated: {{ now()->format('d M Y, H:i') }}</p>
     </div>
 
-    <!-- 1. Executive Summary / Final Decision -->
+    <!-- 1. Executive Summary -->
     <div class="section-title">1. Executive Summary & Final Decision</div>
     @php $approval = $application->approvals->last(); @endphp
     <table class="data-table">
@@ -184,49 +339,28 @@
             <th>Decision Date</th>
             <td>{{ $approval ? $approval->created_at->format('d M Y, H:i') : 'N/A' }}</td>
         </tr>
-        @if($approval && $approval->conditions)
-            <tr>
-                <th>Imposed Conditions</th>
-                <td>{{ $approval->conditions }}</td>
-            </tr>
-        @endif
-        @if($approval && $approval->remarks)
-            <tr>
-                <th>General Notes</th>
-                <td>{{ $approval->remarks }}</td>
-            </tr>
-        @endif
     </table>
 
-    <!-- 2. Application & Developer Details -->
+    <!-- 2. Application Details -->
     <div class="section-title">2. Application, Location & Developer Details</div>
     <table class="data-table">
         <tr>
-            <th>Project Title (Tajuk)</th>
+            <th>Project Title</th>
             <td>{{ $application->tajuk }}</td>
         </tr>
         <tr>
-            <th>Location Details</th>
+            <th>Location</th>
             <td>{{ $application->lokasi }}</td>
         </tr>
         @if($application->site)
             <tr>
-                <th>Registered Land Information</th>
-                <td>
-                    Mukim: {{ $application->site->mukim }} | Lot: {{ $application->site->lot }} <br>
-                    Area: {{ number_format($application->site->luas, 4) }} | Category:
-                    {{ $application->site->kategori_tanah }} <br>
-                    Coordinates: {{ $application->site->google_lat }}, {{ $application->site->google_long }}
-                </td>
+                <th>Land Information</th>
+                <td>Mukim: {{ $application->site->mukim }} | Lot: {{ $application->site->lot }} | Area: {{ number_format($application->site->luas, 4) }}</td>
             </tr>
         @endif
         <tr>
-            <th>Developer Name</th>
+            <th>Developer</th>
             <td>{{ $application->developer->name }}</td>
-        </tr>
-        <tr>
-            <th>Contact Info</th>
-            <td>{{ $application->developer->tel }} | {{ $application->developer->email }}</td>
         </tr>
     </table>
 
@@ -235,7 +369,6 @@
     <!-- 3. Site Visit Report -->
     <div class="header">
         <h1>Phase 1: Site Investigation</h1>
-        <p>Ref: {{ $application->reference_no }}</p>
     </div>
 
     @php $siteVisit = $application->siteVisits->last(); @endphp
@@ -251,54 +384,10 @@
             </tr>
             @if($siteVisit->location_data)
                 <tr>
-                    <th>GPS Capture Verification</th>
+                    <th>GPS Capture</th>
                     <td>{{ $siteVisit->location_data }}</td>
                 </tr>
             @endif
-        </table>
-
-        <!-- Site Conditions & Infra -->
-        <h4 style="color:#5a189a; margin-top:20px;">Site Conditions & Infrastructure</h4>
-        <table class="data-table">
-            <tr>
-                <th style="width: 25%;">Activity</th>
-                <td style="width: 25%;">{{ $siteVisit->activity ?: 'N/A' }}</td>
-                <th style="width: 25%;">Facility</th>
-                <td style="width: 25%;">{{ $siteVisit->facility ?: 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th>Entrance Way</th>
-                <td>{{ $siteVisit->entrance_way ?: 'N/A' }}</td>
-                <th>Drainage (Parit)</th>
-                <td>{{ $siteVisit->parit ?: 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th>Trees Estimated</th>
-                <td>{{ $siteVisit->tree ?: 'N/A' }}</td>
-                <th>Topography</th>
-                <td>{{ $siteVisit->topography ?: 'N/A' }}</td>
-            </tr>
-        </table>
-
-        <!-- Verification & Others -->
-        <h4 style="color:#5a189a; margin-top:20px;">Verification Attributes</h4>
-        <table class="data-table">
-            <tr>
-                <th style="width: 25%;">Land Use Zone</th>
-                <td style="width: 25%;">{{ $siteVisit->land_use_zone ?: 'N/A' }}</td>
-                <th style="width: 25%;">Density</th>
-                <td style="width: 25%;">{{ $siteVisit->density ?: 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th>Recommend Road</th>
-                <td>{{ $siteVisit->recommend_road ? 'YES' : 'NO' }}</td>
-                <th>Anjakan (Setback)</th>
-                <td>{{ $siteVisit->anjakan ?: 'N/A' }}</td>
-            </tr>
-            <tr>
-                <th>Social Facility</th>
-                <td colspan="3">{{ $siteVisit->social_facility ?: 'N/A' }}</td>
-            </tr>
         </table>
 
         <h4 style="color:#5a189a; margin-top:20px;">Directional Boundary Synthesis & Site Documentation</h4>
@@ -379,7 +468,7 @@
                 @endif
             </div>
 
-            <!-- Jalan (Road) -->
+            <!-- Jalan -->
             <div class="finding-card">
                 <div class="finding-card-header">Jalan (Road)</div>
                 <div class="finding-text">{{ $siteVisit->finding_jalan ?: 'No observations recorded.' }}</div>
@@ -417,126 +506,126 @@
                 @endif
             </div>
         </div>
-    @else
-        <p><em>No Site Visit Report Recorded.</em></p>
     @endif
 
     <div class="page-break"></div>
 
-    <!-- 4. Review & Recommendation -->
-    <div class="header">
-        <h1>Phase 2: Review & Recommendation</h1>
-        <p>Ref: {{ $application->reference_no }}</p>
-    </div>
-
-    @php $review = $application->reviews->firstWhere('self_check_completed', true); @endphp
-    @if($review)
-        <table class="data-table">
+    <!-- PART 2: SURAT BALAS (RESPONSE LETTER) -->
+   <div class="reference-block">
+        <table>
             <tr>
-                <th>Recommending Officer</th>
-                <td>{{ $review->officer->name }}</td>
+                <td class="ref-label">Ruj. Kami</td>
+                <td>: MPJ/JPB/1100-6Klt 1BHG.24.sk(36)</td>
             </tr>
             <tr>
-                <th>Recommendation Date</th>
-                <td>{{ $review->updated_at->format('d M Y') }}</td>
+                <td class="ref-label">Ruj. Tuan</td>
+                <td>: PDTJ.600-2/6/133(9)</td>
             </tr>
             <tr>
-                <th>Selected Recommendation</th>
-                <td>
-                    @if($review->recommendation === 'SUPPORTED') <span class="badge badge-success">SOKONG</span>
-                    {{-- @elseif($review->recommendation === 'BERSYARAT') <span class="badge badge-warning">BERSYARAT</span> --}}
-                    @else <span class="badge badge-danger">TIDAK SOKONG</span>
-                    @endif
-                </td>
+                <td class="ref-label">Tarikh</td>
+                <td>:   Mei 2026</td>
             </tr>
         </table>
-
-        <h4 style="color:#5a189a; margin-top:20px;">Detailed Review Analysis</h4>
-        <div class="prose">
-            {{ $review->review_content }}
-        </div>
-    @else
-        <p><em>No Review Submitted.</em></p>
-    @endif
-
-    <div class="page-break"></div>
-
-    <!-- 5. Verification -->
-    <div class="header">
-        <h1>Phase 3: Verification</h1>
-        <p>Ref: {{ $application->reference_no }}</p>
     </div>
-
-    @php $verification = $application->verifications->last(); @endphp
-    @if($verification)
-        <table class="data-table">
-            <tr>
-                <th>Verifying Assistant Director</th>
-                <td>{{ $verification->assistantDirector->name }}</td>
-            </tr>
-            <tr>
-                <th>Verification Date</th>
-                <td>{{ $verification->created_at->format('d M Y') }}</td>
-            </tr>
-            <tr>
-                <th>Decision</th>
-                <td>
-                    @if($verification->verification_status === 'VERIFIED') <span class="badge badge-success">VERIFIED</span>
-                    @else <span class="badge badge-danger">REJECTED</span>
-                    @endif
-                </td>
-            </tr>
-        </table>
-
-        <h4 style="color:#5a189a; margin-top:20px;">Verification Remarks</h4>
-        <div class="prose">
-            {{ $verification->remarks ?? 'None provided.' }}
-        </div>
-    @else
-        <p><em>No Verification Recorded.</em></p>
-    @endif
-
-
-     <!-- 6. Director's Approval -->
-    <div class="header">
-        <h1>Phase 4: Director's Approval</h1>
-        <p>Ref: {{ $application->reference_no }}</p>
+ 
+ 
+    <div class="recipient">
+       
+      <div><strong>YBhg. Datuk Rahizi Bin Ranom</strong></div>
+      <div>Pegawai Daerah</div>
+      <div>Pejabat Daerah dan Tanah Jasin</div>
+	  <div>77000 Jasin</div>
+	  <div>Melaka</div>
+	  
     </div>
-
-    @php $approval = $application->approvals->last(); @endphp
-    @if($approval)
-        <table class="data-table">
-            <tr>
-                <th>Approving Director</th>
-                <td>{{ $approval->director->name }}</td>
-            </tr>
-            <tr>
-                <th>Approval Date</th>
-                <td>{{ $approval->created_at->format('d M Y') }}</td>
-            </tr>
-            <tr>
-                <th>Decision</th>
-                <td>
-                    @if($approval->approval_status === 'APPROVED') <span class="badge badge-success">APPROVED</span>
-                    @else <span class="badge badge-danger">REJECTED</span>
-                    @endif
-                </td>
-            </tr>
-        </table>
-
-        <h4 style="color:#5a189a; margin-top:20px;">Approval Remarks</h4>
-        <div class="prose">
-            {{ $approval->remarks ?? 'None provided.' }}
+ 
+    
+    <div class="salutation">YBhg. Datuk / Tuan / Puan,</div>
+ 
+ 
+    <div class="subject">
+        PERMOHONAN UNTUK MEMILIKI TANAH KERAJAAN SECARA LESEN PENDUDUKAN SEMENTARA(LPS) DI ATAS LOT 7 SELUAS 297.7477 HEKTAR MUKIM KESANG, DAERAH JASIN, MELAKA UNTUK TUJUAN MENGELUARKAN HASIL PERTANIAN KELAPA SAWIT DI BAWAH SEKSYEN 65 KANUN TANAH NEGARA(AKTA 828)
+    </div>
+    <div class="subject">
+	Nama Pemohon : Synergy Argo Farm Sdn.Bhd
+	Alamat 	 : No 4.Jalan TE 1 taman Tiong Emas 75450 Bukit Katil Melaka.
+    </div>
+ 
+ 
+    <div class="body-content">
+ 
+       
+        <p>
+            Dengan segala hormatnya saya merujuk kepada perkara di atas dan surat daripada
+            pihak YBhg.Datuk/tuan/puan bertarikh 24 April 2026  adalah berkaitan.
+        </p>
+ 
+       
+        <div class="numbered-para">
+            <span class="para-num">2.</span>
+            <span class="para-text">
+                Dimaklumkan bahawa pihak Majlis <strong>tiada halangan</strong> terhadap permohonan
+                tersebut berdasarkan:-
+ 
+                <div class="sub-points">
+                    <table>
+                        <tr>
+                            <td class="sub-num">2.1</td>
+                            <td>Tapak terletak di zon guna tanah pertanian: BPK 3.4: Seri Kesang berdasarkan Rancangan Tempatan Majlis Perbandaran Jasin 2035;</td>
+				   
+                        </tr>
+                        <tr>
+                            <td class="sub-num">2.2</td>
+                            <td>Aktiviti yang dipohon merupakan aktiviti yang dibenarkan;</td>
+                        </tr>
+                        <tr>
+                            <td class="sub-num">2.3</td>
+                            <td>Pada pandangan MPJ, dari segi saiz dan kedudukan tanah sesuai dimohon oleh agensi kerajaan;</td>
+                        </tr>
+                        <tr>
+                            <td class="sub-num">2.4</td>
+                            <td>Sebarang binaan dan kerja tanah perlu kelulusan MPJ
+                                terlebih dahulu;</td>
+                        </tr>
+                        <tr>
+                            <td class="sub-num">2.5</td>
+                            <td>Mematuhi ulasan dan syarat teknikal jabatan lain.</td>
+                        </tr>
+                    </table>
+                </div>
+            </span>
         </div>
-    @else
-        <p><em>No Approval Recorded.</em></p>
-    @endif
+ 
+    </div>
+ 
 
-    <p style="text-align: center; margin-top: 50px; font-size: 9pt; color: #999;">
-        -- End of Official SVRMS Dossier --<br>
-        Document uniquely generated by {{ config('app.name') }}
-    </p>
+    <div class="closing-line">
+        Sekian dimaklumkan untuk tindakan pihak YBhg. Datuk / Tuan / Puan selanjutnya. Terima kasih.
+    </div>
+ 
+   
+    <div class="motto-block">
+        <p>"<strong>MELAKAKU MAJU JAYA, RAKYAT BAHAGIA MENGAMIT DUNIA</strong>"</p>
+        <p>"<strong>BIJAK LANSANA TUAN,BERANI LAKSANA JEBAT</strong>"</p>
+        <p>"<strong>MELAKA SAYANG RAKYAT</strong>"</p>
+	  <p>"<strong>MALAYSIA MADANI</strong>"</p>
+	  <p>"<strong>BERHIDMAT UNTUK NEGARA</strong>"</p>
+	  <p>"<strong>MPJ PERIHATIN DI HATIKU</strong>"</p>
+	    
+       
+    </div>
+ 
+   
+    <div class="signature-block">
+        <p class="signature-label">Saya yang menjalankan amanah,</p>
+ 
+        <div>
+            <span class="signature-name">MUHAMMAD ZAHIRUDDIN BIN MOHD ZAHARI</span>
+            <p class="signature-title">Yang Dipertua,</p>
+            <p class="signature-org">Majlis Perbandaran Jasin,</p>
+            <p class="signature-org">Melaka.</p>
+        </div>
+    </div> 
 
 </body>
-
 </html>

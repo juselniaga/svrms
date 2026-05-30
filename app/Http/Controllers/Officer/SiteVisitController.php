@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Application;
 use App\Models\SiteVisit;
+use Illuminate\Support\Facades\Auth;
 
 class SiteVisitController extends Controller
 {
@@ -15,12 +16,12 @@ class SiteVisitController extends Controller
      */
     public function create(Application $application): View
     {
-        if ($application->officer_id !== auth()->id()) {
+        if ($application->officer_id !== Auth::id()) {
             abort(403, 'Unauthorized access to this application.');
         }
 
         // Load relationships needed for context
-        $application->load(['developer', 'site']);
+        $application->load(['developer', 'site.mukim_relation']);
 
         // Retrieve existing draft if available, else initialize a new one for binding
         $siteVisit = $application->siteVisits()->latest()->first() ?? new SiteVisit();
@@ -33,7 +34,7 @@ class SiteVisitController extends Controller
      */
     public function store(Request $request, Application $application)
     {
-        if ($application->officer_id !== auth()->id()) {
+        if ($application->officer_id !== Auth::id()) {
             abort(403, 'Unauthorized access to this application.');
         }
 
@@ -69,6 +70,10 @@ class SiteVisitController extends Controller
             'photo_east.*' => 'nullable|image|max:10240',
             'finding_west' => 'nullable|string',
             'photo_west.*' => 'nullable|image|max:10240',
+            'finding_jalan' => 'nullable|string',
+            'photos_jalan.*' => 'nullable|image|max:10240',
+            'finding_location' => 'nullable|string',
+            'photos_location.*' => 'nullable|image|max:10240',
             'location_data' => 'nullable|string',
         ]);
 
@@ -92,8 +97,8 @@ class SiteVisitController extends Controller
             $siteVisit = $application->siteVisits()->latest()->first();
             if (!$siteVisit) {
                 $siteVisit = new SiteVisit([
-                    'application_id' => $application->application_id, 
-                    'officer_id' => auth()->id()
+                    'application_id' => $application->application_id,
+                    'officer_id' => Auth::id()
                 ]);
             }
 
@@ -138,7 +143,17 @@ class SiteVisitController extends Controller
             if ($request->hasFile('photo_west')) {
                 $siteVisit->photo_west = $uploadPhotos($request->file('photo_west'));
             }
-            
+
+            $siteVisit->finding_jalan = $validated['finding_jalan'] ?? null;
+            if ($request->hasFile('photos_jalan')) {
+                $siteVisit->photos_jalan = $uploadPhotos($request->file('photos_jalan'));
+            }
+
+            $siteVisit->finding_location = $validated['finding_location'] ?? null;
+            if ($request->hasFile('photos_location')) {
+                $siteVisit->photos_location = $uploadPhotos($request->file('photos_location'));
+            }
+
             // Location
             if (!empty($validated['location_data'])) {
                 $siteVisit->location_data = $validated['location_data'];
@@ -154,7 +169,7 @@ class SiteVisitController extends Controller
                 $application->save();
 
                 $application->auditLogs()->create([
-                    'user_id'  => auth()->id(),
+                    'user_id'  => Auth::id(),
                     'action'   => 'SITE_INVESTIGATION_COMPLETED',
                     'remarks'  => 'Officer formally submitted Site Investigation. Location Data: ' . ($siteVisit->location_data ?? 'None'),
                 ]);

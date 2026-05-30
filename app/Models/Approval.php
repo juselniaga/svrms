@@ -14,6 +14,7 @@ class Approval extends Model
         'decision',
         'conditions',
         'remarks',
+        'remarks_history',
         'approval_status',
         'approved_at',
     ];
@@ -21,6 +22,7 @@ class Approval extends Model
     protected $casts = [
         'approved_at' => 'datetime',
         'approval_status' => 'string',
+        'remarks_history' => 'array',
     ];
 
     public function application()

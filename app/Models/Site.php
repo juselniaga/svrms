@@ -11,6 +11,7 @@ class Site extends Model
     protected $fillable = [
         'application_id',
         'mukim',
+        'bp',
         'bpk',
         'luas',
         'google_lat',
@@ -35,5 +36,20 @@ class Site extends Model
     public function application()
     {
         return $this->belongsTo(Application::class, 'application_id', 'application_id');
+    }
+
+    public function mukim_relation()
+    {
+        return $this->belongsTo(Mukim::class, 'mukim', 'mukim_no');
+    }
+
+    public function bp_relation()
+    {
+        return $this->belongsTo(BP::class, 'bp', 'id');
+    }
+
+    public function bpk_relation()
+    {
+        return $this->belongsTo(BPK::class, 'bpk', 'id');
     }
 }

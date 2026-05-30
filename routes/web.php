@@ -82,7 +82,15 @@ Route::middleware(['auth', 'role:Officer'])->prefix('officer')->name('officer.')
 Route::middleware(['auth', 'role:Assistant Director'])->prefix('management/verification')->name('verification.')->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Management\VerificationController::class, 'index'])->name('dashboard');
     Route::get('/applications/{application}', [\App\Http\Controllers\Management\VerificationController::class, 'show'])->name('show');
-    Route::post('/applications/{application}', [\App\Http\Controllers\Management\VerificationController::class, 'update'])->name('update');
+    Route::post('/applications/{application}', [\App\Http\Controllers\Management\VerificationController::class, 'store'])->name('store');
+    Route::post('/applications/{application}/submit-to-approval', [\App\Http\Controllers\Management\VerificationController::class, 'submitToApproval'])->name('submit-to-approval');
+    Route::get('/verifications/{verification}/edit', [\App\Http\Controllers\Management\VerificationController::class, 'edit'])->name('edit');
+    Route::put('/verifications/{verification}', [\App\Http\Controllers\Management\VerificationController::class, 'update'])->name('update');
+    Route::delete('/verifications/{verification}', [\App\Http\Controllers\Management\VerificationController::class, 'destroy'])->name('destroy');
+    Route::post('/verifications/{verification}/remark', [\App\Http\Controllers\Management\VerificationController::class, 'addRemark'])->name('add-remark');
+    Route::get('/verifications/{verification}/remark/{index}', [\App\Http\Controllers\Management\VerificationController::class, 'getRemark'])->name('get-remark');
+    Route::put('/verifications/{verification}/remark', [\App\Http\Controllers\Management\VerificationController::class, 'updateRemark'])->name('update-remark');
+    Route::delete('/verifications/{verification}/remark', [\App\Http\Controllers\Management\VerificationController::class, 'deleteRemark'])->name('delete-remark');
 });
 
 // Director (Approval) Routes
@@ -95,6 +103,9 @@ Route::middleware(['auth', 'role:Director'])->prefix('management/approval')->nam
 // Admin (User Management) Routes
 Route::middleware(['auth', 'role:Admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::resource('users', \App\Http\Controllers\Admin\UserController::class)->except(['show']);
+    Route::resource('mukims', \App\Http\Controllers\Admin\MukimController::class)->except(['show']);
+    Route::resource('bps', \App\Http\Controllers\Admin\BPController::class)->except(['show']);
+    Route::resource('bpks', \App\Http\Controllers\Admin\BPKController::class)->except(['show']);
 });
 
 require __DIR__.'/auth.php';

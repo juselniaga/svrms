@@ -21,8 +21,11 @@ class SiteRegistrationController extends Controller
 
         // Load relationships needed for context
         $application->load('developer');
+        $mukims = \App\Models\Mukim::where('status', true)->get();
+        $bps = \App\Models\BP::where('status', true)->get();
+        $bpks = \App\Models\BPK::where('status', true)->get();
 
-        return view('officer.site-registration.create', compact('application'));
+        return view('officer.site-registration.create', compact('application', 'mukims', 'bps', 'bpks'));
     }
 
     /**
@@ -36,7 +39,8 @@ class SiteRegistrationController extends Controller
 
         $validated = $request->validate([
             'mukim' => 'required|string|max:255',
-            'bpk' => 'nullable|string|max:255',
+            'bp' => 'required|string|exists:b_p_s,id',
+            'bpk' => 'nullable|string|exists:b_p_k_s,id',
             'luas' => 'required|numeric',
             'google_lat' => 'nullable',
            // 'google_long' => 'nullable|numeric',
@@ -49,6 +53,7 @@ class SiteRegistrationController extends Controller
         \Illuminate\Support\Facades\DB::transaction(function () use ($validated, $application) {
             $application->site()->create([
                 'mukim' => $validated['mukim'],
+                'bp' => $validated['bp'],
                 'bpk' => $validated['bpk'],
                 'luas' => $validated['luas'],
                 'google_lat' => $validated['google_lat'],

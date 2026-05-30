@@ -2,11 +2,11 @@
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('System User Management') }}
+                {{ __('Block Perancang Kecil Management') }}
             </h2>
-            <a href="{{ route('admin.users.create') }}"
+            <a href="{{ route('admin.bpks.create') }}"
                 class="inline-flex items-center px-4 py-2 bg-purple-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-purple-700 focus:bg-purple-700 active:bg-purple-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                + Register New Staff
+                + Register New BPK
             </a>
         </div>
     </x-slot>
@@ -47,38 +47,35 @@
 
             <!-- Search Area -->
             <div class="bg-white p-6 shadow-sm rounded-lg border-t-4 border-purple-500">
-                <form method="GET" action="{{ route('admin.users.index') }}" class="flex flex-col sm:flex-row gap-4">
+                <form method="GET" action="{{ route('admin.bpks.index') }}" class="flex flex-col sm:flex-row gap-4">
                     <div class="flex-1">
-                        <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search Staff</label>
+                        <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search BPK</label>
                         <input type="text" name="search" id="search" value="{{ request('search') }}"
                             class="w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm"
-                            placeholder="Search by name, email, or department...">
+                            placeholder="Search by ID, name, or code...">
                     </div>
                     <div class="w-full sm:w-1/4">
-                        <label for="role" class="block text-sm font-medium text-gray-700 mb-1">Filter by Role</label>
-                        <select name="role" id="role"
+                        <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Filter by Status</label>
+                        <select name="status" id="status"
                             class="w-full border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
-                            <option value="">All Roles</option>
-                            @foreach(\App\Enums\UserRole::cases() as $role)
-                                <option value="{{ $role->value }}" {{ request('role') == $role->value ? 'selected' : '' }}>
-                                    {{ $role->value }}
-                                </option>
-                            @endforeach
+                            <option value="">All Status</option>
+                            <option value="1" {{ request('status') === '1' ? 'selected' : '' }}>Active</option>
+                            <option value="0" {{ request('status') === '0' ? 'selected' : '' }}>Inactive</option>
                         </select>
                     </div>
                     <div class="flex items-end">
                         <x-primary-button type="submit" class="w-full sm:w-auto mt-1">
                             Filter
                         </x-primary-button>
-                        @if(request()->hasAny(['search', 'role']))
-                            <a href="{{ route('admin.users.index') }}"
+                        @if(request()->hasAny(['search', 'status']))
+                            <a href="{{ route('admin.bpks.index') }}"
                                 class="ml-2 text-sm text-gray-600 hover:underline">Clear</a>
                         @endif
                     </div>
                 </form>
             </div>
 
-            <!-- Users Table -->
+            <!-- BPK Table -->
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
@@ -86,13 +83,16 @@
                             <tr>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    User</th>
+                                    BPK ID</th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Role</th>
+                                    Block Perancang</th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Department</th>
+                                    Short Code</th>
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    BPK Name</th>
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Status</th>
@@ -102,37 +102,26 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                            @forelse ($users as $user)
+                            @forelse ($bpks as $bpk)
                                 <tr>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="ml-4">
-                                                <div class="text-sm font-medium text-gray-900">{{ $user->name }}
-                                                    @if($user->user_id === auth()->id())
-                                                        <span
-                                                            class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 ml-1">You</span>
-                                                    @endif
-                                                </div>
-                                                <div class="text-sm text-gray-500">{{ $user->email }}</div>
-                                            </div>
-                                        </div>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {{ $bpk->id }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                                {{ $user->role === 'Admin' ? 'bg-red-100 text-red-800' : '' }}
-                                                {{ $user->role === 'Director' ? 'bg-indigo-100 text-indigo-800' : '' }}
-                                                {{ $user->role === 'Assistant Director' ? 'bg-blue-100 text-blue-800' : '' }}
-                                                {{ $user->role === 'Officer' ? 'bg-green-100 text-green-800' : '' }}
-                                                {{ $user->role === 'Clerk' ? 'bg-yellow-100 text-yellow-800' : '' }}
-                                                {{ $user->role === 'Developer' ? 'bg-gray-100 text-gray-800' : '' }}">
-                                            {{ $user->role }}
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                            {{ $bpk->bp->bp_name ?? 'N/A' }}
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        {{ $user->department ?? '-' }}
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                            {{ $bpk->bpk_short }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {{ $bpk->bpk_name }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        @if($user->is_active)
+                                        @if($bpk->status)
                                             <span
                                                 class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
                                         @else
@@ -141,24 +130,22 @@
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                        <a href="{{ route('admin.users.edit', $user) }}"
-                                            class="text-indigo-600 hover:text-indigo-900 mr-3">Edit Profile</a>
+                                        <a href="{{ route('admin.bpks.edit', $bpk) }}"
+                                            class="text-indigo-600 hover:text-indigo-900 mr-3">Edit</a>
 
-                                        @if($user->user_id !== auth()->id())
-                                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
-                                                class="inline-block"
-                                                onsubmit="return confirm('Are you sure you want to completely delete this user? This cannot be undone.');">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
-                                            </form>
-                                        @endif
+                                        <form action="{{ route('admin.bpks.destroy', $bpk) }}" method="POST"
+                                            class="inline-block"
+                                            onsubmit="return confirm('Are you sure you want to delete this BPK? This cannot be undone.');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:text-red-900">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
-                                        No staff members found matching the criteria.
+                                    <td colspan="6" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">
+                                        No Block Perancang Kecil found matching the criteria.
                                     </td>
                                 </tr>
                             @endforelse
@@ -166,7 +153,7 @@
                     </table>
 
                     <div class="mt-4">
-                        {{ $users->links() }}
+                        {{ $bpks->links() }}
                     </div>
                 </div>
             </div>

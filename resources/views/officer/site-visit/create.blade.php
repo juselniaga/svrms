@@ -40,11 +40,11 @@
                         <h3 class="font-medium text-lg text-indigo-600 mb-4 border-b pb-2">Maklumat Permohonan</h3>
                         <div class="space-y-3 text-sm">
                             <div>
-                                <strong class="block text-gray-500 text-xs uppercase tracking-wider">No Ruj</strong>
+                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">No Ruj</strong>
                                 <span class="font-mono">{{ $application->reference_no ?? 'N/A' }}</span>
                             </div>
                             <div>
-                                <strong class="block text-gray-500 text-xs uppercase tracking-wider">Current
+                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">Current
                                     Status</strong>
                                 <span
                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 mt-1 whitespace-nowrap">
@@ -53,24 +53,24 @@
                             </div>
                             @if($siteVisit->status === 'DRAFT')
                                 <div>
-                                    <strong class="block text-gray-500 text-xs uppercase tracking-wider">Form State</strong>
+                                    <strong class="block text-blue-600 text-xs uppercase tracking-wider">Form State</strong>
                                     <span
                                         class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 mt-1">DRAFT
                                         SAVED</span>
                                 </div>
                             @endif
                             <div>
-                                <strong class="block text-gray-500 text-xs uppercase tracking-wider">Project
+                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">Project
                                     Title</strong>
-                                <p class="text-gray-700 mt-1">{{ $application->tajuk ?? '-' }}</p>
+                                <p class="text-black-700 mt-1">{{ $application->tajuk ?? '-' }}</p>
                             </div>
                             <div>
-                                <strong class="block text-gray-500 text-xs uppercase tracking-wider">Developer</strong>
-                                <p class="text-gray-700 mt-1">{{ optional($application->developer)->name ?? '-' }}</p>
+                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">Developer</strong>
+                                <p class="text-black-700 mt-1">{{ optional($application->developer)->name ?? '-' }}</p>
                             </div>
                             <div>
-                                <strong class="block text-gray-500 text-xs uppercase tracking-wider">Location</strong>
-                                <p class="text-gray-700 mt-1">{{ $application->lokasi ?? '-' }}</p>
+                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">Location</strong>
+                                <p class="text-black-700 mt-1">{{ $application->lokasi ?? '-' }}</p>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,12 @@
                             <div class="space-y-3 text-sm">
                                 <div>
                                     <strong class="block text-gray-500 text-xs uppercase tracking-wider">Mukim</strong>
-                                    <p class="text-gray-700 mt-1">{{ $application->site->mukim ?? '-' }}</p>
+                                    <p class="text-gray-700 mt-1">
+                                        {{ $application->site->mukim ?? '-' }}
+                                        @if($application->site->mukim_relation)
+                                            - {{ $application->site->mukim_relation->mukim }}
+                                        @endif
+                                    </p>
                                 </div>
                                 <div>
                                     <strong class="block text-gray-500 text-xs uppercase tracking-wider">Lot</strong>
@@ -166,20 +171,19 @@
                                         Infrastruktur & Topografi</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Laluan
-                                                Keluar Masuk</label>
+                                            <label class="block font-medium text-sm text-gray-700">Jalan Masuk/saiz</label>
                                             <input type="text" name="entrance_way"
                                                 value="{{ old('entrance_way', $siteVisit->entrance_way) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
                                         </div>
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Parit</label>
+                                            <label class="block font-medium text-sm text-gray-700">Perparitan/Saliran Dalaman</label>
                                             <input type="text" name="parit"
                                                 value="{{ old('parit', $siteVisit->parit) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
                                         </div>
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Pokok</label>
+                                            <label class="block font-medium text-sm text-gray-700">Pokok/Semak-samun</label>
                                             <input type="text" name="tree" value="{{ old('tree', $siteVisit->tree) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm"
                                                 placeholder="Keadaan Pokok">
@@ -196,17 +200,16 @@
                                 <!-- GROUP 3: Verify -->
                                 <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
                                     <h4 class="font-semibold text-indigo-800 mb-4 border-b border-gray-200 pb-2">3.
-                                        Verifikasi</h4>
+                                        Semakan</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Zon Penggunaan
-                                                Tanah</label>
+                                            <label class="block font-medium text-sm text-gray-700">Zon Gunatanah</label>
                                             <input type="text" name="land_use_zone"
                                                 value="{{ old('land_use_zone', $siteVisit->land_use_zone) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
                                         </div>
                                         <div>
-                                            <label class="block font-medium text-sm text-gray-700">Density</label>
+                                            <label class="block font-medium text-sm text-gray-700">Kepadatan</label>
                                             <input type="text" name="density"
                                                 value="{{ old('density', $siteVisit->density) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
@@ -217,7 +220,7 @@
                                                 class="rounded border-gray-300 text-purple-600 shadow-sm focus:ring-purple-500">
                                             <label for="recommend_road"
                                                 class="ml-2 block text-sm font-medium text-gray-900">
-                                                Cadangan Pembinaan Jalan
+                                                Jalan (Cadangan jika ada)
                                             </label>
                                         </div>
                                     </div>
@@ -226,8 +229,7 @@
                                 <!-- GROUP 4: Other -->
                                 <div class="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-lg">
                                     <h4 class="font-semibold text-indigo-800 mb-4 border-b border-gray-200 pb-2">4.
-                                        Other
-                                        Attributes</h4>
+                                        Lain-lain</h4>
                                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                         <div>
                                             <label class="block font-medium text-sm text-gray-700">Anjakan
@@ -238,7 +240,7 @@
                                         </div>
                                         <div>
                                             <label class="block font-medium text-sm text-gray-700">Kemudahan
-                                                Awam</label>
+                                                Sosial Sekitar</label>
                                             <input type="text" name="social_facility"
                                                 value="{{ old('social_facility', $siteVisit->social_facility) }}"
                                                 class="mt-1 block w-full text-sm border-gray-300 focus:border-purple-500 focus:ring-purple-500 rounded-md shadow-sm">
@@ -254,13 +256,13 @@
                                         Gambar</h4>
 
                                     <div class="space-y-6">
-                                        @foreach(['utara' => ['finding_north', 'photos_north'], 'selatan' => ['findings_south', 'photos_south'], 'timur' => ['findings_east', 'photo_east'], 'barat' => ['finding_west', 'photo_west']] as $dir => $fields)
+                                        @foreach(['location' => ['finding_location', 'photos_location'],'jalan' => ['finding_jalan', 'photos_jalan'], 'utara' => ['finding_north', 'photos_north'], 'selatan' => ['findings_south', 'photos_south'], 'timur' => ['findings_east', 'photo_east'], 'barat' => ['finding_west', 'photo_west']] as $dir => $fields)
                                             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 shadow-sm">
                                                 <h4
                                                     class="font-medium text-gray-800 mb-3 flex items-center justify-between">
                                                     <span
                                                         class="bg-purple-100 text-purple-800 px-3 py-1 rounded text-xs font-bold uppercase">
-                                                        Arah {{ ucfirst($dir) }}
+                                                        {{ $dir === 'jalan' ? 'Jalan (Road)' : ($dir === 'location' ? 'Lokasi (Location)' : 'Arah ' . ucfirst($dir)) }}
                                                     </span>
 
                                                     @if(is_array($siteVisit->{$fields[1]}) && count($siteVisit->{$fields[1]}) > 0)

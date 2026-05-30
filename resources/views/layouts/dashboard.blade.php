@@ -16,8 +16,39 @@
                 </svg>
                 Dashboard
             </a>
-            
-            <!-- We will add Role Based Links here later -->
+
+            <!-- Role-Based Navigation Links -->
+            @auth
+                @if(auth()->user()->role === \App\Enums\UserRole::Admin)
+                    <a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users.*') ? 'bg-primary-light text-white' : 'text-gray-300 hover:bg-primary-light hover:text-white' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6 flex-shrink-0 text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 001.591-.079 8.88 8.88 0 01-.894 2.905.349.349 0 00.62.254 9.003 9.003 0 001.921-4.148.983.983 0 00-.923-1.417A9.868 9.868 0 0015 19.128m0 0a9.332 9.332 0 01-2.625-.372m0 0a9.344 9.344 0 01-2.821-.375M15 19.128l.75.749A9.168 9.168 0 0918 19.875M15 19.128l-.75.749A9.168 9.168 0 0112 19.875m0 0a8.997 8.997 0 01-2.625-.372m0 0a9.332 9.332 0 01-2.821-.375M9 19.128m0 0l.75.749M9 19.128l-.75.749m0 0A9.168 9.168 0 016 19.875m3 0l3 .75m-6-.75l-3-.75M9 3h3.75M9 3v3.75M3 9h3.75M3 9V5.25M3 3h3.75M9 3h6m0 0h3.75M15 3v3.75M15 3h3.75M3 9h12" />
+                        </svg>
+                        Staff Management
+                    </a>
+
+                    <a href="{{ route('admin.mukims.index') }}" class="{{ request()->routeIs('admin.mukims.*') ? 'bg-primary-light text-white' : 'text-gray-300 hover:bg-primary-light hover:text-white' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6 flex-shrink-0 text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m.503 5.218A4.504 4.504 0 0019.5 21h-15a4.5 4.5 0 014.747-5.498M21 12a9 9 0 11-18 0 9 9 0 0118 0Z" />
+                        </svg>
+                        Mukim Management
+                    </a>
+
+                    <a href="{{ route('admin.bps.index') }}" class="{{ request()->routeIs('admin.bps.*') ? 'bg-primary-light text-white' : 'text-gray-300 hover:bg-primary-light hover:text-white' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6 flex-shrink-0 text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 16.875h-3m0 0h-.375m.375 0H9m3-3h3m-6 0h.375m-.375 0H9m6-2.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM15 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9 9.75a.75.75 0 11-1.5 0A.75.75 0 019 9.75zM9 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                        </svg>
+                        Block Perancang
+                    </a>
+
+                    <a href="{{ route('admin.bpks.index') }}" class="{{ request()->routeIs('admin.bpks.*') ? 'bg-primary-light text-white' : 'text-gray-300 hover:bg-primary-light hover:text-white' }} group flex items-center px-2 py-2 text-sm font-medium rounded-md">
+                        <svg class="mr-3 h-6 w-6 flex-shrink-0 text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 6.75V15m6-6v8.25m6 0a9 9 0 11-18 0 9 9 0 0118 0Z" />
+                        </svg>
+                        Block Perancang Kecil
+                    </a>
+                @endif
+            @endauth
 
         </nav>
     </aside>
