@@ -49,7 +49,7 @@ class ApplicationController extends Controller
     public function store(Request $request, \App\Models\Developer $developer)
     {
         $validated = $request->validate([
-            'application.tajuk' => 'required|string|max:255',
+            'application.tajuk' => 'required|string|max:400',
             'application.lokasi' => 'required|string',
             'application.no_fail' => 'required|string|max:100',
             'application.officer_id' => 'required|exists:users,user_id',
@@ -80,7 +80,7 @@ class ApplicationController extends Controller
     public function update(Request $request, \App\Models\Application $application)
     {
         $validated = $request->validate([
-            'application.tajuk' => 'required|string|max:255',
+            'application.tajuk' => 'required|string|max:400',
             'application.lokasi' => 'required|string',
             'application.no_fail' => 'required|string|max:100',
             'application.officer_id' => 'required|exists:users,user_id',

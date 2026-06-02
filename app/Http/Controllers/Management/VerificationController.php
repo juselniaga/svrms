@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Verification;
 use Illuminate\Http\Request;
 use App\Models\Application;
+use Illuminate\Support\Facades\Auth;
 
 class VerificationController extends Controller
 {
@@ -28,7 +29,7 @@ class VerificationController extends Controller
         ];
 
         // Task Todo: Applications waiting for Verification Assistant Director action
-        $tasksTodo = Application::with('developer', 'review')
+        $tasksTodo = Application::with('developer', 'review.officer')
             ->where('status', 'PENDING_VERIFICATION')
             ->latest()
             ->get();
@@ -78,15 +79,17 @@ class VerificationController extends Controller
             return redirect()->back()->withErrors(['remarks' => 'Remarks are required for this action']);
         }
 
-        \Illuminate\Support\Facades\DB::transaction(function () use ($validated, $remarks, $application) {
+        $user = Auth::user();
+
+        \Illuminate\Support\Facades\DB::transaction(function () use ($validated, $remarks, $application, $user) {
 
             // Convert remarks array to remark_history format (with user metadata)
             $remarkHistory = [];
             foreach ($remarks as $remark) {
                 $remarkHistory[] = [
                     'text' => $remark,
-                    'user_id' => auth()->id(),
-                    'user_name' => auth()->user()->name,
+                    'user_id' => $user?->id,
+                    'user_name' => $user?->name,
                     'created_at' => now()->format('d M Y, H:i A'),
                     'updated_at' => now()->format('d M Y, H:i A'),
                 ];
@@ -94,7 +97,7 @@ class VerificationController extends Controller
 
             // Create new verification record
             $application->verifications()->create([
-                'assistant_director_id' => auth()->id(),
+                'assistant_director_id' => Auth::id(),
                 'verification_status' => $validated['action'],
                 'remarks' => count($remarks) > 0 ? $remarks[0] : null,
                 'remark_history' => count($remarkHistory) > 0 ? $remarkHistory : null,
@@ -116,7 +119,7 @@ class VerificationController extends Controller
             // Create Audit Trail
             $remarksPreview = count($remarks) > 0 ? implode('; ', array_slice($remarks, 0, 2)) : 'No remarks provided.';
             $application->auditLogs()->create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'action' => 'VERIFICATION_' . $validated['action'],
                 'description' => "Assistant Director added verification: {$validated['action']}. Added " . count($remarks) . " remark(s). Application status updated to {$newStatus}.",
                 'remarks' => $remarksPreview,
@@ -180,7 +183,7 @@ class VerificationController extends Controller
 
             // Create Audit Trail
             $application->auditLogs()->create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'action' => 'VERIFICATION_UPDATED',
                 'description' => "Assistant Director updated verification to: {$validated['action']}. Application status updated to {$newStatus}.",
                 'remarks' => $validated['remarks'] ?? 'No remarks provided.',
@@ -200,7 +203,7 @@ class VerificationController extends Controller
         $application = $verification->application;
         $verifyId = $verification->verify_id;
 
-        \Illuminate\Support\Facades\DB::transaction(function () use ($verification, $application) {
+        \Illuminate\Support\Facades\DB::transaction(function () use ($verification, $application, $verifyId) {
 
             // Delete the verification record
             $verification->delete();
@@ -224,7 +227,7 @@ class VerificationController extends Controller
 
             // Create Audit Trail
             $application->auditLogs()->create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'action' => 'VERIFICATION_DELETED',
                 'description' => "Assistant Director deleted verification record #{$verifyId}. Application status updated to {$application->status}.",
                 'remarks' => 'Verification record was deleted.',
@@ -258,7 +261,7 @@ class VerificationController extends Controller
 
             // Create Audit Trail
             $application->auditLogs()->create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'action' => 'SUBMITTED_TO_APPROVAL',
                 'description' => "Assistant Director submitted application to Director for final approval.",
                 'remarks' => 'Application forwarded to approval stage.',
@@ -286,8 +289,8 @@ class VerificationController extends Controller
             // Add new remark with user metadata
             $remarks[] = [
                 'text' => $validated['remark_text'],
-                'user_id' => auth()->id(),
-                'user_name' => auth()->user()->name,
+                'user_id' => Auth::id(),
+                'user_name' => Auth::user()->name,
                 'created_at' => now()->format('d M Y, H:i A'),
                 'updated_at' => now()->format('d M Y, H:i A'),
             ];
@@ -298,7 +301,7 @@ class VerificationController extends Controller
 
             // Create Audit Trail
             $verification->application->auditLogs()->create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'action' => 'REMARK_ADDED',
                 'description' => "Assistant Director added a remark to verification record.",
                 'remarks' => $validated['remark_text'],
@@ -365,10 +368,10 @@ class VerificationController extends Controller
             }
 
             // Check if user is the one who created the remark
-            $currentUserId = auth()->id();
+            $currentUserId = Auth::id();
             $remarkUserId = $remarks[$index]['user_id'] ?? null;
 
-            if ($currentUserId !== $remarkUserId && auth()->user()->role !== 'Admin') {
+            if ($currentUserId !== $remarkUserId && Auth::user()->role !== 'Admin') {
                 return redirect()->back()->with('error', 'You can only edit your own remarks');
             }
 
@@ -381,7 +384,7 @@ class VerificationController extends Controller
 
             // Create Audit Trail
             $verification->application->auditLogs()->create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'action' => 'REMARK_UPDATED',
                 'description' => "Assistant Director updated a remark in verification record.",
                 'remarks' => $validated['remark_text'],
@@ -412,10 +415,10 @@ class VerificationController extends Controller
             }
 
             // Check if user is the one who created the remark
-            $currentUserId = auth()->id();
+            $currentUserId = Auth::id();
             $remarkUserId = $remarks[$index]['user_id'] ?? null;
 
-            if ($currentUserId !== $remarkUserId && auth()->user()->role !== 'Admin') {
+            if ($currentUserId !== $remarkUserId && Auth::user()->role !== 'Admin') {
                 return redirect()->back()->with('error', 'You can only delete your own remarks');
             }
 
@@ -430,7 +433,7 @@ class VerificationController extends Controller
 
             // Create Audit Trail
             $verification->application->auditLogs()->create([
-                'user_id' => auth()->id(),
+                'user_id' => Auth::id(),
                 'action' => 'REMARK_DELETED',
                 'description' => "Assistant Director deleted a remark from verification record.",
                 'remarks' => "Deleted remark: " . substr($deletedRemark, 0, 100),

@@ -1,0 +1,158 @@
+
+> dev
+> vite
+
+Port 5173 is in use, trying another one...
+Port 5174 is in use, trying another one...
+
+  [32m[1mVITE[22m v7.3.1[39m  [2mready in [0m[1m334[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5175[22m/[39m
+[2m  [32m➜[39m  [1mNetwork[22m[2m: use [22m[1m--host[22m[2m to expose[22m
+
+  [31m[1mLARAVEL[22m v12.58.0[39m  [2mplugin[22m [1mv2.1.0[22m
+
+  [32m➜[39m  [1mAPP_URL[22m: [36mhttp://localhost:[1m8000[22m[39m
+[2m9:14:14 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:14:14 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:17:18 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:17:18 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:17:25 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:19:11 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:19:11 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:19:21 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:23:28 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.515f59557e7b[22m
+[2m9:23:28 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.515f59557e7b[22m
+[2m9:23:28 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:23:28 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:23:46 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:24:09 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.b4d941d1ed61[22m
+[2m9:24:09 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:24:09 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:24:20 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:25:25 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:25:25 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:25:31 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:26:33 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.fbb41314da60[22m
+[2m9:26:33 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.fbb41314da60[22m
+[2m9:26:33 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:26:33 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:26:39 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.1adfa68bfc43[22m
+[2m9:26:39 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:26:39 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:26:45 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.ee44e080c113[22m
+[2m9:26:45 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:26:45 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:26:58 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:28:53 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:28:53 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:28:57 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:29:11 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:29:11 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:29:14 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:30:40 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:30:40 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:31:57 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:31:57 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:32:14 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:32:14 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:32:17 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:32:28 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:32:28 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:32:30 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:32:55 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:32:55 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:32:59 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:33:31 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:33:31 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:33:35 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:34:02 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:34:02 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:34:15 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:34:15 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:34:32 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:34:32 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:36:11 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:36:11 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:37:50 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:37:50 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:37:58 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.c65643cdfc4e[22m
+[2m9:37:58 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:37:58 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:38:08 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:38:37 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:38:37 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:38:49 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:38:49 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:42:04 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:42:04 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:42:06 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:43:14 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:43:14 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:43:31 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:43:31 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:45:52 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:45:52 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:45:55 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:46:30 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:46:30 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:46:33 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:48:21 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.2309c6b34239[22m
+[2m9:48:21 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:48:21 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:48:29 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.2cb1f334659f[22m
+[2m9:48:29 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:48:29 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:48:35 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.5541e91d7159[22m
+[2m9:48:35 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:48:35 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:48:42 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.4082329cba01[22m
+[2m9:48:42 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.4082329cba01[22m
+[2m9:48:42 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:48:42 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:48:48 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.66dbd9c6b564[22m
+[2m9:48:48 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:48:48 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:48:54 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.b329dddcafc2[22m
+[2m9:48:54 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:48:54 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:49:00 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.0badb56b7cc1[22m
+[2m9:49:00 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:49:00 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:49:17 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:50:58 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.ce32a339821a[22m
+[2m9:50:58 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:50:58 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:51:04 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.484ab2a2454f[22m
+[2m9:51:04 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:51:04 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:51:10 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.64569e717fcd[22m
+[2m9:51:10 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:51:10 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:51:23 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:51:55 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.7be424249437[22m
+[2m9:51:55 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:51:55 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:52:11 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:53:24 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php.tmp.21000.3187b887bc6f[22m
+[2m9:53:24 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:53:24 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:53:40 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:55:28 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:55:28 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:56:19 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:56:19 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:56:22 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:56:56 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:56:56 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:56:59 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:57:28 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:57:28 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:57:31 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:58:38 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:58:38 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:58:45 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:59:31 am[22m [36m[1m[vite][22m[39m [32mfull reload[39m [2mresources\views\filings\pdf_template.blade.php[22m
+[2m9:59:31 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m9:59:33 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m
+[2m10:27:57 am[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m [32mhmr update [39m[2m/resources/css/app.css?direct[22m

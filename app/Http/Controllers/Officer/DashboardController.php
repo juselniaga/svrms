@@ -43,6 +43,8 @@ class DashboardController extends Controller
 
         // 3. Searchable All Applications List
         $search = $request->input('search');
+        $statusFilter = $request->input('status_filter');
+
         $allApplications = Application::with('developer', 'site')
             ->where('officer_id', $officerId)
             ->when($search, function ($query, $search) {
@@ -53,6 +55,15 @@ class DashboardController extends Controller
                           $devQuery->where('name', 'like', "%{$search}%");
                       });
                 });
+            })
+            ->when($statusFilter && $statusFilter !== 'all', function ($query) use ($statusFilter) {
+                if ($statusFilter === 'late') {
+                    $fourteenDaysAgo = now()->subDays(14);
+                    $query->where('created_at', '<', $fourteenDaysAgo)
+                          ->whereNotIn('status', ['APPROVED', 'REJECTED']);
+                } else {
+                    $query->where('status', $statusFilter);
+                }
             })
             ->latest()
             ->paginate(10);

@@ -376,7 +376,7 @@
                             <!-- Submit to Approval Button -->
                             @php
                                 $latestVerification = $application->verifications()->latest()->first();
-                                $canSubmitToApproval = $latestVerification && $latestVerification->verification_status === 'VERIFIED';
+                                $canSubmitToApproval = $latestVerification && $latestVerification->verification_status === 'VERIFIED' && !in_array($application->status, ['APPROVED', 'FILED', 'RECORDED']);
                             @endphp
 
                             @if($canSubmitToApproval)

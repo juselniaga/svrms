@@ -44,20 +44,25 @@
                             <thead class="bg-yellow-50">
                                 <tr>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        No Rujukan</th>
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                                        <strong>Rujukan</strong>
+                                    </th>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Tajuk</th>
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                                        <strong>Tajuk</strong>
+                                    </th>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Cadangan Pegawai</th>
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                                        <strong>Cadangan Pegawai</strong>
+                                    </th>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Tarikh Dihantar</th>
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                                        <strong>Tarikh Dihantar</strong>
+                                    </th>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Tindakan</th>
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
+                                        <strong>Tindakan</strong>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
@@ -69,14 +74,21 @@
                                         <td class="px-6 py-4 text-sm text-gray-500 line-clamp-2">
                                             {{ $app->tajuk }}
                                         </td>
-                                        <td class="px-6 py-4 whitespace-nowrap">
-                                            @if($app->review && $app->review->recommendation === 'SUPPORTED')
-                                                <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Disokong</span>
-                                            @elseif($app->review && $app->review->recommendation === 'NOT_SUPPORTED')
-                                                <span
-                                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Tidak
-                                                    Disokong</span>
+                                        <td class="px-6 py-4">
+                                            @if($app->review)
+                                                <div class="text-xs font-medium text-blue-700 mb-2">{{ optional($app->review->officer)->name ?? 'N/A' }}</div>
+                                                @if($app->review->recommendation === 'SUPPORTED')
+                                                    <span
+                                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Disokong</span>
+                                                @elseif($app->review->recommendation === 'NOT_SUPPORTED')
+                                                    <span
+                                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Tidak
+                                                        Disokong</span>
+                                                @else
+                                                    <span
+                                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Belum
+                                                        Disahkan</span>
+                                                @endif
                                             @else
                                                 <span
                                                     class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">Belum
@@ -130,19 +142,19 @@
                             <thead class="bg-gray-50">
                                 <tr>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-left text-xs font-medium text-black-700 uppercase tracking-wider">
                                         No Rujukan</th>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-left text-xs font-medium text-black-700 uppercase tracking-wider">
                                         Tajuk</th>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Pembangun</th>
+                                        class="px-6 py-3 text-left text-xs font-medium text-black-700 uppercase tracking-wider">
+                                        Pemohon</th>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-left text-xs font-medium text-black-700 uppercase tracking-wider">
                                         Status</th>
                                     <th
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        class="px-6 py-3 text-left text-xs font-medium text-black-700 uppercase tracking-wider">
                                         Tindakan</th>
                                 </tr>
                             </thead>
@@ -157,8 +169,17 @@
                                             {{ optional($app->developer)->name }}
                                         </td>
                                         <td class="px-6 py-4 whitespace-nowrap">
+                                            @php
+                                                $statusColors = [
+                                                    'APPROVED' => 'bg-blue-600 text-white',
+                                                    'PENDING_APPROVAL' => 'bg-orange-500 text-white',
+                                                    'SITE_VISIT_IN_PROGRESS' => 'bg-red-600 text-white',
+                                                    'FILED' => 'bg-green-600 text-white',
+                                                ];
+                                                $colorClass = $statusColors[$app->status] ?? 'bg-gray-100 text-gray-800';
+                                            @endphp
                                             <span
-                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
+                                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ $colorClass }}">
                                                 {{ str_replace('_', ' ', $app->status) }}
                                             </span>
                                         </td>

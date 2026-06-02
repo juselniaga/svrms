@@ -5,37 +5,51 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
+    <div class="py-6 md:py-12">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm rounded-lg p-4 sm:p-6">
 
-                <div class="mb-6 p-4 bg-gray-50 border border-gray-200 rounded-md">
-                    <h3 class="text-sm font-semibold text-indigo-800 uppercase tracking-wider mb-2">Detail Permohonan</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <p class="text-sm text-indigo-600">No Rujukan Fail: <span class="font-medium text-gray-900">{{ $application->reference_no }}</span></p>
-                            <p class="text-sm text-indigo-600">Tajuk Projek: <span class="font-medium text-gray-900">{{ $application->tajuk }}</span></p>
+                <div class="mb-6 sm:mb-8 p-4 sm:p-6 bg-gradient-to-r from-indigo-50 to-blue-50 border-2 border-indigo-300 rounded-lg sm:rounded-xl shadow-md">
+                    <h3 class="text-base sm:text-lg font-bold text-indigo-800 uppercase tracking-wider mb-4 sm:mb-5 pb-3 border-b-2 border-indigo-300 flex items-center">
+                        <span class="text-xl sm:text-2xl mr-2 sm:mr-3">📋</span> <span class="text-sm sm:text-base">Detail Permohonan</span>
+                    </h3>
+                    <div class="grid grid-cols-1 gap-4 sm:gap-6">
+                        <div class="space-y-3">
+                            <p class="text-sm">
+                                <span class="font-bold text-indigo-700 block uppercase text-xs tracking-wider mb-1">No Rujukan Fail</span>
+                                <span class="font-mono font-bold text-lg text-gray-900">{{ $application->reference_no }}</span>
+                            </p>
+                            <p class="text-sm">
+                                <span class="font-bold text-indigo-700 block uppercase text-xs tracking-wider mb-1">Tajuk Projek</span>
+                                <span class="font-medium text-gray-900">{{ $application->tajuk }}</span>
+                            </p>
                         </div>
-                        <div>
-                            <p class="text-sm text-indigo-600">Pemohon: <span class="font-medium text-gray-900">{{ $application->developer->name ?? 'N/A' }}</span></p>
-                            <p class="text-sm text-indigo-600">Status: <span class="font-medium text-blue-600">{{ str_replace('_', ' ', $application->status) }}</span></p>
+                        <div class="space-y-3">
+                            <p class="text-sm">
+                                <span class="font-bold text-indigo-700 block uppercase text-xs tracking-wider mb-1">Pemohon</span>
+                                <span class="font-medium text-gray-900">{{ $application->developer->name ?? 'N/A' }}</span>
+                            </p>
+                            <p class="text-sm">
+                                <span class="font-bold text-indigo-700 block uppercase text-xs tracking-wider mb-1">Status</span>
+                                <span class="inline-block px-4 py-1 bg-blue-500 text-white text-xs font-bold rounded-full">{{ str_replace('_', ' ', $application->status) }}</span>
+                            </p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Accordion for Full Application Data Context -->
-                <div x-data="{ open: false }" class="mb-8 border border-gray-200 rounded-md overflow-hidden">
-                    <button @click="open = !open" type="button" class="w-full flex justify-between items-center bg-gray-100 px-4 py-3 text-left hover:bg-gray-200 focus:outline-none transition">
-                        <span class="font-semibold text-indigo-800 flex items-center">
-                            <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                            Informasi Lengkap & Penemuan Siasatan Tapak
+                <!-- Accordion for Full Application Data Context - Mobile Responsive -->
+                <div x-data="{ open: false }" class="mb-8 sm:mb-10 border-2 border-gray-300 rounded-lg sm:rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+                    <button @click="open = !open" type="button" class="w-full flex justify-between items-center bg-gradient-to-r from-gray-100 to-gray-50 px-4 sm:px-6 py-3 sm:py-4 text-left hover:from-gray-200 hover:to-gray-100 focus:outline-none transition">
+                        <span class="font-bold text-sm sm:text-lg text-gray-800 flex items-center gap-2 sm:gap-3">
+                            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                            <span class="hidden sm:inline">👁️</span> <span class="text-xs sm:text-base">Informasi Lengkap & Penemuan</span>
                         </span>
-                        <svg class="h-5 w-5 text-gray-500 transform transition-transform duration-200" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="h-5 w-5 sm:h-6 sm:w-6 text-gray-600 transform transition-transform duration-300 flex-shrink-0" :class="{ 'rotate-180': open }" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
                     
-                    <div x-show="open" x-collapse class="p-4 bg-white border-t border-gray-200">
+                    <div x-show="open" @click.away="open = false" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="p-3 sm:p-6 bg-white border-t border-gray-200">
                         
                         <!-- Site & Location Information -->
                         @if($application->site)
@@ -45,9 +59,33 @@
                                     <div>
                                         <span class="block text-xs font-semibold text-gray-400 uppercase">Location Data</span>
                                         <div class="mt-1 space-y-1">
-                                            <p><span class="text-gray-600 font-medium">Mukim:</span> {{ $application->site->mukim }}</p>
+                                            <p><span class="text-gray-600 font-medium">Mukim:</span>
+                                                {{ $application->site->mukim }}
+                                                @if($application->site->mukim_relation)
+                                                    - {{ $application->site->mukim_relation->mukim }}
+                                                @endif
+                                            </p>
                                             <p><span class="text-gray-600 font-medium">Lot:</span> {{ $application->site->lot }}</p>
-                                            <p><span class="text-gray-600 font-medium">BPK:</span> {{ $application->site->bpk ?: 'N/A' }}</p>
+                                            <p><span class="text-gray-600 font-medium">BP:</span>
+                                                @if($application->site->bp)
+                                                    {{ $application->site->bp }}
+                                                    @if($application->site->bp_relation)
+                                                        - {{ $application->site->bp_relation->bp_name }}
+                                                    @endif
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </p>
+                                            <p><span class="text-gray-600 font-medium">BPK:</span>
+                                                @if($application->site->bpk)
+                                                    {{ $application->site->bpk }}
+                                                    @if($application->site->bpk_relation)
+                                                        - {{ $application->site->bpk_relation->bpk_name }}
+                                                    @endif
+                                                @else
+                                                    N/A
+                                                @endif
+                                            </p>
                                             <p><span class="text-gray-600 font-medium">Map Sheet:</span> {{ $application->site->lembaran ?: 'N/A' }}</p>
                                         </div>
                                     </div>
@@ -61,10 +99,10 @@
                                     </div>
                                     <div class="bg-gray-50 p-3 rounded border border-gray-200">
                                         <span class="block text-xs font-semibold text-gray-500 uppercase mb-2">GPS Coordinates</span>
-                                        @if($application->site->google_lat && $application->site->google_long)
+                                        @if($application->site->google_lat)
                                             <p class="font-mono text-gray-800 text-xs">Lat: {{ $application->site->google_lat }}</p>
-                                            <p class="font-mono text-gray-800 text-xs">Lng: {{ $application->site->google_long }}</p>
-                                            <a href="https://www.google.com/maps/search/?api=1&query={{ $application->site->google_lat }},{{ $application->site->google_long }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-xs block mt-2 underline">View on Google Maps</a>
+                                           
+                                            <a href="https://www.google.com/maps/search/?api=1&query={{ $application->site->google_lat }}" target="_blank" class="text-blue-600 hover:text-blue-800 text-xs block mt-2 underline">View on Google Maps</a>
                                         @else
                                             <p class="text-gray-500 italic text-sm">Not recorded</p>
                                         @endif
@@ -135,9 +173,17 @@
 
                                         <div class="p-4 grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <!-- Directions & Photos -->
-                                            @foreach(['north' => ['finding_north', 'photos_north'], 'south' => ['findings_south', 'photos_south'], 'east' => ['findings_east', 'photo_east'], 'west' => ['finding_west', 'photo_west']] as $dir => $fields)
+                                            @foreach(['location' => ['finding_location', 'photos_location'], 'jalan' => ['finding_jalan', 'photos_jalan'], 'north' => ['finding_north', 'photos_north'], 'south' => ['findings_south', 'photos_south'], 'east' => ['findings_east', 'photo_east'], 'west' => ['finding_west', 'photo_west']] as $dir => $fields)
                                                 <div class="bg-gray-50 rounded p-3 border border-gray-100">
-                                                    <h5 class="text-xs font-bold uppercase text-gray-600 mb-2 border-b pb-1">{{ ucfirst($dir) }} Direction</h5>
+                                                    <h5 class="text-xs font-bold uppercase text-gray-600 mb-2 border-b pb-1">
+                                                        @if($dir === 'location')
+                                                            Lokasi (Location)
+                                                        @elseif($dir === 'jalan')
+                                                            Jalan (Road)
+                                                        @else
+                                                            {{ ucfirst($dir) }} Direction
+                                                        @endif
+                                                    </h5>
                                                     <p class="text-sm text-gray-800 mb-3 whitespace-pre-line">{{ $visit->{$fields[0]} ?: 'No observations recorded.' }}</p>
                                                     
                                                     @if(is_array($visit->{$fields[1]}) && count($visit->{$fields[1]}) > 0)
@@ -170,66 +216,77 @@
                 }">
                     @csrf
 
-                    <h3 class="text-lg font-medium text-indigo-600 mb-4 border-b pb-2">Review Details</h3>
+                    <h3 class="text-lg sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b-2 border-purple-400 flex items-center">
+                        <span class="text-xl sm:text-2xl mr-2 sm:mr-3">✍️</span> <span class="text-sm sm:text-base">Review Details</span>
+                    </h3>
 
-                    <div class="mb-6">
-                        <x-input-label for="review_content" :value="__('Officer Review & Observations *')" />
+                    <div class="mb-6 sm:mb-8">
+                        <label for="review_content" class="block font-bold text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3 uppercase tracking-wider">📝 Officer Review & Observations <span class="text-red-600">*</span></label>
                         <textarea id="review_content"
-                            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
-                            name="review_content" rows="4" required>{{ old('review_content') }}</textarea>
-                        <x-input-error :messages="$errors->get('review_content')" class="mt-2" />
+                            class="block w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg shadow-sm transition bg-white"
+                            name="review_content" rows="4" placeholder="Provide detailed observations and analysis..." required>{{ old('review_content') }}</textarea>
+                        <x-input-error :messages="$errors->get('review_content')" class="mt-2 text-xs" />
                     </div>
 
-                    <div class="mb-6">
-                        <x-input-label for="recommendation" :value="__('Recommendation *')" />
+                    <div class="mb-8 sm:mb-10">
+                        <label for="recommendation" class="block font-bold text-xs sm:text-sm text-gray-700 mb-2 sm:mb-3 uppercase tracking-wider">🎯 Recommendation <span class="text-red-600">*</span></label>
                         <select id="recommendation" name="recommendation"
-                            class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm"
+                            class="block w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg shadow-sm transition bg-white"
                             required>
-                            <option value="" disabled selected>Select a recommendation...</option>
+                            <option value="" disabled selected>Select your recommendation...</option>
                             <option value="SUPPORTED" {{ old('recommendation') == 'SUPPORTED' ? 'selected' : '' }}>
-                                Supported</option>
-                            <option value="NOT_SUPPORTED" {{ old('recommendation') == 'NOT_SUPPORTED' ? 'selected' : '' }}>Not Supported</option>
+                                ✓ SUPPORTED - Application is suitable to proceed
+                            </option>
+                            <option value="NOT_SUPPORTED" {{ old('recommendation') == 'NOT_SUPPORTED' ? 'selected' : '' }}>
+                                ✗ NOT SUPPORTED - Application does not meet requirements
+                            </option>
                         </select>
-                        <x-input-error :messages="$errors->get('recommendation')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('recommendation')" class="mt-2 text-xs" />
                     </div>
 
-                    <h3 class="text-lg font-medium text-indigo-600 mb-4 border-b pb-2 mt-8">Self-Check Checklist</h3>
-                    <p class="text-sm text-gray-500 mb-4">Please verify the following before submitting your
-                        recommendation:</p>
+                    <h3 class="text-lg sm:text-2xl font-bold text-gray-800 mb-4 sm:mb-6 pb-3 sm:pb-4 border-b-2 border-green-400 flex items-center">
+                        <span class="text-xl sm:text-2xl mr-2 sm:mr-3">☑️</span> <span class="text-sm sm:text-base">Self-Check Checklist</span>
+                    </h3>
+                    <p class="text-xs sm:text-sm text-gray-600 mb-4 sm:mb-6 bg-green-50 p-3 sm:p-4 rounded-lg border-l-4 border-green-500">
+                        ✓ Please verify the following before submitting your recommendation
+                    </p>
 
-                    <div class="space-y-4 mb-8 bg-blue-50 p-4 rounded-md border border-blue-100">
-                        <label class="flex items-start">
+                    <div class="space-y-3 sm:space-y-4 mb-8 sm:mb-10 p-4 sm:p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg sm:rounded-xl border-2 border-green-300">
+                        <label class="flex items-start p-4 bg-white rounded-lg border-2 border-green-200 hover:border-green-300 hover:shadow-md transition cursor-pointer">
                             <input type="checkbox" name="self_check_1"
-                                class="mt-1 rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500"
+                                class="mt-1 w-5 h-5 rounded border-green-300 text-green-600 shadow-sm focus:ring-2 focus:ring-green-500 cursor-pointer"
                                 x-model="check1" required>
-                            <span class="ml-3 text-sm text-gray-700">I have reviewed all submitted documents and site
-                                investigation photos.</span>
+                            <span class="ml-4 text-sm font-medium text-gray-800">I have reviewed all submitted documents and site investigation photos.</span>
                         </label>
-                        <label class="flex items-start">
+                        <label class="flex items-start p-4 bg-white rounded-lg border-2 border-green-200 hover:border-green-300 hover:shadow-md transition cursor-pointer">
                             <input type="checkbox" name="self_check_2"
-                                class="mt-1 rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500"
+                                class="mt-1 w-5 h-5 rounded border-green-300 text-green-600 shadow-sm focus:ring-2 focus:ring-green-500 cursor-pointer"
                                 x-model="check2" required>
-                            <span class="ml-3 text-sm text-gray-700">The project location matches the submitted
-                                application coordinates.</span>
+                            <span class="ml-4 text-sm font-medium text-gray-800">The project location matches the submitted application coordinates and field observations.</span>
                         </label>
-                        <label class="flex items-start">
+                        <label class="flex items-start p-4 bg-white rounded-lg border-2 border-green-200 hover:border-green-300 hover:shadow-md transition cursor-pointer">
                             <input type="checkbox" name="self_check_3"
-                                class="mt-1 rounded border-gray-300 text-blue-600 shadow-sm focus:ring-blue-500"
+                                class="mt-1 w-5 h-5 rounded border-green-300 text-green-600 shadow-sm focus:ring-2 focus:ring-green-500 cursor-pointer"
                                 x-model="check3" required>
-                            <span class="ml-3 text-sm text-gray-700">My recommendation is completely based on standard
-                                operating procedures.</span>
+                            <span class="ml-4 text-sm font-medium text-gray-800">My recommendation is completely based on standard operating procedures and objective findings.</span>
                         </label>
                     </div>
 
-                    <div class="flex items-center justify-end mt-4 pt-4 border-t">
+                    <div class="flex flex-col gap-3 mt-8 sm:mt-10 pt-6 sm:pt-8 border-t-2 border-gray-300">
                         <a href="{{ route('officer.dashboard') }}"
-                            class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150 mr-3">
-                            Cancel
+                            class="w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-6 py-2.5 sm:py-3 bg-white border-2 border-gray-300 rounded-lg font-bold text-xs sm:text-sm text-gray-700 shadow-md hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 transition ease-in-out duration-150">
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                            <span class="text-xs sm:text-sm">← Back</span>
                         </a>
                         <button type="submit"
-                            class="inline-flex items-center px-4 py-2 bg-blue-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-900 focus:bg-blue-900 active:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                            class="w-full sm:w-auto inline-flex items-center justify-center px-4 sm:px-8 py-2.5 sm:py-3 bg-gradient-to-r from-blue-700 to-indigo-700 border-2 border-transparent rounded-lg font-bold text-xs sm:text-sm text-white shadow-lg hover:from-blue-800 hover:to-indigo-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150 disabled:from-gray-400 disabled:to-gray-500 disabled:cursor-not-allowed"
                             x-bind:disabled="!allChecked">
-                            {{ __('Submit Recommendation') }}
+                            <svg class="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-xs sm:text-sm">✓ Submit</span>
                         </button>
                     </div>
                 </form>

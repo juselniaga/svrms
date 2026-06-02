@@ -11,12 +11,23 @@
             color: #333;
             line-height: 1.4;
         }
+        .reference-block {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-align: right;
+            line-height: 1.05;
+            font-size: 9pt;
+            width: auto;
+        }
 
         .header {
             text-align: center;
             border-bottom: 2px solid #5a189a;
-            padding-bottom: 15px;
-            margin-bottom: 20px;
+            padding: 20px 0 15px 0;
+            margin: 0 auto 20px auto;
+            width: 100%;
+            display: block;
         }
 
         .header h1 {
@@ -96,10 +107,11 @@
 
         .findings-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 15px;
             margin-top: 15px;
             margin-bottom: 20px;
+            width: 100%;
         }
 
         .finding-card {
@@ -108,6 +120,8 @@
             padding: 12px;
             background-color: #fff;
             page-break-inside: avoid;
+            width: 100%;
+            overflow: hidden;
         }
 
         .finding-card-header {
@@ -133,37 +147,57 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 8px;
-            margin-top: 10px;
+            margin-top: 12px;
+            margin-left: -12px;
+            margin-right: -12px;
+            margin-bottom: -12px;
+            padding: 0;
+            width: calc(100% + 24px);
+            page-break-inside: avoid;
         }
 
         .photo-thumb {
-            max-width: 100%;
-            max-height: 120px;
+            width: 100%;
+            height: 300px;
+            object-fit: contain;
+            object-position: center;
             border: 1px solid #e5e7eb;
             border-radius: 4px;
             display: block;
+            page-break-inside: avoid;
+            background-color: #f9fafb;
         }
     </style>
 </head>
 
 <body>
-
-    <div class="header">
-        <h1>Site Visit Report Management System (SVRMS)</h1>
-        <p>Official Application Dossier</p>
-        <p>Generated: {{ now()->format('d M Y, H:i') }}</p>
+    <div class="reference-block">
+        <p><strong>MPJ-JPB-01-K02-P00-L2</strong></p>
+        <p><strong>No.Pindaan : 02</strong></p>
+    </div>
+    
+    <div class="header" style="clear: both;">
+        <div style="text-align: center; margin-bottom: 15px; width: 100%;">
+            <img src="data:image/svg+xml;base64,{{ base64_encode(file_get_contents(public_path('images/assets/logo_MPJ.svg'))) }}"
+                 alt="Logo MPJ"
+                 style="height: 80px; width: auto; display: inline-block;">
+        </div>
+        <h1 style="margin: 10px 0 5px 0;">Majlis Perbandaran Jasin</h1>
+        <p style="margin: 3px 0;">Jabatan Perancang Bandar</p>
+        <p style="margin: 3px 0;">Generated: {{ now()->format('d M Y, H:i') }}</p>
+        <p style="margin: 3px 0;font-size: 14pt;font-weight: bold;font-color: #000;"><strong>Borang Lawatan Tapak</strong></p>
     </div>
 
     <!-- 1. Executive Summary / Final Decision -->
-    <div class="section-title">1. Executive Summary & Final Decision</div>
+    <div class="section-title">1. Ringkasan</div>
     @php $approval = $application->approvals->last(); @endphp
     <table class="data-table">
         <tr>
-            <th>Application Ref No.</th>
+            <th>No Permohonan</th>
             <td><strong>{{ $application->reference_no }}</strong></td>
         </tr>
         <tr>
-            <th>Final Status</th>
+            <th>Status Permohonan</th>
             <td>
                 @if($application->status === 'FILED' && $approval)
                     @if($approval->decision === 'APPROVED')
@@ -177,55 +211,82 @@
             </td>
         </tr>
         <tr>
-            <th>Final Decision By</th>
+            <th>Disahkan Oleh</th>
             <td>{{ $approval ? $approval->director->name : 'N/A' }}</td>
         </tr>
         <tr>
-            <th>Decision Date</th>
+            <th>Tarikh Disahkan</th>
             <td>{{ $approval ? $approval->created_at->format('d M Y, H:i') : 'N/A' }}</td>
         </tr>
         @if($approval && $approval->conditions)
             <tr>
-                <th>Imposed Conditions</th>
+                <th>Keadaan yang Dikenakan</th>
                 <td>{{ $approval->conditions }}</td>
             </tr>
         @endif
         @if($approval && $approval->remarks)
             <tr>
-                <th>General Notes</th>
+                <th>Nota</th>
                 <td>{{ $approval->remarks }}</td>
             </tr>
         @endif
     </table>
 
-    <!-- 2. Application & Developer Details -->
-    <div class="section-title">2. Application, Location & Developer Details</div>
+    <!-- 2. Maklumat Permohonan  -->
+    <div class="section-title">2. Maklumat Permohonan</div>
     <table class="data-table">
         <tr>
-            <th>Project Title (Tajuk)</th>
+            <th>Tajuk</th>
             <td>{{ $application->tajuk }}</td>
         </tr>
         <tr>
-            <th>Location Details</th>
+            <th>Lokasi</th>
             <td>{{ $application->lokasi }}</td>
         </tr>
         @if($application->site)
             <tr>
-                <th>Registered Land Information</th>
-                <td>
-                    Mukim: {{ $application->site->mukim }} | Lot: {{ $application->site->lot }} <br>
-                    Area: {{ number_format($application->site->luas, 4) }} | Category:
-                    {{ $application->site->kategori_tanah }} <br>
-                    Coordinates: {{ $application->site->google_lat }}, {{ $application->site->google_long }}
+                <th>Maklumat Tanah Berdaftar</th>
+                <td style="font-size: 10pt; line-height: 1.6;">
+                    <strong>Mukim:</strong> {{ $application->site->mukim }}
+                    @if($application->site->mukim_relation)
+                        ({{ $application->site->mukim_relation->mukim }})
+                    @endif
+                    <br>
+                    <strong>Lot:</strong> {{ $application->site->lot }} <br>
+                    <strong>Area (Luas):</strong> {{ number_format($application->site->luas, 4) }} <br>
+                    <strong>Category (Kategori):</strong> {{ $application->site->kategori_tanah ?? 'N/A' }} <br>
+                    <strong>Land Status (Status Tanah):</strong> {{ $application->site->status_tanah ?? 'N/A' }} <br>
+                    <strong>Map Sheet (Lembaran):</strong> {{ $application->site->lembaran ?? 'N/A' }} <br>
+                    <strong>Block Perancang (BP):</strong>
+                    @if($application->site->bp)
+                        {{ $application->site->bp }}
+                        @if($application->site->bp_relation)
+                            ({{ $application->site->bp_relation->bp_name }})
+                        @endif
+                    @else
+                        N/A
+                    @endif
+                    <br>
+                    <strong>Block Perancang Kecil (BPK):</strong>
+                    @if($application->site->bpk)
+                        {{ $application->site->bpk }}
+                        @if($application->site->bpk_relation)
+                            ({{ $application->site->bpk_relation->bpk_name }})
+                        @endif
+                    @else
+                        N/A
+                    @endif
+                    <br>
+                    <strong>Coordinates (GPS):</strong> {{ $application->site->google_lat ?? 'N/A' }}, {{ $application->site->google_long ?? 'N/A' }}
                 </td>
             </tr>
         @endif
         <tr>
-            <th>Developer Name</th>
+            <th>Nama Pemohon</th>
             <td>{{ $application->developer->name }}</td>
         </tr>
         <tr>
-            <th>Contact Info</th>
+            <th>Telefon / Emel</th>
             <td>{{ $application->developer->tel }} | {{ $application->developer->email }}</td>
         </tr>
     </table>
@@ -234,69 +295,69 @@
 
     <!-- 3. Site Visit Report -->
     <div class="header">
-        <h1>Phase 1: Site Investigation</h1>
-        <p>Ref: {{ $application->reference_no }}</p>
+        <h1>Fasa 1: Sisatan Tapak</h1>
+        <p>No Permohonan: {{ $application->reference_no }}</p>
     </div>
 
     @php $siteVisit = $application->siteVisits->last(); @endphp
     @if($siteVisit)
         <table class="data-table">
             <tr>
-                <th>Inspecting Officer</th>
+                <th>pegawai pemeriksa</th>
                 <td>{{ $siteVisit->officer->name }}</td>
             </tr>
             <tr>
-                <th>Visit Date</th>
+                <th>Tarikh Lawatan</th>
                 <td>{{ $siteVisit->visit_date->format('d M Y') }}</td>
             </tr>
             @if($siteVisit->location_data)
                 <tr>
-                    <th>GPS Capture Verification</th>
+                    <th>Verifikasi Pengambilan GPS</th>
                     <td>{{ $siteVisit->location_data }}</td>
                 </tr>
             @endif
         </table>
 
         <!-- Site Conditions & Infra -->
-        <h4 style="color:#5a189a; margin-top:20px;">Site Conditions & Infrastructure</h4>
+        <h4 style="color:#5a189a; margin-top:20px;">Keadaan Tapak & Infrastruktur</h4>
         <table class="data-table">
             <tr>
-                <th style="width: 25%;">Activity</th>
+                <th style="width: 25%;">Aktiviti</th>
                 <td style="width: 25%;">{{ $siteVisit->activity ?: 'N/A' }}</td>
-                <th style="width: 25%;">Facility</th>
+                <th style="width: 25%;">Fasiliti</th>
                 <td style="width: 25%;">{{ $siteVisit->facility ?: 'N/A' }}</td>
             </tr>
             <tr>
-                <th>Entrance Way</th>
+                <th>Jalan Masuk</th>
                 <td>{{ $siteVisit->entrance_way ?: 'N/A' }}</td>
-                <th>Drainage (Parit)</th>
+                <th>Saluran (Parit)</th>
                 <td>{{ $siteVisit->parit ?: 'N/A' }}</td>
             </tr>
             <tr>
-                <th>Trees Estimated</th>
+                <th>Pokok</th>
                 <td>{{ $siteVisit->tree ?: 'N/A' }}</td>
-                <th>Topography</th>
+                <th>Topografi</th>
                 <td>{{ $siteVisit->topography ?: 'N/A' }}</td>
             </tr>
         </table>
 
         <!-- Verification & Others -->
-        <h4 style="color:#5a189a; margin-top:20px;">Verification Attributes</h4>
+        <h4 style="color:#5a189a; margin-top:20px;">Verifikasi & Lain-lain</h4>
         <table class="data-table">
             <tr>
-                <th style="width: 25%;">Land Use Zone</th>
+                <th style="width: 25%;">Zon Guna Tanah (Land Use Zone)</th>
                 <td style="width: 25%;">{{ $siteVisit->land_use_zone ?: 'N/A' }}</td>
-                <th style="width: 25%;">Density</th>
+                <th style="width: 25%;">Kepadatan</th>
                 <td style="width: 25%;">{{ $siteVisit->density ?: 'N/A' }}</td>
             </tr>
             <tr>
-                <th>Recommend Road</th>
+                <th>Cadangan Jalan</th>
                 <td>{{ $siteVisit->recommend_road ? 'YES' : 'NO' }}</td>
                 <th>Anjakan (Setback)</th>
                 <td>{{ $siteVisit->anjakan ?: 'N/A' }}</td>
             </tr>
             <tr>
-                <th>Social Facility</th>
+                <th>Kemudahan Sosial</th>
                 <td colspan="3">{{ $siteVisit->social_facility ?: 'N/A' }}</td>
             </tr>
         </table>
@@ -310,15 +371,20 @@
                 @if($siteVisit->photos_north && is_array($siteVisit->photos_north) && count($siteVisit->photos_north) > 0)
                     <div class="photos-container">
                         @foreach($siteVisit->photos_north as $photo)
-                            @php
-                                $path = storage_path('app/public/' . $photo);
-                                $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
-                            @endphp
-                            @if($base64)
-                                <img src="{{ $base64 }}" class="photo-thumb">
+                            @if($loop->index < 2)
+                                @php
+                                    $path = storage_path('app/public/' . $photo);
+                                    $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
+                                @endphp
+                                @if($base64)
+                                    <img src="{{ $base64 }}" class="photo-thumb" alt="Photo">
+                                @endif
                             @endif
                         @endforeach
                     </div>
+                    @if(count($siteVisit->photos_north) > 2)
+                        <p style="font-size: 9pt; color: #999; margin-top: 5px; text-align: right;">+{{ count($siteVisit->photos_north) - 2 }} more photos</p>
+                    @endif
                 @endif
             </div>
 
@@ -329,15 +395,20 @@
                 @if($siteVisit->photos_south && is_array($siteVisit->photos_south) && count($siteVisit->photos_south) > 0)
                     <div class="photos-container">
                         @foreach($siteVisit->photos_south as $photo)
-                            @php
-                                $path = storage_path('app/public/' . $photo);
-                                $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
-                            @endphp
-                            @if($base64)
-                                <img src="{{ $base64 }}" class="photo-thumb">
+                            @if($loop->index < 2)
+                                @php
+                                    $path = storage_path('app/public/' . $photo);
+                                    $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
+                                @endphp
+                                @if($base64)
+                                    <img src="{{ $base64 }}" class="photo-thumb" alt="Photo">
+                                @endif
                             @endif
                         @endforeach
                     </div>
+                    @if(count($siteVisit->photos_south) > 2)
+                        <p style="font-size: 9pt; color: #999; margin-top: 5px; text-align: right;">+{{ count($siteVisit->photos_south) - 2 }} more photos</p>
+                    @endif
                 @endif
             </div>
 
@@ -348,15 +419,20 @@
                 @if($siteVisit->photo_east && is_array($siteVisit->photo_east) && count($siteVisit->photo_east) > 0)
                     <div class="photos-container">
                         @foreach($siteVisit->photo_east as $photo)
-                            @php
-                                $path = storage_path('app/public/' . $photo);
-                                $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
-                            @endphp
-                            @if($base64)
-                                <img src="{{ $base64 }}" class="photo-thumb">
+                            @if($loop->index < 2)
+                                @php
+                                    $path = storage_path('app/public/' . $photo);
+                                    $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
+                                @endphp
+                                @if($base64)
+                                    <img src="{{ $base64 }}" class="photo-thumb" alt="Photo">
+                                @endif
                             @endif
                         @endforeach
                     </div>
+                    @if(count($siteVisit->photo_east) > 2)
+                        <p style="font-size: 9pt; color: #999; margin-top: 5px; text-align: right;">+{{ count($siteVisit->photo_east) - 2 }} more photos</p>
+                    @endif
                 @endif
             </div>
 
@@ -367,15 +443,20 @@
                 @if($siteVisit->photo_west && is_array($siteVisit->photo_west) && count($siteVisit->photo_west) > 0)
                     <div class="photos-container">
                         @foreach($siteVisit->photo_west as $photo)
-                            @php
-                                $path = storage_path('app/public/' . $photo);
-                                $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
-                            @endphp
-                            @if($base64)
-                                <img src="{{ $base64 }}" class="photo-thumb">
+                            @if($loop->index < 2)
+                                @php
+                                    $path = storage_path('app/public/' . $photo);
+                                    $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
+                                @endphp
+                                @if($base64)
+                                    <img src="{{ $base64 }}" class="photo-thumb" alt="Photo">
+                                @endif
                             @endif
                         @endforeach
                     </div>
+                    @if(count($siteVisit->photo_west) > 2)
+                        <p style="font-size: 9pt; color: #999; margin-top: 5px; text-align: right;">+{{ count($siteVisit->photo_west) - 2 }} more photos</p>
+                    @endif
                 @endif
             </div>
 
@@ -386,15 +467,20 @@
                 @if($siteVisit->photos_jalan && is_array($siteVisit->photos_jalan) && count($siteVisit->photos_jalan) > 0)
                     <div class="photos-container">
                         @foreach($siteVisit->photos_jalan as $photo)
-                            @php
-                                $path = storage_path('app/public/' . $photo);
-                                $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
-                            @endphp
-                            @if($base64)
-                                <img src="{{ $base64 }}" class="photo-thumb">
+                            @if($loop->index < 2)
+                                @php
+                                    $path = storage_path('app/public/' . $photo);
+                                    $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
+                                @endphp
+                                @if($base64)
+                                    <img src="{{ $base64 }}" class="photo-thumb" alt="Photo">
+                                @endif
                             @endif
                         @endforeach
                     </div>
+                    @if(count($siteVisit->photos_jalan) > 2)
+                        <p style="font-size: 9pt; color: #999; margin-top: 5px; text-align: right;">+{{ count($siteVisit->photos_jalan) - 2 }} more photos</p>
+                    @endif
                 @endif
             </div>
 
@@ -405,15 +491,20 @@
                 @if($siteVisit->photos_location && is_array($siteVisit->photos_location) && count($siteVisit->photos_location) > 0)
                     <div class="photos-container">
                         @foreach($siteVisit->photos_location as $photo)
-                            @php
-                                $path = storage_path('app/public/' . $photo);
-                                $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
-                            @endphp
-                            @if($base64)
-                                <img src="{{ $base64 }}" class="photo-thumb">
+                            @if($loop->index < 2)
+                                @php
+                                    $path = storage_path('app/public/' . $photo);
+                                    $base64 = file_exists($path) ? 'data:image/' . pathinfo($path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents($path)) : null;
+                                @endphp
+                                @if($base64)
+                                    <img src="{{ $base64 }}" class="photo-thumb" alt="Photo">
+                                @endif
                             @endif
                         @endforeach
                     </div>
+                    @if(count($siteVisit->photos_location) > 2)
+                        <p style="font-size: 9pt; color: #999; margin-top: 5px; text-align: right;">+{{ count($siteVisit->photos_location) - 2 }} more photos</p>
+                    @endif
                 @endif
             </div>
         </div>
@@ -425,7 +516,7 @@
 
     <!-- 4. Review & Recommendation -->
     <div class="header">
-        <h1>Phase 2: Review & Recommendation</h1>
+        <h1>Phase 2: cadangan dan ulasan Pegawai Penyiasat</h1>
         <p>Ref: {{ $application->reference_no }}</p>
     </div>
 
@@ -433,15 +524,15 @@
     @if($review)
         <table class="data-table">
             <tr>
-                <th>Recommending Officer</th>
+                <th>Cadangan Oleh</th>
                 <td>{{ $review->officer->name }}</td>
             </tr>
             <tr>
-                <th>Recommendation Date</th>
+                <th>Tarikh Cadangan</th>
                 <td>{{ $review->updated_at->format('d M Y') }}</td>
             </tr>
             <tr>
-                <th>Selected Recommendation</th>
+                <th>Cadangan</th>
                 <td>
                     @if($review->recommendation === 'SUPPORTED') <span class="badge badge-success">SOKONG</span>
                     {{-- @elseif($review->recommendation === 'BERSYARAT') <span class="badge badge-warning">BERSYARAT</span> --}}
@@ -451,7 +542,7 @@
             </tr>
         </table>
 
-        <h4 style="color:#5a189a; margin-top:20px;">Detailed Review Analysis</h4>
+        <h4 style="color:#5a189a; margin-top:20px;">Ulasan Detail</h4>
         <div class="prose">
             {{ $review->review_content }}
         </div>
@@ -463,7 +554,7 @@
 
     <!-- 5. Verification -->
     <div class="header">
-        <h1>Phase 3: Verification</h1>
+        <h1>Phase 3: Penelitian Oleh Pen.Pengarah</h1>
         <p>Ref: {{ $application->reference_no }}</p>
     </div>
 
@@ -471,15 +562,15 @@
     @if($verification)
         <table class="data-table">
             <tr>
-                <th>Verifying Assistant Director</th>
+                <th>Peneliti</th>
                 <td>{{ $verification->assistantDirector->name }}</td>
             </tr>
             <tr>
-                <th>Verification Date</th>
+                <th>Tarikh Semakan</th>
                 <td>{{ $verification->created_at->format('d M Y') }}</td>
             </tr>
             <tr>
-                <th>Decision</th>
+                <th>Keputusan</th>
                 <td>
                     @if($verification->verification_status === 'VERIFIED') <span class="badge badge-success">VERIFIED</span>
                     @else <span class="badge badge-danger">REJECTED</span>
@@ -488,7 +579,7 @@
             </tr>
         </table>
 
-        <h4 style="color:#5a189a; margin-top:20px;">Verification Remarks</h4>
+        <h4 style="color:#5a189a; margin-top:20px;">Ulasan Semakan</h4>
         <div class="prose">
             {{ $verification->remarks ?? 'None provided.' }}
         </div>
@@ -499,7 +590,7 @@
 
      <!-- 6. Director's Approval -->
     <div class="header">
-        <h1>Phase 4: Director's Approval</h1>
+        <h1>Phase 4: Pengesahan Pengarah</h1>
         <p>Ref: {{ $application->reference_no }}</p>
     </div>
 
@@ -507,15 +598,15 @@
     @if($approval)
         <table class="data-table">
             <tr>
-                <th>Approving Director</th>
+                <th>Pengarah yang Mengesahkan</th>
                 <td>{{ $approval->director->name }}</td>
             </tr>
             <tr>
-                <th>Approval Date</th>
+                <th>Tarikh Pengesahan</th>
                 <td>{{ $approval->created_at->format('d M Y') }}</td>
             </tr>
             <tr>
-                <th>Decision</th>
+                <th>Keputusan </th>
                 <td>
                     @if($approval->approval_status === 'APPROVED') <span class="badge badge-success">APPROVED</span>
                     @else <span class="badge badge-danger">REJECTED</span>
@@ -524,7 +615,7 @@
             </tr>
         </table>
 
-        <h4 style="color:#5a189a; margin-top:20px;">Approval Remarks</h4>
+        <h4 style="color:#5a189a; margin-top:20px;">Ulasan Pengesahan</h4>
         <div class="prose">
             {{ $approval->remarks ?? 'None provided.' }}
         </div>

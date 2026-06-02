@@ -16,7 +16,7 @@ class ReviewController extends Controller
         }
 
         // Must be assigned to this officer, or allow them to take it
-        $application->load(['developer', 'site', 'siteVisits.officer']);
+        $application->load(['developer', 'site.mukim_relation', 'site.bp_relation', 'site.bpk_relation', 'siteVisits.officer']);
         return view('officer.review.create', compact('application'));
     }
 
