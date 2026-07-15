@@ -10,63 +10,58 @@
     <div class="py-6 sm:py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <!-- Statistics Section Header -->
-            <div class="mb-6 sm:mb-8">
-                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">📊 Statistik Permohonan</h3>
-                <p class="text-sm sm:text-base text-gray-600">Ringkasan keseluruhan permohonan yang sedang diproses</p>
+            <!-- Statistics Section -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold text-gray-900 mb-8">Application Overview</h2>
+
+                <!-- Statistics Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                    <!-- Total Applications -->
+                    <button onclick="filterByStatus('all')" class="text-left bg-gradient-to-br from-indigo-50 to-indigo-100 border-l-4 border-indigo-500 rounded-lg p-6 hover:shadow-md transition cursor-pointer">
+                        <div class="text-xs text-indigo-600 uppercase tracking-wide mb-3 font-bold">Total Applications</div>
+                        <div class="text-4xl font-bold text-indigo-900">{{ $stats['total'] }}</div>
+                        <div class="text-xs text-indigo-500 mt-3">Click to filter</div>
+                    </button>
+
+                    <!-- Total Pending -->
+                    <button onclick="filterByStatus('PENDING_APPROVAL')" class="text-left bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-lg p-6 hover:shadow-md transition cursor-pointer">
+                        <div class="text-xs text-blue-600 uppercase tracking-wide mb-3 font-bold">Pending</div>
+                        <div class="text-4xl font-bold text-blue-900">{{ $stats['pending'] }}</div>
+                        <div class="text-xs text-blue-500 mt-3">Awaiting action</div>
+                    </button>
+
+                    <!-- Total Approved -->
+                    <button onclick="filterByStatus('APPROVED')" class="text-left bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-500 rounded-lg p-6 hover:shadow-md transition cursor-pointer">
+                        <div class="text-xs text-green-600 uppercase tracking-wide mb-3 font-bold">Approved</div>
+                        <div class="text-4xl font-bold text-green-900">{{ $stats['approved'] }}</div>
+                        <div class="text-xs text-green-500 mt-3">Completed</div>
+                    </button>
+
+                    <!-- Total Rejected -->
+                    <button onclick="filterByStatus('REJECTED')" class="text-left bg-gradient-to-br from-red-50 to-red-100 border-l-4 border-red-500 rounded-lg p-6 hover:shadow-md transition cursor-pointer">
+                        <div class="text-xs text-red-600 uppercase tracking-wide mb-3 font-bold">Rejected</div>
+                        <div class="text-4xl font-bold text-red-900">{{ $stats['rejected'] }}</div>
+                        <div class="text-xs text-red-500 mt-3">Not approved</div>
+                    </button>
+
+                    <!-- Late > 14 Days -->
+                    <button onclick="filterByStatus('late')" class="text-left bg-gradient-to-br from-amber-50 to-amber-100 border-l-4 border-amber-500 rounded-lg p-6 hover:shadow-md transition cursor-pointer">
+                        <div class="text-xs text-amber-600 uppercase tracking-wide mb-3 font-bold">Overdue</div>
+                        <div class="text-4xl font-bold text-amber-900">{{ $stats['late'] }}</div>
+                        <div class="text-xs text-amber-500 mt-3">>14 days</div>
+                    </button>
+                </div>
             </div>
 
-            <!-- Statistics Cards (Responsive Grid) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6 mb-8 sm:mb-12">
-                <!-- Total Applications -->
-                <button onclick="filterByStatus('all')" class="text-left bg-white overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 border-l-4 border-indigo-500 cursor-pointer hover:bg-indigo-50">
-                    <div class="text-xs sm:text-sm font-semibold text-indigo-600 uppercase tracking-wide mb-2">
-                        Jumlah Permohonan</div>
-                    <div class="text-2xl sm:text-3xl font-bold text-gray-900">{{ $stats['total'] }}</div>
-                    <div class="mt-3 h-1 bg-gradient-to-r from-indigo-500 to-indigo-300 rounded-full"></div>
-                </button>
+            <!-- Actions Required Section -->
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-1 h-8 bg-amber-500 rounded"></div>
+                    <h2 class="text-2xl font-bold text-gray-900">Pending Actions</h2>
+                    <span class="ml-auto text-sm text-amber-600 font-semibold">⚡ Requires Attention</span>
+                </div>
 
-                <!-- Total Pending -->
-                <button onclick="filterByStatus('PENDING_APPROVAL')" class="text-left bg-white overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 border-l-4 border-blue-500 cursor-pointer hover:bg-blue-50">
-                    <div class="text-xs sm:text-sm font-semibold text-blue-600 uppercase tracking-wide mb-2">
-                        Jumlah Pending</div>
-                    <div class="text-2xl sm:text-3xl font-bold text-gray-900">{{ $stats['pending'] }}</div>
-                    <div class="mt-3 h-1 bg-gradient-to-r from-blue-500 to-blue-300 rounded-full"></div>
-                </button>
-
-                <!-- Total Approved -->
-                <button onclick="filterByStatus('APPROVED')" class="text-left bg-white overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 border-l-4 border-emerald-500 cursor-pointer hover:bg-emerald-50">
-                    <div class="text-xs sm:text-sm font-semibold text-emerald-600 uppercase tracking-wide mb-2">
-                        Jumlah Diluluskan</div>
-                    <div class="text-2xl sm:text-3xl font-bold text-gray-900">{{ $stats['approved'] }}</div>
-                    <div class="mt-3 h-1 bg-gradient-to-r from-emerald-500 to-emerald-300 rounded-full"></div>
-                </button>
-
-                <!-- Total Rejected -->
-                <button onclick="filterByStatus('REJECTED')" class="text-left bg-white overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 border-l-4 border-red-500 cursor-pointer hover:bg-red-50">
-                    <div class="text-xs sm:text-sm font-semibold text-red-600 uppercase tracking-wide mb-2">
-                        Jumlah Ditolak</div>
-                    <div class="text-2xl sm:text-3xl font-bold text-gray-900">{{ $stats['rejected'] }}</div>
-                    <div class="mt-3 h-1 bg-gradient-to-r from-red-500 to-red-300 rounded-full"></div>
-                </button>
-
-                <!-- Late > 14 Days -->
-                <button onclick="filterByStatus('late')" class="text-left bg-white overflow-hidden rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 p-4 sm:p-6 border-l-4 border-amber-500 cursor-pointer hover:bg-amber-50">
-                    <div class="text-xs sm:text-sm font-semibold text-amber-600 uppercase tracking-wide mb-2">
-                        Lewat (>14 hari)</div>
-                    <div class="text-2xl sm:text-3xl font-bold text-gray-900">{{ $stats['late'] }}</div>
-                    <div class="mt-3 h-1 bg-gradient-to-r from-amber-500 to-amber-300 rounded-full"></div>
-                </button>
-            </div>
-
-            <!-- Actions Required Section Header -->
-            <div class="mb-4 sm:mb-6">
-                <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-2">⚡ Tindakan Diperlukan</h3>
-                <p class="text-sm sm:text-base text-gray-600">Permohonan yang memerlukan tindakan segera dari anda</p>
-            </div>
-
-            <!-- Actions Required Table -->
-            <div class="bg-white overflow-hidden shadow-md sm:rounded-lg mb-8 sm:mb-12 border-t-4 border-amber-500">
+                <div class="bg-white border-t-4 border-t-amber-500 rounded-lg shadow">
                 <div class="p-4 sm:p-6 text-gray-900">
                     <div class="overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200">
@@ -141,16 +136,15 @@
                 </div>
             </div>
 
-            <!-- All Applications Section Header with Search -->
-            <div class="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
-                <div>
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 mb-1">📋 Semua Permohonan</h3>
-                    <p class="text-sm sm:text-base text-gray-600">Senarai lengkap semua permohonan anda</p>
+            <!-- All Applications Section -->
+            <div class="mb-12">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-1 h-8 bg-purple-500 rounded"></div>
+                    <h2 class="text-2xl font-bold text-gray-900">All Applications</h2>
                 </div>
-            </div>
 
-            <!-- Search Bar (Integrated with table section) -->
-            <div class="bg-white rounded-lg shadow-md mb-4 p-4 sm:p-6 border-l-4 border-purple-500">
+                <!-- Search Bar -->
+                <div class="bg-gradient-to-r from-purple-50 to-indigo-50 border border-purple-200 rounded-lg mb-4 p-4">
                 <form id="searchForm" method="GET" action="{{ route('officer.dashboard') }}" class="flex flex-col sm:flex-row gap-3">
                     <div class="flex-1">
                         <label for="search" class="block text-xs sm:text-sm font-semibold text-gray-700 mb-2">
@@ -175,11 +169,10 @@
             </div>
 
             <!-- All Applications Table -->
-            <div class="bg-white overflow-hidden shadow-md sm:rounded-lg border-t-4 border-purple-500">
-                <div class="p-4 sm:p-6 text-gray-900">
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead class="bg-gradient-to-r from-purple-50 to-indigo-50">
+            <div class="bg-white border-t-4 border-t-purple-500 rounded-lg shadow">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gradient-to-r from-purple-50 to-indigo-50">
                                 <tr>
                                     <th class="px-4 sm:px-6 py-3 sm:py-4 text-left text-xs font-semibold text-gray-900 uppercase tracking-wider">
                                         No Rujukan</th>
@@ -235,7 +228,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="mt-4 sm:mt-6 border-t border-gray-200 pt-4">
+                    <div class="p-4 border-t border-gray-200">
                         {{ $allApplications->appends(request()->query())->links() }}
                     </div>
                 </div>

@@ -32,200 +32,198 @@
                 </div>
             @endif
 
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-
-                <!-- Application Summary Sidebar - Mobile Friendly -->
-                <div class="lg:col-span-1 border-b lg:border-r lg:border-b-0 border-gray-200 pb-6 lg:pb-0 lg:pr-4">
-                    <div class="bg-white p-5 rounded-lg shadow-sm mb-6 border-t-4 border-purple-500">
-                        <h3 class="font-medium text-lg text-indigo-600 mb-4 border-b pb-2">Maklumat Permohonan</h3>
-                        <div class="space-y-3 text-sm">
-                            <div>
-                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">No Ruj</strong>
-                                <span class="font-mono">{{ $application->reference_no ?? 'N/A' }}</span>
-                            </div>
-                            <div>
-                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">Current
-                                    Status</strong>
-                                <span
-                                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 mt-1 whitespace-nowrap">
-                                    {{ str_replace('_', ' ', $application->status) }}
-                                </span>
-                            </div>
-                            @if($siteVisit->status === 'DRAFT')
-                                <div>
-                                    <strong class="block text-blue-600 text-xs uppercase tracking-wider">Form State</strong>
-                                    <span
-                                        class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 mt-1">DRAFT
-                                        SAVED</span>
-                                </div>
-                            @endif
-                            <div>
-                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">Project
-                                    Title</strong>
-                                <p class="text-black-700 mt-1">{{ $application->tajuk ?? '-' }}</p>
-                            </div>
-                            <div>
-                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">Developer</strong>
-                                <p class="text-black-700 mt-1">{{ optional($application->developer)->name ?? '-' }}</p>
-                            </div>
-                            <div>
-                                <strong class="block text-blue-600 text-xs uppercase tracking-wider">Location</strong>
-                                <p class="text-black-700 mt-1">{{ $application->lokasi ?? '-' }}</p>
-                            </div>
-                        </div>
+            {{-- Application Info Card --}}
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-lg p-6 mb-8 shadow">
+                <h3 class="font-bold text-lg text-blue-900 mb-4 flex items-center gap-2">
+                    <span class="w-2 h-8 bg-blue-500 rounded"></span>
+                    Application Information
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+                    <div>
+                        <strong class="block text-blue-600 text-xs uppercase tracking-wider">No Ruj</strong>
+                        <span class="font-mono">{{ $application->reference_no ?? 'N/A' }}</span>
                     </div>
-
-                    @if($application->site)
-                        <div class="bg-white p-5 rounded-lg shadow-sm mb-6 border-t-4 border-blue-500">
-                            <h3 class="font-medium text-lg text-indigo-600 mb-4 border-b pb-2">Maklumat Tapak</h3>
-                            <div class="space-y-3 text-sm">
-                                <div>
-                                    <strong class="block text-blue-600 text-xs uppercase tracking-wider">Mukim</strong>
-                                    <p class="text-gray-700 mt-1">
-                                        {{ $application->site->mukim ?? '-' }}
-                                        @if($application->site->mukim_relation)
-                                            - {{ $application->site->mukim_relation->mukim }}
-                                        @endif
-                                    </p>
-                                </div>
-                                <div>
-                                    <strong class="block text-blue-600 text-xs uppercase tracking-wider">Lot</strong>
-                                    <p class="text-black-700 mt-1 font-mono">{{ $application->site->lot ?? '-' }}</p>
-                                </div>
-                                <div>
-                                    <strong class="block text-blue-600 text-xs uppercase tracking-wider">Land Area
-                                        (Luas)</strong>
-                                    <p class="text-black-700 mt-1">
-                                        {{ $application->site->luas ? number_format($application->site->luas, 4) : '-' }}
-                                    </p>
-                                </div>
-                                @if($application->site->google_lat)
-                                    <div class="pt-2">
-                                        <a href="https://www.google.com/maps/search/?api=1&query={{ $application->site->google_lat }}"
-                                            target="_blank" class="text-xs text-blue-600 hover:text-blue-800 flex items-center">
-                                            <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
-                                                </path>
-                                            </svg>
-                                            View on Map
-                                        </a>
-                                    </div>
-                                @endif
-                            </div>
+                    <div>
+                        <strong class="block text-blue-600 text-xs uppercase tracking-wider">Status</strong>
+                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800 mt-1 whitespace-nowrap">
+                            {{ str_replace('_', ' ', $application->status) }}
+                        </span>
+                    </div>
+                    @if($siteVisit->status === 'DRAFT')
+                        <div>
+                            <strong class="block text-blue-600 text-xs uppercase tracking-wider">Form State</strong>
+                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800 mt-1">DRAFT SAVED</span>
                         </div>
                     @endif
+                    <div>
+                        <strong class="block text-blue-600 text-xs uppercase tracking-wider">Project</strong>
+                        <p class="text-black-700 mt-1">{{ $application->tajuk ?? '-' }}</p>
+                    </div>
+                    <div>
+                        <strong class="block text-blue-600 text-xs uppercase tracking-wider">Developer</strong>
+                        <p class="text-black-700 mt-1">{{ optional($application->developer)->name ?? '-' }}</p>
+                    </div>
+                    <div>
+                        <strong class="block text-blue-600 text-xs uppercase tracking-wider">Location</strong>
+                        <p class="text-black-700 mt-1">{{ $application->lokasi ?? '-' }}</p>
+                    </div>
                 </div>
+            </div>
 
-                <!-- Site Investigation Form Area - Mobile Optimized -->
-                <div class="lg:col-span-3">
-                    <div class="bg-white overflow-hidden shadow-sm rounded-lg">
-                        <div class="p-4 sm:p-6 text-gray-900">
+            {{-- Site Info Card --}}
+            @if($application->site)
+                <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 border-l-4 border-cyan-500 rounded-lg p-6 mb-8 shadow">
+                    <h3 class="font-bold text-lg text-cyan-900 mb-4 flex items-center gap-2">
+                        <span class="w-2 h-8 bg-cyan-500 rounded"></span>
+                        Site Information
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+                        <div>
+                            <strong class="block text-blue-600 text-xs uppercase tracking-wider">Mukim</strong>
+                            <p class="text-gray-700 mt-1">
+                                {{ $application->site->mukim ?? '-' }}
+                                @if($application->site->mukim_relation)
+                                    - {{ $application->site->mukim_relation->mukim }}
+                                @endif
+                            </p>
+                        </div>
+                        <div>
+                            <strong class="block text-blue-600 text-xs uppercase tracking-wider">Lot</strong>
+                            <p class="text-black-700 mt-1 font-mono">{{ $application->site->lot ?? '-' }}</p>
+                        </div>
+                        <div>
+                            <strong class="block text-blue-600 text-xs uppercase tracking-wider">Luas</strong>
+                            <p class="text-black-700 mt-1">
+                                {{ $application->site->luas ? number_format($application->site->luas, 4) : '-' }}
+                            </p>
+                        </div>
+                        @if($application->site->google_lat)
+                            <div class="col-span-full">
+                                <a href="https://www.google.com/maps/search/?api=1&query={{ $application->site->google_lat }}"
+                                    target="_blank" class="text-xs text-blue-600 hover:text-blue-800 flex items-center">
+                                    <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14">
+                                        </path>
+                                    </svg>
+                                    View on Map
+                                </a>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+            @endif
+
+            {{-- Site Investigation Form --}}
+            <div class="bg-white overflow-hidden shadow-sm rounded-lg">
+                <div class="p-4 sm:p-6 text-gray-900">
 
                             <form action="{{ route('officer.site-visit.store', $application->application_id) }}"
                                 method="POST" enctype="multipart/form-data">
                                 @csrf
 
-                                <!-- Form Header with Date - Mobile Responsive -->
-                                <div class="mb-8 pb-6 border-b-2 border-purple-300">
-                                    <div class="flex flex-col gap-4 sm:gap-6">
-                                        <div>
-                                            <h3 class="text-xl sm:text-2xl font-bold text-gray-800">
-                                                📋 Site Visit Details
-                                            </h3>
-                                            <p class="text-xs sm:text-sm text-gray-500 mt-2">Complete all sections to record your site investigation findings</p>
-                                        </div>
-                                        <div class="w-full">
-                                            <label for="visit_date"
-                                                class="block font-semibold text-xs text-gray-600 uppercase tracking-wider mb-2">📅 Date of Visit <span class="text-red-500">*</span></label>
-                                            <input type="date" name="visit_date" id="visit_date"
-                                                value="{{ old('visit_date', $siteVisit->visit_date ? $siteVisit->visit_date->format('Y-m-d') : now()->format('Y-m-d')) }}"
-                                                class="block w-full sm:w-64 px-4 py-3 text-sm border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg shadow-sm transition"
-                                                required>
-                                            @error('visit_date') <span class="text-red-600 text-xs mt-2 block">{{ $message }}</span> @enderror
-                                        </div>
+                                {{-- Form Header --}}
+                                <div class="mb-10">
+                                    <div class="flex items-center gap-3 mb-6">
+                                        <div class="w-1 h-8 bg-gray-900 rounded"></div>
+                                        <h2 class="text-2xl font-bold text-gray-900">Site Visit Details</h2>
                                     </div>
-                                </div>
+                    <div class="max-w-xs">
+                        <label for="visit_date" class="block text-sm font-medium text-gray-700 mb-2">
+                            Visit Date <span class="text-red-500">*</span>
+                        </label>
+                        <input type="date" name="visit_date" id="visit_date"
+                            value="{{ old('visit_date', $siteVisit->visit_date ? $siteVisit->visit_date->format('Y-m-d') : now()->format('Y-m-d')) }}"
+                            class="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-gray-400"
+                            required>
+                        @error('visit_date')
+                            <span class="text-red-600 text-sm mt-1 block">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
 
-                                <!-- GROUP 1: Site Conditions - Mobile First -->
-                                <div class="mb-8 sm:mb-10 p-4 sm:p-6 bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-200 rounded-lg sm:rounded-xl">
-                                    <h4 class="text-base sm:text-lg font-bold text-blue-900 mb-4 sm:mb-6 pb-3 border-b-2 border-blue-300 flex items-center">
-                                        <span class="text-xl sm:text-2xl mr-2 sm:mr-3">🏢</span> <span class="text-sm sm:text-base">Keadaan Tapak (Site Conditions)</span>
-                                    </h4>
+                                {{-- Site Conditions Section --}}
+                                <div class="mb-8 p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-l-4 border-blue-500 rounded-lg shadow">
+                                    <h3 class="font-bold text-blue-900 mb-6 text-lg">Site Conditions</h3>
                                     <div class="grid grid-cols-1 gap-4 sm:gap-6">
+                                        {{-- Activity Field --}}
                                         <div>
-                                            <label class="block font-semibold text-xs sm:text-sm text-gray-700 mb-2">Aktiviti (Activity)</label>
-                                            <input type="text" name="activity"
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                Aktiviti (Activity)
+                                            </label>
+                                            <input type="text"
+                                                name="activity"
                                                 value="{{ old('activity', $siteVisit->activity) }}"
                                                 placeholder="e.g., Construction, Agriculture..."
-                                                class="block w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
+
+                                        {{-- Facilities Field --}}
                                         <div>
-                                            <label class="block font-semibold text-xs sm:text-sm text-gray-700 mb-2">Kemudahan (Facilities)</label>
-                                            <input type="text" name="facility"
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                                Kemudahan (Facilities)
+                                            </label>
+                                            <input type="text"
+                                                name="facility"
                                                 value="{{ old('facility', $siteVisit->facility) }}"
                                                 placeholder="e.g., Electricity, Water supply..."
-                                                class="block w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- GROUP 2: Infrastructure - Mobile First -->
-                                <div class="mb-8 sm:mb-10 p-4 sm:p-6 bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 rounded-lg sm:rounded-xl">
-                                    <h4 class="text-base sm:text-lg font-bold text-green-900 mb-4 sm:mb-6 pb-3 border-b-2 border-green-300 flex items-center">
-                                        <span class="text-xl sm:text-2xl mr-2 sm:mr-3">🌳</span> <span class="text-sm sm:text-base">Infrastruktur & Topografi</span>
-                                    </h4>
+                                <!-- Infrastructure Section -->
+                                <div class="mb-8 p-6 bg-gradient-to-br from-green-50 to-green-100 border-l-4 border-green-500 rounded-lg shadow">
+                                    <h3 class="font-bold text-green-900 mb-6 text-lg">Infrastructure & Topography</h3>
                                     <div class="grid grid-cols-1 gap-4 sm:gap-6">
                                         <div>
-                                            <label class="block font-semibold text-sm text-gray-700 mb-2">Jalan Masuk/saiz (Access Road/Size)</label>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Jalan Masuk/saiz (Access Road/Size)</label>
                                             <input type="text" name="entrance_way"
                                                 value="{{ old('entrance_way', $siteVisit->entrance_way) }}"
                                                 placeholder="e.g., 8m wide, asphalted, good condition..."
-                                                class="block w-full px-4 py-3 text-sm border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-sm text-gray-700 mb-2">Perparitan/Saliran Dalaman (Internal Drainage)</label>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Perparitan/Saliran Dalaman (Internal Drainage)</label>
                                             <input type="text" name="parit"
                                                 value="{{ old('parit', $siteVisit->parit) }}"
                                                 placeholder="e.g., Open drains, closed pipes, adequate..."
-                                                class="block w-full px-4 py-3 text-sm border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-sm text-gray-700 mb-2">Pokok/Semak-samun (Trees & Vegetation)</label>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Pokok/Semak-samun (Trees & Vegetation)</label>
                                             <input type="text" name="tree"
                                                 value="{{ old('tree', $siteVisit->tree) }}"
                                                 placeholder="e.g., Dense vegetation, sparse, mature trees..."
-                                                class="block w-full px-4 py-3 text-sm border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-sm text-gray-700 mb-2">Topografi (Topography)</label>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Topografi (Topography)</label>
                                             <input type="text" name="topography"
                                                 value="{{ old('topography', $siteVisit->topography) }}"
                                                 placeholder="e.g., Flat, sloping, hilly, undulating..."
-                                                class="block w-full px-4 py-3 text-sm border-2 border-gray-300 focus:border-green-500 focus:ring-2 focus:ring-green-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
                                     </div>
                                 </div>
 
-                                <!-- GROUP 3: Verify - Mobile First -->
-                                <div class="mb-8 sm:mb-10 p-4 sm:p-6 bg-gradient-to-br from-orange-50 to-amber-50 border-2 border-orange-200 rounded-lg sm:rounded-xl">
-                                    <h4 class="text-base sm:text-lg font-bold text-orange-900 mb-4 sm:mb-6 pb-3 border-b-2 border-orange-300 flex items-center">
-                                        <span class="text-xl sm:text-2xl mr-2 sm:mr-3">✓</span> <span class="text-sm sm:text-base">Semakan (Verification)</span>
-                                    </h4>
+                                <!-- Verification Section -->
+                                <div class="mb-8 p-6 bg-gradient-to-br from-orange-50 to-orange-100 border-l-4 border-orange-500 rounded-lg shadow">
+                                    <h3 class="font-bold text-orange-900 mb-6 text-lg">Verification</h3>
                                     <div class="grid grid-cols-1 gap-4 sm:gap-6">
                                         <div>
-                                            <label class="block font-semibold text-sm text-gray-700 mb-2">Zon Gunatanah (Land Use Zone)</label>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Zon Gunatanah (Land Use Zone)</label>
                                             <input type="text" name="land_use_zone"
                                                 value="{{ old('land_use_zone', $siteVisit->land_use_zone) }}"
                                                 placeholder="e.g., Residential, Commercial, Industrial..."
-                                                class="block w-full px-4 py-3 text-sm border-2 border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-sm text-gray-700 mb-2">Kepadatan (Density)</label>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Kepadatan (Density)</label>
                                             <input type="text" name="density"
                                                 value="{{ old('density', $siteVisit->density) }}"
                                                 placeholder="e.g., Low, Medium, High density..."
-                                                class="block w-full px-4 py-3 text-sm border-2 border-gray-300 focus:border-orange-500 focus:ring-2 focus:ring-orange-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
                                         <div class="md:col-span-2 flex items-center p-4 bg-white rounded-lg border-2 border-orange-200 hover:border-orange-300 transition">
                                             <input type="checkbox" name="recommend_road" id="recommend_road" value="1"
@@ -238,43 +236,64 @@
                                     </div>
                                 </div>
 
-                                <!-- GROUP 4: Other - Mobile First -->
-                                <div class="mb-8 sm:mb-10 p-4 sm:p-6 bg-gradient-to-br from-pink-50 to-rose-50 border-2 border-pink-200 rounded-lg sm:rounded-xl">
-                                    <h4 class="text-base sm:text-lg font-bold text-pink-900 mb-4 sm:mb-6 pb-3 border-b-2 border-pink-300 flex items-center">
-                                        <span class="text-xl sm:text-2xl mr-2 sm:mr-3">📝</span> <span class="text-sm sm:text-base">Lain-lain (Others)</span>
-                                    </h4>
+                                <!-- Other Details Section -->
+                                <div class="mb-8 p-6 bg-gradient-to-br from-pink-50 to-pink-100 border-l-4 border-pink-500 rounded-lg shadow">
+                                    <h3 class="font-bold text-pink-900 mb-6 text-lg">Other Details</h3>
                                     <div class="grid grid-cols-1 gap-4 sm:gap-6">
                                         <div>
-                                            <label class="block font-semibold text-sm text-gray-700 mb-2">Anjakan (Setback)</label>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Anjakan (Setback)</label>
                                             <input type="text" name="anjakan"
                                                 value="{{ old('anjakan', $siteVisit->anjakan) }}"
                                                 placeholder="e.g., 10m from road, compliant with regulations..."
-                                                class="block w-full px-4 py-3 text-sm border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
                                         <div>
-                                            <label class="block font-semibold text-sm text-gray-700 mb-2">Kemudahan Sosial Sekitar (Surrounding Social Facilities)</label>
+                                            <label class="block text-sm font-medium text-gray-700 mb-2">Kemudahan Sosial Sekitar (Surrounding Social Facilities)</label>
                                             <input type="text" name="social_facility"
                                                 value="{{ old('social_facility', $siteVisit->social_facility) }}"
                                                 placeholder="e.g., Schools, hospitals, markets nearby..."
-                                                class="block w-full px-4 py-3 text-sm border-2 border-gray-300 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 rounded-lg shadow-sm transition bg-white">
+                                                class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white">
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <!-- GROUP 5: Direction Findings & Photos - Mobile First -->
-                                <div class="mb-8 sm:mb-10">
-                                    <h4 class="text-base sm:text-lg font-bold text-gray-800 border-b-2 border-purple-400 pb-3 sm:pb-4 mb-4 sm:mb-6 flex items-center">
-                                        <span class="text-xl sm:text-2xl mr-2 sm:mr-3">📸</span> <span class="text-sm sm:text-base">Arah Penemuan & Gambar</span>
-                                    </h4>
+                                <!-- Directional Findings & Photos Section -->
+                                <div class="mb-8">
+                                    <div class="flex items-center gap-3 mb-6">
+                                        <div class="w-1 h-8 bg-purple-500 rounded"></div>
+                                        <h3 class="font-bold text-gray-900 text-lg">Directional Findings & Photos</h3>
+                                    </div>
 
                                     <div class="space-y-4 sm:space-y-6">
-                                        @foreach(['location' => ['finding_location', 'photos_location'],'jalan' => ['finding_jalan', 'photos_jalan'], 'utara' => ['finding_north', 'photos_north'], 'selatan' => ['findings_south', 'photos_south'], 'timur' => ['findings_east', 'photo_east'], 'barat' => ['finding_west', 'photo_west']] as $dir => $fields)
-                                            <div class="bg-white p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-gray-200 shadow-md hover:shadow-lg transition">
+                                        @php
+                                            // Define direction labels for easy maintenance
+                                            $directionLabels = [
+                                                'location' => '📍 Lokasi (Location)',
+                                                'jalan' => '🛣️ Jalan (Road)',
+                                                'utara' => '🧭 Utara (North)',
+                                                'selatan' => '🧭 Selatan (South)',
+                                                'timur' => '🧭 Timur (East)',
+                                                'barat' => '🧭 Barat (West)',
+                                            ];
+
+                                            // Define field mappings
+                                            $directions = [
+                                                'location' => ['finding_location', 'photos_location'],
+                                                'jalan' => ['finding_jalan', 'photos_jalan'],
+                                                'utara' => ['finding_north', 'photos_north'],
+                                                'selatan' => ['findings_south', 'photos_south'],
+                                                'timur' => ['findings_east', 'photo_east'],
+                                                'barat' => ['finding_west', 'photo_west'],
+                                            ];
+                                        @endphp
+
+                                        @foreach($directions as $dir => $fields)
+                                            <div class="bg-white p-6 rounded-lg border-l-4 border-purple-400 shadow hover:shadow-lg transition">
                                                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 sm:mb-5 pb-3 border-b-2 border-purple-200">
                                                     <div class="flex items-center gap-3">
                                                         <span class="inline-block px-4 py-2 bg-gradient-to-r from-purple-500 to-indigo-600 text-white rounded-lg text-xs font-bold uppercase shadow-md">
-                                                            {{ $dir === 'jalan' ? '🛣️ Jalan (Road)' : ($dir === 'location' ? '📍 Lokasi (Location)' : '🧭 ' . ($dir === 'utara' ? 'Utara (North)' : ($dir === 'selatan' ? 'Selatan (South)' : ($dir === 'timur' ? 'Timur (East)' : 'Barat (West)')))) }}
+                                                            {{ $directionLabels[$dir] }}
                                                         </span>
                                                     </div>
 
@@ -290,44 +309,32 @@
 
                                                 <div class="space-y-5">
                                                     <div>
-                                                        <label class="block font-semibold text-sm text-gray-700 mb-2">📝 Penemuan (Findings)</label>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">📝 Penemuan (Findings)</label>
                                                         <textarea name="{{ $fields[0] }}" rows="3"
-                                                            class="block w-full px-4 py-3 text-sm border-2 border-gray-300 focus:border-purple-500 focus:ring-2 focus:ring-purple-200 rounded-lg shadow-sm transition bg-white"
+                                                            class="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-gray-400 bg-white"
                                                             placeholder="Describe structures, boundaries, water courses, obstacles, conditions...">{{ old($fields[0], $siteVisit->{$fields[0]}) }}</textarea>
                                                     </div>
                                                     <div>
-                                                        <label class="block font-semibold text-sm text-gray-700 mb-2">📷 Upload Photos</label>
-                                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                                            <div class="order-2 md:order-1 rounded-lg border-2 border-dashed border-purple-300 bg-purple-50 p-4">
-                                                                <label class="block text-sm font-bold text-purple-900 mb-2" for="{{ $fields[1] }}_file">
-                                                                    Choose File / Gallery
-                                                                </label>
-                                                                <input type="file" id="{{ $fields[1] }}_file" name="{{ $fields[1] }}[]" multiple accept="image/*"
-                                                                    class="sr-only">
-                                                                <label for="{{ $fields[1] }}_file"
-                                                                    class="inline-flex w-full items-center justify-center px-4 py-3 rounded-lg bg-purple-600 text-sm font-bold text-white cursor-pointer hover:bg-purple-700 transition">
-                                                                    Choose From Gallery
-                                                                </label>
-                                                                <p class="mt-2 text-xs text-purple-800">Select existing photos from your device.</p>
-                                                            </div>
-
-                                                            <div class="order-1 md:order-2 rounded-lg border-2 border-dashed border-indigo-300 bg-indigo-50 p-4">
-                                                                <label class="block text-sm font-bold text-indigo-900 mb-2" for="{{ $fields[1] }}_camera">
-                                                                    Take Photo with HP Camera
-                                                                </label>
-                                                                <input type="file" id="{{ $fields[1] }}_camera" name="{{ $fields[1] }}[]" accept="image/*" capture="environment"
-                                                                    class="sr-only">
-                                                                <label for="{{ $fields[1] }}_camera"
-                                                                    class="inline-flex w-full items-center justify-center px-4 py-3 rounded-lg bg-indigo-600 text-sm font-bold text-white cursor-pointer hover:bg-indigo-700 transition">
-                                                                    <span class="md:hidden">Choose Files From Camera</span>
-                                                                    <span class="hidden md:inline">Take Photo With Camera</span>
-                                                                </label>
-                                                                <p class="mt-2 text-xs text-indigo-800">On supported phones, this opens the camera.</p>
-                                                            </div>
+                                                        <label class="block text-sm font-medium text-gray-700 mb-2">📷 Upload Photos</label>
+                                                        <div class="rounded-lg border-2 border-dashed border-purple-300 bg-purple-50 p-4">
+                                                            <label class="block text-sm font-bold text-purple-900 mb-2" for="{{ $fields[1] }}_file">
+                                                                Choose File / Gallery
+                                                            </label>
+                                                            <input type="file" id="{{ $fields[1] }}_file" name="{{ $fields[1] }}[]" multiple accept="image/*"
+                                                                class="sr-only" onchange="handleFileSelect(this, '{{ $fields[1] }}')">
+                                                            <label for="{{ $fields[1] }}_file"
+                                                                class="inline-flex w-full items-center justify-center px-4 py-3 rounded-lg bg-purple-600 text-sm font-bold text-white cursor-pointer hover:bg-purple-700 transition">
+                                                                Choose From Gallery
+                                                            </label>
+                                                            <p class="mt-2 text-xs text-purple-800">Select existing photos from your device.</p>
                                                         </div>
+
+                                                        <!-- Image Preview Tiles -->
+                                                        <div id="preview-{{ $fields[1] }}" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 mt-4"></div>
+
                                                         <p class="text-xs text-gray-500 mt-2 flex items-start gap-2">
                                                             <span class="text-yellow-600 font-bold">⚠️</span>
-                                                            <span>Use either option, or both. Uploading new photos will replace previously uploaded ones for this section.</span>
+                                                            <span>Uploading new photos will replace previously uploaded ones for this section.</span>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -336,8 +343,8 @@
                                     </div>
                                 </div>
 
-                                <!-- GROUP 6: GPS Capture - Mobile First -->
-                                <div class="mb-8 sm:mb-10" x-data="{
+                                <!-- GPS Capture Section -->
+                                <div class="mb-8" x-data="{
                                     gpsStatus: '{{ old('location_data', $siteVisit->location_data) ? 'Coordinates Captured \u2713' : 'Click to capture location' }}',
                                     coords: '{{ old('location_data', $siteVisit->location_data) }}',
                                     captureGPS() {
@@ -360,11 +367,12 @@
                                         }
                                     }
                                 }">
-                                    <h3 class="text-base sm:text-lg font-bold text-gray-800 border-b-2 border-cyan-400 pb-3 sm:pb-4 mb-4 sm:mb-6 flex items-center">
-                                        <span class="text-xl sm:text-2xl mr-2 sm:mr-3">\ud83d\uddfa\ufe0f</span> <span class="text-sm sm:text-base">MAP Verifikasi (Map Verification)</span>
-                                    </h3>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="w-1 h-8 bg-cyan-500 rounded"></div>
+                                        <h3 class="font-bold text-gray-900 text-lg">Map Verification</h3>
+                                    </div>
 
-                                    <div class="bg-gradient-to-br from-cyan-50 to-blue-50 p-4 sm:p-6 rounded-lg sm:rounded-xl border-2 border-cyan-300">
+                                    <div class="bg-gradient-to-br from-cyan-50 to-cyan-100 p-6 rounded-lg border-l-4 border-cyan-500 shadow">
                                         <div class="grid grid-cols-1 gap-4 sm:gap-6 mb-4 sm:mb-6">
                                             <div class="flex flex-col">
                                                 <button type="button" @click="captureGPS()"
@@ -434,4 +442,122 @@
             </div>
         </div>
     </div>
+
+
+    <script>
+        /**
+         * Image Preview Handler - Optimized for Performance
+         * Displays selected images as preview tiles with loading indicator
+         *
+         * @param {HTMLInputElement} input - The file input element
+         * @param {string} fieldId - The unique field identifier for grouping previews
+         */
+        function handleFileSelect(input, fieldId) {
+            const previewContainer = document.getElementById(`preview-${fieldId}`);
+
+            // Clear existing previews
+            previewContainer.innerHTML = '';
+
+            // Exit if no files selected
+            if (input.files.length === 0) {
+                return;
+            }
+
+            // Show loading indicator
+            const loadingIndicator = document.createElement('div');
+            loadingIndicator.className = 'col-span-full flex items-center justify-center py-4 text-gray-500';
+            loadingIndicator.innerHTML = '<span>Loading images...</span>';
+            previewContainer.appendChild(loadingIndicator);
+
+            // Filter image files
+            const imageFiles = Array.from(input.files).filter(isImageFile);
+
+            // Process each image asynchronously
+            processImagesSequentially(imageFiles, input, previewContainer, loadingIndicator);
+        }
+
+        /**
+         * Process images one at a time to avoid UI freeze
+         * Uses requestAnimationFrame for smooth performance
+         */
+        function processImagesSequentially(files, input, container, loadingIndicator, index = 0) {
+            // Remove loading indicator when done
+            if (index >= files.length) {
+                if (loadingIndicator.parentNode) {
+                    loadingIndicator.remove();
+                }
+                return;
+            }
+
+            // Process next image
+            requestAnimationFrame(() => {
+                const file = files[index];
+                createImagePreview(file, input, container);
+                processImagesSequentially(files, input, container, loadingIndicator, index + 1);
+            });
+        }
+
+        /**
+         * Check if file is an image with size limit
+         * Skips files > 10MB to prevent memory issues
+         */
+        function isImageFile(file) {
+            const maxSize = 10 * 1024 * 1024; // 10MB limit
+            return file.type.startsWith('image/') && file.size <= maxSize;
+        }
+
+        /**
+         * Create and display image preview tile with optimization
+         * Uses blob URLs instead of data URLs for better performance
+         */
+        function createImagePreview(file, input, container) {
+            // Use Blob URL for faster loading (avoids string encoding)
+            const blobUrl = URL.createObjectURL(file);
+
+            // Create a lighter preview instead of reading full data
+            const previewTile = buildPreviewTile(blobUrl, input, container, file.name);
+        }
+
+        /**
+         * Build the preview tile DOM element - optimized version
+         * Uses blob URLs and simpler structure for better performance
+         */
+        function buildPreviewTile(imageUrl, input, container, fileName = '') {
+            const tile = document.createElement('div');
+            tile.className = 'relative bg-white rounded-lg border-2 border-gray-200 overflow-hidden shadow-md hover:shadow-lg transition group';
+
+            // Create lightweight image element
+            const img = document.createElement('img');
+            img.src = imageUrl;
+            img.className = 'w-full h-32 object-cover';
+            img.alt = fileName || 'Preview';
+
+            // Add loading placeholder
+            img.style.backgroundColor = '#f0f0f0';
+
+            // Create remove button
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'absolute top-1 right-1 bg-red-500 hover:bg-red-600 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition';
+            removeBtn.innerHTML = '✕';
+            removeBtn.title = 'Remove image';
+
+            removeBtn.onclick = function(event) {
+                event.preventDefault();
+                // Cleanup blob URL to free memory
+                URL.revokeObjectURL(imageUrl);
+                tile.remove();
+
+                // Reset input if no previews remain
+                const allTiles = container.querySelectorAll('[class*="group"]').length;
+                if (allTiles === 1) {
+                    input.value = '';
+                }
+            };
+
+            tile.appendChild(img);
+            tile.appendChild(removeBtn);
+            container.appendChild(tile);
+        }
+    </script>
 </x-app-layout>

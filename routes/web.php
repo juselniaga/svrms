@@ -34,7 +34,6 @@ Route::middleware('auth')->group(function () {
     // SVRMS Application Routes
     // ... all app routes
     Route::resource('applications', App\Http\Controllers\ApplicationController::class)->only(['show']);
-    Route::resource('site-visits', App\Http\Controllers\SiteVisitController::class)->only(['show']);
     Route::resource('reviews', App\Http\Controllers\ReviewController::class)->only(['show']);
 
     // Filing & PDF Routes

@@ -14,6 +14,30 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
+            /* Force single scroll context */
+            html {
+                overflow-y: scroll;
+            }
+
+            body {
+                overflow: visible;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remove all nested scrolling */
+            div {
+                overflow: visible !important;
+            }
+
+            /* Only allow horizontal scroll on specific containers */
+            .overflow-x-auto {
+                overflow-x: auto !important;
+                overflow-y: visible !important;
+            }
+        </style>
     </head>
     <body class="font-sans antialiased text-gray-900 bg-surface">
         @include('layouts.dashboard')

@@ -1,4 +1,4 @@
-<div class="flex h-screen bg-surface overflow-hidden" x-data="{ sidebarOpen: false }">
+<div class="flex bg-surface" x-data="{ sidebarOpen: false }" style="min-height: 100vh;">
 
     <!-- Mobile sidebar backdrop -->
     <div x-show="sidebarOpen" x-transition.opacity class="fixed inset-0 z-20 bg-gray-900/50 lg:hidden" @click="sidebarOpen = false"></div>
@@ -54,7 +54,7 @@
     </aside>
 
     <!-- Main Content wrapper -->
-    <div class="flex flex-1 flex-col overflow-hidden">
+    <div class="flex flex-1 flex-col">
         
         <!-- Top Navigation -->
         <header class="flex h-16 items-center justify-between border-b border-gray-200 bg-white px-4 sm:px-6 lg:px-8">
@@ -104,7 +104,7 @@
         </header>
 
         <!-- Main Output -->
-        <main class="flex-1 overflow-y-auto bg-surface p-4 sm:p-6 lg:p-8">
+        <main class="flex-1 bg-surface p-4 sm:p-6 lg:p-8">
             @if (session('success'))
                 <div class="mb-4 rounded-md bg-green-50 p-4 border border-green-200">
                     <div class="flex">
