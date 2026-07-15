@@ -297,13 +297,37 @@
                                                     </div>
                                                     <div>
                                                         <label class="block font-semibold text-sm text-gray-700 mb-2">📷 Upload Photos</label>
-                                                        <div class="relative">
-                                                            <input type="file" name="{{ $fields[1] }}[]" multiple accept="image/*"
-                                                                class="block w-full px-4 py-3 text-sm border-2 border-dashed border-purple-300 rounded-lg bg-purple-50 hover:bg-purple-100 cursor-pointer transition file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700">
+                                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                                            <div class="order-2 md:order-1 rounded-lg border-2 border-dashed border-purple-300 bg-purple-50 p-4">
+                                                                <label class="block text-sm font-bold text-purple-900 mb-2" for="{{ $fields[1] }}_file">
+                                                                    Choose File / Gallery
+                                                                </label>
+                                                                <input type="file" id="{{ $fields[1] }}_file" name="{{ $fields[1] }}[]" multiple accept="image/*"
+                                                                    class="sr-only">
+                                                                <label for="{{ $fields[1] }}_file"
+                                                                    class="inline-flex w-full items-center justify-center px-4 py-3 rounded-lg bg-purple-600 text-sm font-bold text-white cursor-pointer hover:bg-purple-700 transition">
+                                                                    Choose From Gallery
+                                                                </label>
+                                                                <p class="mt-2 text-xs text-purple-800">Select existing photos from your device.</p>
+                                                            </div>
+
+                                                            <div class="order-1 md:order-2 rounded-lg border-2 border-dashed border-indigo-300 bg-indigo-50 p-4">
+                                                                <label class="block text-sm font-bold text-indigo-900 mb-2" for="{{ $fields[1] }}_camera">
+                                                                    Take Photo with HP Camera
+                                                                </label>
+                                                                <input type="file" id="{{ $fields[1] }}_camera" name="{{ $fields[1] }}[]" accept="image/*" capture="environment"
+                                                                    class="sr-only">
+                                                                <label for="{{ $fields[1] }}_camera"
+                                                                    class="inline-flex w-full items-center justify-center px-4 py-3 rounded-lg bg-indigo-600 text-sm font-bold text-white cursor-pointer hover:bg-indigo-700 transition">
+                                                                    <span class="md:hidden">Choose Files From Camera</span>
+                                                                    <span class="hidden md:inline">Take Photo With Camera</span>
+                                                                </label>
+                                                                <p class="mt-2 text-xs text-indigo-800">On supported phones, this opens the camera.</p>
+                                                            </div>
                                                         </div>
                                                         <p class="text-xs text-gray-500 mt-2 flex items-start gap-2">
                                                             <span class="text-yellow-600 font-bold">⚠️</span>
-                                                            <span>Uploading new photos will replace previously uploaded ones for this section.</span>
+                                                            <span>Use either option, or both. Uploading new photos will replace previously uploaded ones for this section.</span>
                                                         </p>
                                                     </div>
                                                 </div>
